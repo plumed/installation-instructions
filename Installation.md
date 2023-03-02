@@ -17,7 +17,7 @@ PLUMED can be used in tandem with the MD codes shown in the table on the right b
 of these codes that work with PLUMED click the checkbox associated with the code you require.  Instructions on patching the code you select with PLUMED 
 will appear at the bottom of the web page.
 
-{% raw }
+{% raw %}
 <script>
 
 var current_instructions="local";
