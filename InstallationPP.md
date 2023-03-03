@@ -18,7 +18,6 @@ of these codes that work with PLUMED click the checkbox associated with the code
 will appear at the bottom of the web page.
 
 {% raw %}
-<script>
 <style>
 pre {
 overflow-x: auto;
@@ -29,6 +28,7 @@ white-space: -o-pre-wrap;
 word-wrap: break-word;
 }
 </style>
+<script>
 
 var current_instructions="local";
 
