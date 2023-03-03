@@ -39,7 +39,7 @@ function showInstructions( name ) {
    var mydata4 = document.getElementById("installing");
    var mydata5 = document.getElementById("testing");
    var mydata6 = document.getElementById("modules-2");
-   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata3.innerHTML + mydata4.innerHTML + mydata5.innerHTML + mydata6.innerHTML + getMDCodes();
+   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata3.innerHTML + mydata4.innerHTML + mydata5.innerHTML + mydata6.innerHTML;
  } else if( name=="cluster" ) { 
    var mydata1 = document.getElementById("cluster-1");
    var mydata2 = document.getElementById("config-opts");
@@ -48,7 +48,7 @@ function showInstructions( name ) {
    var mydata5 = document.getElementById("testing");
    var mydata6 = document.getElementById("modules-1"); 
    var mydata7 = document.getElementById("modules-3");
-   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata3.innerHTML + mydata4.innerHTML + mydata5.innerHTML + mydata6.innerHTML + mydata7.innerHTML + getMDCodes(); 
+   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata3.innerHTML + mydata4.innerHTML + mydata5.innerHTML + mydata6.innerHTML + mydata7.innerHTML; 
  } else if( name=="multiple" ) {
    var mydata1 = document.getElementById("multiple-1");
    var mydata2 = document.getElementById("config-opts");
@@ -57,31 +57,29 @@ function showInstructions( name ) {
    var mydata5 = document.getElementById("testing");
    var mydata6 = document.getElementById("modules-1"); 
    var mydata7 = document.getElementById("modules-3"); 
-   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata3.innerHTML + mydata4.innerHTML + mydata5.innerHTML + mydata6.innerHTML + mydata7.innerHTML + getMDCodes(); 
+   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata3.innerHTML + mydata4.innerHTML + mydata5.innerHTML + mydata6.innerHTML + mydata7.innerHTML; 
  } else if( name=="developer" ) {
    var mydata1 = document.getElementById("developer-1");
    var mydata2 = document.getElementById("compiling");
    var mydata4 = document.getElementById("--standalone-executable-content");
    var mydata3 = document.getElementById("developer-2");
-   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata4.innerHTML + mydata3.innerHTML + getMDCodes();
+   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata4.innerHTML + mydata3.innerHTML;
  } else if( name=="cross" ) {
    var mydata1 = document.getElementById("cross-1");
    var mydata2 = document.getElementById("config-opts");
    var mydata3 = document.getElementById("compiling");
    var mydata4 = document.getElementById("installing");
    var mydata5 = document.getElementById("cross-testing");
-   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata3.innerHTML + mydata4.innerHTML + mydata5.innerHTML + getMDCodes(); 
+   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata3.innerHTML + mydata4.innerHTML + mydata5.innerHTML; 
  } else if( name=="python" ) {
    var mydata1 = document.getElementById("python-1");
    var mydata2 = document.getElementById("config-opts");
    var mydata3 = document.getElementById("compiling");
    var mydata4 = document.getElementById("installing");
    var mydata5 = document.getElementById("testing");
-   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata3.innerHTML + mydata4.innerHTML + mydata5.innerHTML + getMDCodes(); 
- } else if( name=="unset" ) {
-   mydiv.innerHTML = getMDCodes();
+   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata3.innerHTML + mydata4.innerHTML + mydata5.innerHTML; 
  } else {
-   showData( name, "installdiv") + getMDCodes();
+   showData( name, "installdiv");
  }
 }
 function showData( name, indiv ) {
