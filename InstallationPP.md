@@ -151,8 +151,6 @@ var patchmodal = document.getElementById("patch-options");
 if (event.target == patchmodal ) { patchmodal.style.display = "none"; }
 }
 </script>
-<table> <tr>
-<td rowspan="4" style="padding-right: 20px">
 <div class="dropdown">
 <button class="dropbtn">How would you like to build PLUMED?</button>
 <div class="dropdown-content">
@@ -166,8 +164,6 @@ if (event.target == patchmodal ) { patchmodal.style.display = "none"; }
 <a onclick='showInstructions("python")'>I would like to call PLUMED from python.</a>
 </div>
 </div>
-</td>
-</tr></table>
 <div style="width: 100%; float:left" id="installdiv"></div>
 <div id="CXX" class="modal">
 <div class="modal-content">
@@ -982,7 +978,7 @@ use the command: </p>
 <p>instead. This script provides a "shell only" implementation of <code>plumed patch</code> and thus does not launch of the <code>plumed</code> executable.
 You can thus run this command (and patch MD codes) on the compiler nodes. If you have installed PLUMED you can find the <code>plumed-patch</code> code
 script (and some other similar shell scripts that allow you to run various plumed command line tools without launching the <code>plumed</code> executable)
-in the directory <code>$prefix/plumed/plumed-</code>. The reason these files are not included in the execution path (prefix/bin) is to avoid clashes.</p>
+in the directory <code>$(prefix)/plumed/plumed-</code>. The reason these files are not included in the execution path (prefix/bin) is to avoid clashes.</p>
 </div>
 <div style="display:none;" id="compiling">
 <h2>Compiling PLUMED</h2>
@@ -1021,11 +1017,11 @@ If your system does not support dynamic libraries or if you would like a static 
 &gt; sudo make install
 </pre>
 <p>If you want to install PLUMED in a system directory. Unless modifications are made to the standard autoconf directories this command copies the
-executable to $prefix/bin, the libraries to $prefix/lib,
-the include files to $prefix/include, and the documentation to $prefix/shared/doc/plumed. A directory called
-$prefix/lib/plumed is also created by this command. This directory contains several other files, including
+executable to <code>$(prefix)/bin</code>, the libraries to <code>$(prefix)/lib</code>,
+the include files to <code>$(prefix)/include</code>, and the documentation to <code>$(prefix)/shared/doc/plumed</code>. A directory called
+<code>$(prefix)/lib/plumed</code> is also created by this command. This directory contains several other files, including
 the patch files and the object files that are used for static patching.
-<p>$prefix here is the directory specified using the <a onclick='openModal("--prefix")'>--prefix</a> keyword of the configure script.</p>
+<p><code>$(prefix)</code> here is the directory specified using the <a onclick='openModal("--prefix")'>--prefix</a> keyword of the configure script.</p>
 <p>Once PLUMED has been installed using the <code>make install</code> command you can delete the original compilation directory
 or you can recompile a different PLUMED version in the same place. You should not delete any of the installed files, however, as
 <a onclick='openModal("--standalone-executable")'>PLUMED will not run</a> if there are files missing from these directories</p>
@@ -1037,7 +1033,7 @@ or you can recompile a different PLUMED version in the same place. You should no
 </div>
 <div class="modal-body" id="--standalone-executable-content">
 <p>The PLUMED executable which relies on the resource files present in the compilation directory.
-During installation these files are copied to $prefix/lib/plumed and the compilation directory can therefore be deleted.
+During installation these files are copied to <code>$(prefix)/lib/plumed</code> and the compilation directory can therefore be deleted.
 If you do not install PLUMED, however, you need to ensure that none of the files in <code>src/lib/plumed</code> are not
 moved or renamed.</p>
 <p>The path to the PLUMED root directory is hard coded in the plumed executable as can be verified by using the command:</p>
@@ -1061,7 +1057,7 @@ ERROR: I cannot find /xxx/yyy/patches directory
 <div style="display:none;" id="testing">
 <h2> Testing PLUMED </h2>
 <p>It is important to test PLUMED every time you install PLUMED, as Even though we regularly perform tests on
-<a href="http://travis-ci.org/plumed/plumed2">[Travis-CI]</a>, it is possible that aggressive optimization or even architecture dependent features
+<a href="https://github.com/plumed/plumed2/actions">GitHub actions</a>, it is possible that aggressive optimization or even architecture dependent features
 trigger bugs that do not show up on travis. To test the PLUMED executable that you have installed you should, therefore, type</p>
 <pre class="fragment">&gt; make installcheck </pre>
 <p>Running this command tells PLUMED to run all the tests in the test suite using the version of PLUMED that was just installed. If you would like to test
@@ -1111,7 +1107,7 @@ as <code>/usr/local</code> then the environment should already be setup correctl
 </div>
 <div style="display:none;" id="modules-3">
 <p>The easiest way to setup the environment is to use <a href="http://modules.sourceforge.net">the module framework</a>.
-A suitable module file for PLUMED can be found in $prefix/lib/plumed/src/lib/modulefile after installation is completed.
+A suitable module file for PLUMED can be found in <code>$(prefix)/lib/plumed/src/lib/modulefile</code> after installation is completed.
 You can edit this file or just put it into your modulefile directory directly. If you do so it is then straightforward to
 set up the environment. </p>
 <p> Notice that if you have installed more than one version of PLUMED on your machine you can use the module framework to easily
