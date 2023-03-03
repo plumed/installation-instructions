@@ -19,6 +19,16 @@ will appear at the bottom of the web page.
 
 {% raw %}
 <script>
+<style>
+pre {
+overflow-x: auto;
+white-space: pre-wrap;
+white-space: -moz-pre-wrap;
+white-space: -pre-wrap;
+white-space: -o-pre-wrap;
+word-wrap: break-word;
+}
+</style>
 
 var current_instructions="local";
 
@@ -198,7 +208,7 @@ to compile PLUMED (this is the case for the intel 15 compiler for instance).</p>
 <p>If you see a warning about C++11 support during <code>./configure</code> it is then important to check that
 PLUMED compiles correctly. The best way to do this to to execute the regtests using the command <code>make regtest</code>.</p>
 
-<p>We regularly test a number of compilers on <a href="https://github.com/plumed/plumed2/tree/master/.travis">travis-ci</a>. These compilers should thus always compile PLUMED correctly.</p>
+<p>We regularly test a number of compilers on <a href="https://github.com/plumed/plumed2/actions">GitHub Actions</a>. These compilers should thus always compile PLUMED correctly.</p>
 </div>
 </div>
 </div>
@@ -364,14 +374,14 @@ as of PLUMED 2.6, ASMJIT is embedded in PLUMED. To enable it you use the <code>-
 <div class="modal-body">
 <p>The <code>--prefix</code> environmental variable controls the location in which PLUMED is installed when the <code>make install</code> command is run. By default
 PLUMED is installed in <code>/usr/local/</code> and you will thus have to run <code>make install</code> with super-user permissions i.e. using <code>sudo make install</code>.
-You can, however, specify the location in which to install PLUMED by using the <code>--prefix</code> environmental variable. For example, to install PLUMED in <code>$HOME/opt</code>
+You can, however, specify the location in which to install PLUMED by using the <code>--prefix</code> environmental variable. For example, to install PLUMED in <code>$(HOME)/opt</code>
 you would configure using:
 </p>
 <pre class="fragment">
 &gt; ./configure --prefix=$HOME/opt
 </pre>
-<p>Upon install, the executable would then be copied to $HOME/opt/bin, the libraries to $HOME/opt/lib, the include files to $HOME/opt/include, and the
-documentation to $HOME/opt/shared/doc/plumed. In addition, a directory called $HOME/opt/lib/plumed will be created containing files such as the
+<p>Upon install, the executable would then be copied to <code>$(HOME)/opt/bin</code>, the libraries to <code>$(HOME)/opt/lib</code>, the include files to <code>$(HOME)/opt/include</code>, and the
+documentation to <code>$(HOME)/opt/shared/doc/plumed</code>. In addition, a directory called <code>$(HOME)/opt/lib/plumed</code> will be created containing files such as the
 patch files and the object files (for static patches). Advanced users can further customise the install directories using
 using standard autoconf directories (e.g. <code>./configure --bindir=/usr/bin64</code>). Further information on these options can be obtained by running the command:
 <pre class="fragment">
@@ -1058,7 +1068,7 @@ ERROR: I cannot find /xxx/yyy/patches directory
 <h2> Testing PLUMED </h2>
 <p>It is important to test PLUMED every time you install PLUMED, as Even though we regularly perform tests on
 <a href="https://github.com/plumed/plumed2/actions">GitHub actions</a>, it is possible that aggressive optimization or even architecture dependent features
-trigger bugs that do not show up on travis. To test the PLUMED executable that you have installed you should, therefore, type</p>
+trigger bugs that do not show up on GitHub. To test the PLUMED executable that you have installed you should, therefore, type</p>
 <pre class="fragment">&gt; make installcheck </pre>
 <p>Running this command tells PLUMED to run all the tests in the test suite using the version of PLUMED that was just installed. If you would like to test
 PLUMED using some other PLUMED version then you can. The tests can be run using the PLUMED executable that is in your current path by using the commands: </p>
