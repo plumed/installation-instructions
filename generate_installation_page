@@ -40,7 +40,8 @@ create_configure() {
        if [ $found -eq 0 ] ; then
             fff=`echo $dataopt | 
                  awk '{
-                   tooltip="";
+                   hasdef=0
+                   tooltip=""
                    for(i=1;i<=NF;++i){
                        if(nrec==0){ option=$i; } 
                        else { tooltip = tooltip " " $i; }                
@@ -48,9 +49,10 @@ create_configure() {
                        if(founddef==1 && $i=="yes"){printf "<div class=\"tooltip\">%s", option; founddef=0;}
                        else if(founddef==1 && $i=="no"){gsub(/enable/,"disable",option); printf "<div class=\"tooltip\">%s", option; founddef=0;}
                        else if(founddef==1){printf "<div class=\"tooltip\">%s=%s ",option, $i; founddef=0;}
-                       else if($i=="default:"){founddef=1;}
+                       else if($i=="default:"){hasdef=1; founddef=1;}
                        nrec++;
                    }
+                   if(hasdef==0){ printf "<div class=\"tooltip\">%s", option; }
                    printf "<div class=\"right\">%s<i></i></div></div>", tooltip;
                  }'`
             allconf=`echo $allconf $fff`
