@@ -32,13 +32,6 @@ word-wrap: break-word;
 
 var current_instructions="local";
 
-function updateCheck( name ) {
-var mybox = document.getElementById( name + "_cbox");
-if ( mybox.checked ) { mybox.checked=true; }
-else { mybox.checked=false; }
-showInstructions( current_instructions );
-}
-
 function showInstructions( name ) {
 current_instructions=name;
 var mydiv = document.getElementById("installdiv");
@@ -511,7 +504,6 @@ CPPFLAGS="-I/pathtovmdplugins/include -I/pathtovmdplugins/ARCH/molfile"
 <p> In a typical environment configured using the <a href="http://modules.sourceforge.net">module framework</a> the <code>LIBRARY_PATH</code> environment variable
 contains the path to all the modules loaded at compilation time. When PLUMED is compiled using the <a onclick='openModal("--enable-rpath")'>--enable-rpath</a>
 option the paths defined in <code>LIBRARY_PATH</code> are automatically hard coded into the PLUMED library.</p>
-<div style="width: 100%; float:left" id="librpath"></div>
 </div>
 </div>
 </div>
@@ -745,7 +737,7 @@ file that was created by configure script. This file appears in the main PLUMED 
 <p> You can even run a particular test by changing to the directory that contains it and by running the command <code>make</code> within that directory. </p>
 <h2> Merging your changes </h2>
 <p>Before starting work on a new feature that you plan to share with the PLUMED community we would ask you to read
-<a hred="../../developer-doc/html/_how_to_contribute_to_plumed.html">this brief summary of best practise.</a></p>
+<a href="../../developer-doc/html/_how_to_contribute_to_plumed.html">this brief summary of best practise.</a></p>
 
 <p>If you finish your coding a new feature in PLUMED and if you want to share it with the community then you can open a
 <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request" >pull request</a> on the PLUMED
@@ -1289,15 +1281,6 @@ If you want to install the development version of the wrappers using pip you sho
 &gt; pip3.6 install --user .
 </pre>
 <p>You are highly recommended to use a virtualenv when installing the development version as you will then ensure that the code you install does not interfere with the released pacakages.</p>
-<h2>Customising your complation environment</h2>
-</div>
-<div style="display:none;" id="mdcodeother">
-<h2> Linking other codes with PLUMED </h2>
-<p>
-If your MD code is not listed among those that already have support, you can implement an interface for it by following the instructions in
-the <a href="../../developer-doc/html/index.html">developer manual</a>.
-</p>
-</div>
 <div id="PYTHON_BIN" class="modal">
 <div class="modal-content">
 <div class="modal-header">
@@ -1337,7 +1320,7 @@ earlier than 2.5 there was no possibility to link PLUMED as a static library. In
 <code>./configure</code> script tries to set up the system so that a <code>libplumed.a</code> file is produced. If an MD
 code is patched with PLUMED 2.5 or later and the <code>--static</code> option the MD code is linked against this static library.
 If you wish to revert to the pre-version-2.5 behaviour and to just link with the object files you will need to configure PLUMED using the
-command:
+command:</p>
 <pre class="fragment">
 ./configure --disable-static-archive
 </pre>
