@@ -110,48 +110,47 @@ mymodal.style.display = "block";
 window.onload = function(event) {
 showInstructions("local");
 }
-// When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-var cxxmodal = document.getElementById("CXX")
-if (event.target == cxxmodal) { cxxmodal.style.display = "none"; }
-var ccmodal = document.getElementById("CC");
-if (event.target == ccmodal ) { ccmodal.style.display = "none"; }
-var cxxfmodal = document.getElementById("CXXFLAGS");
-if (event.target == cxxfmodal ) { cxxfmodal.style.display = "none"; }
-var ldfmodal = document.getElementById("LDFLAGS");
-if (event.target == ldfmodal ) { ldfmodal.style.display = "none"; }
-var cppfmodal = document.getElementById("CPPFLAGS");
-if (event.target == cppfmodal) { cppfmodal.style.display = "none"; }
-var libsmodal = document.getElementById("LIBS");
-if (event.target == libsmodal) { libsmodal.style.display = "none"; }
-var slibsmodal = document.getElementById("STATIC_LIBS");
-if (event.target == slibsmodal) { slibsmodal.style.display = "none"; }
-var dislibfmodal = document.getElementById("--disable-libsearch");
-if (event.target == dislibfmodal ) { dislibfmodal.style.display = "none"; }
-var enmmodal = document.getElementById("--enable-modules");
-if (event.target == enmmodal ) { enmmodal.style.display = "none"; }
-var asmjitmodal = document.getElementById("--enable-asmjit");
-if (event.target == asmjitmodal) { asmjitmodal.style.display = "none"; }
-var prefixmodal = document.getElementById("--prefix");
+var CCmodal = document.getElementById(CC)
+if (event.target == CCmodal) { CCmodal.style.display = "none"; }
+var CPPFLAGSmodal = document.getElementById(CPPFLAGS)
+if (event.target == CPPFLAGSmodal) { CPPFLAGSmodal.style.display = "none"; }
+var CXXmodal = document.getElementById(CXX)
+if (event.target == CXXmodal) { CXXmodal.style.display = "none"; }
+var CXXFLAGSmodal = document.getElementById(CXXFLAGS)
+if (event.target == CXXFLAGSmodal) { CXXFLAGSmodal.style.display = "none"; }
+var LDFLAGSmodal = document.getElementById(LDFLAGS)
+if (event.target == LDFLAGSmodal) { LDFLAGSmodal.style.display = "none"; }
+var LIBRARY_PATHmodal = document.getElementById(LIBRARY_PATH)
+if (event.target == LIBRARY_PATHmodal) { LIBRARY_PATHmodal.style.display = "none"; }
+var LIBSmodal = document.getElementById(LIBS)
+if (event.target == LIBSmodal) { LIBSmodal.style.display = "none"; }
+var PYTHON_BINmodal = document.getElementById(PYTHON_BIN)
+if (event.target == PYTHON_BINmodal) { PYTHON_BINmodal.style.display = "none"; }
+var STATIC_LIBSmodal = document.getElementById(STATIC_LIBS)
+if (event.target == STATIC_LIBSmodal) { STATIC_LIBSmodal.style.display = "none"; }
+var disable-libsearchmodal = document.getElementById(disable-libsearch)
+if (event.target == disable-libsearchmodal) { disable-libsearchmodal.style.display = "none"; }
+var enable-asmjitmodal = document.getElementById(enable-asmjit)
+if (event.target == enable-asmjitmodal) { enable-asmjitmodal.style.display = "none"; }
+var enable-debugmodal = document.getElementById(enable-debug)
+if (event.target == enable-debugmodal) { enable-debugmodal.style.display = "none"; }
+var enable-external-lapackmodal = document.getElementById(enable-external-lapack)
+if (event.target == enable-external-lapackmodal) { enable-external-lapackmodal.style.display = "none"; }
+var enable-modulesmodal = document.getElementById(enable-modules)
+if (event.target == enable-modulesmodal) { enable-modulesmodal.style.display = "none"; }
+var enable-molfile-pluginsmodal = document.getElementById(enable-molfile-plugins)
+if (event.target == enable-molfile-pluginsmodal) { enable-molfile-pluginsmodal.style.display = "none"; }
+var enable-mpimodal = document.getElementById(enable-mpi)
+if (event.target == enable-mpimodal) { enable-mpimodal.style.display = "none"; }
+var enable-rpathmodal = document.getElementById(enable-rpath)
+if (event.target == enable-rpathmodal) { enable-rpathmodal.style.display = "none"; }
+var patch-optionsmodal = document.getElementById(patch-options)
+if (event.target == patch-optionsmodal) { patch-optionsmodal.style.display = "none"; }
+var prefixmodal = document.getElementById(prefix)
 if (event.target == prefixmodal) { prefixmodal.style.display = "none"; }
-var debugmodal = document.getElementById("--enable-debug");
-if (event.target == debugmodal) { debugmodal.style.display = "none"; }
-var mpimodal = document.getElementById("--enable-mpi");
-if (event.target == mpimodal) { mpimodal.style.display = "none"; }
-var lapackmodal = document.getElementById("--enable-external-lapack");
-if (event.target == lapackmodal) { lapackmodal.style.display = "none"; }
-var modfilemodal = document.getElementById("--enable-molfile-plugins");
-if (event.target == modfilemodal) { modfilemodal.style.display = "none"; }
-var libpathmodal = document.getElementById("LIBRARY_PATH");
-if (event.target == libpathmodal) { libpathmodal.style.display = "none"; }
-var rpathmodal = document.getElementById("--enable-rpath");
-if (event.target == rpathmodal ) { rpathmodal.style.display = "none"; }
-var standmodal = document.getElementById("--standalone-executable");
-if (event.target == standmodal) { standmodal.style.display = "none"; }
-var pymodal = document.getElementById("PYTHON_BIN");
-if (event.target == pymodal) { pymodal.style.display = "none"; }
-var patchmodal = document.getElementById("patch-options");
-if (event.target == patchmodal ) { patchmodal.style.display = "none"; }
+var standalone-executablemodal = document.getElementById(standalone-executable)
+if (event.target == standalone-executablemodal) { standalone-executablemodal.style.display = "none"; }
 }
 </script>
 <div class="dropdown">
@@ -168,377 +167,6 @@ if (event.target == patchmodal ) { patchmodal.style.display = "none"; }
 </div>
 </div>
 <div style="width: 100%; float:left" id="installdiv"></div>
-<div id="CXX" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>CXX Environment Variable</h2>
-</div>
-<div class="modal-body">
-<p>The <code>CXX</code> environmental variable controls the c++ compiler that will be used to build PLUMED. If you would like to compile PLUMED with
-MPI the compiler that is passed to this variable should be an MPI compiler. Consequently, if you work on a machine where <code>CXX</code> is
-set to a serial compiler and <code>MPICXX</code> is set to a MPI compiler you should configure PLUMED using the command:</p>
-<pre class="fragment">
-&gt; ./configure CXX="$MPICXX"
-</pre>
-<p>If the <code>CXX</code> environmental variable is not set equal to an MPI compiler then MPI is <b>not enabled</b>. This behaviour differs
-from what some other configure scripts do. To be clear, when PLUMED is complied variables such as <code>MPICXX</code> are completely ignored.</p>
-
-<p> PLUMED does search for MPI and non-MPI compilers with common names even if the <code>CXX</code> environmental variable is not set.
-The search is only a few of the possible compiler names, however. If your compiler is named "g++-mp-4.8" you will need to explicitly specify this
-by using the <code>CXX</code> environmental variable.</p>
-
-<p>PLUMED 2.4 requires a compiler that supports C++11. The following compilers (or later versions) should be sufficient:</p>
-<ul>
-<li> gcc 4.8.1</li>
-<li> clang 3.3</li>
-<li> intel 15</li>
-</ul>
-
-<p>The <code>./configure</code> script will check whether or not your compiler supports C++11.
-Some compilers that do not declare full C++11 support have several C++11 features enabled and can thus be used
-to compile PLUMED (this is the case for the intel 15 compiler for instance).</p>
-
-<p>If you see a warning about C++11 support during <code>./configure</code> it is then important to check that
-PLUMED compiles correctly. The best way to do this to to execute the regtests using the command <code>make regtest</code>.</p>
-
-<p>We regularly test a number of compilers on <a href="https://github.com/plumed/plumed2/actions">GitHub Actions</a>. These compilers should thus always compile PLUMED correctly.</p>
-</div>
-</div>
-</div>
-<div id="CC" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>CC Environment Variable</h2>
-</div>
-<div class="modal-body">
-<p>The <code>CC</code> environmental variable controls the c compiler that is used in the building of PLUMED. The majority of PLUMED is built using the c++ compiler that is
-specified using the <code>CXX</code> environmental variable. A C compiler must still be specified nonetheless as the wrapper that is used to interface PLUMED with the MD codes is
-written in C.</p>
-
-<p>PLUMED does seach for MPI and non-MPI compilers with a number of standard names even if the <code>CC</code> environmental variable is not set.
-Only a few of the possible compiler name are searched, however. If your compiler is named "gcc-mp-4.8" you will need to explicitly specify this
-by using the <code>CC</code> environmental variable.</p>
-</div>
-</div>
-</div>
-<div id="CXXFLAGS" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>CXXFLAGS Environment Variable</h2>
-</div>
-<div class="modal-body">
-<p>The <code>CXXFLAGS</code> environmental variable allows you to control the compilation options just as you might expect.</p>
-</div>
-</div>
-</div>
-<div id="LDFLAGS" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>LDFLAGS Environment Variable</h2>
-</div>
-<div class="modal-body">
-<p>The main purpose of the <code>configure</code> script is to locate all the libraries that are required to build PLUMED. PLUMED will by default check for these libraries in
-certain standard places. If the libraries are not in these standard places, however, then you will need to provide information the configure script on where to find them by using the
-<code>LDFLAGS</code>, <code>CPPFLAGS</code> and <code>LIBS</code> flags. If suitable libraries are not found during the execution of the <code>configure</code> script then these
-features will be disabled. You should thus carefully check the log that is output by the <code>configure</code> command to ensure that all the libraries you require have been found.
-</p>
-
-<p>The <code>LDFLAGS</code> variable tells the <code>configure</code> script the names of directories in which the libraries can be found. If the xdrfile libraries are
-in /opt/local (i.e. where MacPorts puts them) then you would use the command below to tell PLUMED where to find them.</p>
-<pre class="fragment">
-&gt; ./configure LDFLAGS=-L/opt/local/lib CPPFLAGS=-I/opt/local/include
-</pre>
-</div>
-</div>
-</div>
-<div id="CPPFLAGS" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>CPPFLAGS Environment Variable</h2>
-</div>
-<div class="modal-body">
-<p>The main purpose of the <code>configure</code> script is to locate all the libraries that are required to build PLUMED. PLUMED will by default check for these libraries in
-certain standard places. If the libraries are not in these standard places, however, then you will need to provide information the configure script on where to find them by using the
-<code>LDFLAGS</code>, <code>CPPFLAGS</code> and <code>LIBS</code> flags. If suitable libraries are not found during the execution of the <code>configure</code> script then these
-features will be disabled. You should thus carefully check the log that is output by the <code>configure</code> command to ensure that all the libraries you require have been found.</p>
-
-<p>The <code>CPPFLAGS</code> variable tells the <code>configure</code> script the names of directories in which the include files for the libraries can be found. If the xdrfile libraries are
-in /opt/local (i.e. where MacPorts puts them) then you would use the command below to tell PLUMED where to find them.</p>
-<pre class="fragment">
-&gt; ./configure LDFLAGS=-L/opt/local/lib CPPFLAGS=-I/opt/local/include
-</pre>
-</div>
-</div>
-</div>
-<div id="STATIC_LIBS" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>STATIC_LIBS Environment Variable</h2>
-</div>
-<div class="modal-body">
-<p>By adding libararies to the <code>STATIC_LIBS</code> environmental variable you ensure that they are used in all linking steps. Those libraries that are speicified in the <code>LIBS</code>
-environmental variable are only used when the PLUMED kernel library is linked.</p>
-</div>
-</div>
-</div>
-<div id="LIBS" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>LIBS Environment Variable</h2>
-</div>
-<div class="modal-body">
-<p>The main purpose of the <code>configure</code> script is to locate all the libraries that are required to build PLUMED. PLUMED will by default check for these libraries in
-certain standard places. If the libraries are not in these standard places, however, then you will need to provide information the configure script on where to find them by using the
-<code>LDFLAGS</code>, <code>CPPFLAGS</code> and <code>LIBS</code> flags. If suitable libraries are not found during the execution of the <code>configure</code> script then these
-features will be disabled. You should thus carefully check the log that is output by the <code>configure</code> command to ensure that all the libraries you require have been found.</p>
-
-<p>You are required to set the <code>LIBS</code> environmental variable if your libraries have non-standard names. If, for example, your xdrfile library is
-called /opt/local/lib/libmyxdrfile.so you can link it using:</p>
-<pre class="fragment">
-&gt; ./configure LDFLAGS=-L/opt/local/lib CPPFLAGS=-I/opt/local/include LIBS=-lmyxdrfile
-</pre>
-<p> This command works because PLUMED first tries to link a routine from the xdr library without adding any additional flag. If and only if this command fails the additional flag,
-"-lxdrfile" is added to the <code>LIBS</code> envrionmental variable. Consequently, if the user has specified the name of the xdr library using the <code>LIBS</code> environmental
-flag this custom version will be used in place of the standardly-named "-lxdrfile" library.</p>
-
-<p>If, for any reason, you would like more control over the libraries that are used to build PLUMED you can use the
-<a onclick='openModal("--disable-libsearch")'>--disable-libsearch</a> option.</p>
-</div>
-</div>
-</div>
-<div id="--disable-libsearch" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>--disable-libsearch option</h2>
-</div>
-<div class="modal-body">
-<p> By default PLUMED uses a two step procedure when searching for a library. If, for example, PLUMED is searching for the xdr library it will first try to link a routine from this library
-without adding any additional flags. If this command fails the additional flag, "-lxdrfile" is then added to the <code>LIBS</code> envrionmental variable and the test is run again.
-The <code>--disable-libsearch</code> command ensures that this second step in the search is ommitted. Consequently, when this option is used only those libraries that are
-explicitly passed through the <code>LIBS</code> environmental variable are linked. For example if the command:</p>
-<pre class="fragment">
-&gt; ./configure --disable-libsearch LIBS=-lxdrfile
-</pre>
-<p>is used then only xdrfile is linked. The BLAS and LAPACK libraries are not be linked and the internal versions of these libraries are used. This option is
-useful when installing PLUMED within package managers such as MacPorts as it ensures that only the desired libraries are linked. In other words, no spurious
-dependencies are introduced. The only exception to this rule is <code>-ldl</code>, which is a system library on Linux.</p>
-</div>
-</div>
-</div>
-<div id="--enable-modules" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>--enable-modules option</h2>
-</div>
-<div class="modal-body">
-<p>PLUMED is made up of modules. Some of these are used more frequently than others and so the ones that we believe that are used
-less often are disabled in a default compilation. If you configure using the option <code>--enable-modules=all</code> then PLUMED will compile
-all these modules. This option would be recommended if you are compiling the code for multiple users and if you are not sure of those
-users need.</p>
-
-<p>If, however, you are compiling the code for yourself only then it may be better to only compile those modules you specifically need.
-If you would like to compile with the core modules and the dimred and ves modules you could use the command <code>--enable-modules=dimred:ves</code>.</p>
-</div>
-</div>
-</div>
-<div id="--enable-asmjit" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>--enable-asmjit option</h2>
-</div>
-<div class="modal-body">
-<p>If there are a lot of <a class="el" href="_c_u_s_t_o_m.html">CUSTOM</a> functions or <a class="el" href="switchingfunction.html">switching functions</a>
-in your input then you may be heavilty using the lepton library that is included in PLUMED.
-The calls to this library can be made significantly faster by using a
-<a href="https://github.com/asmjit/asmjit.git">just-in-time compiler</a>. Furthermore,
-as of PLUMED 2.6, ASMJIT is embedded in PLUMED. To enable it you use the <code>--enable-asmjit</code> flag in configure</p>
-
-<p>If, for any reason, you want to disable ASMJIT at runtime you can do by setting the <code>PLUMED_USE_ASMJIT</code> environment variable as shown below:</p>
-
-<pre class="fragment">export PLUMED_USE_ASMJIT=no</pre>
-</div>
-</div>
-</div>
-<div id="--prefix" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>--prefix option</h2>
-</div>
-<div class="modal-body">
-<p>The <code>--prefix</code> environmental variable controls the location in which PLUMED is installed when the <code>make install</code> command is run. By default
-PLUMED is installed in <code>/usr/local/</code> and you will thus have to run <code>make install</code> with super-user permissions i.e. using <code>sudo make install</code>.
-You can, however, specify the location in which to install PLUMED by using the <code>--prefix</code> environmental variable. For example, to install PLUMED in <code>$(HOME)/opt</code>
-you would configure using:
-</p>
-<pre class="fragment">
-&gt; ./configure --prefix=$HOME/opt
-</pre>
-<p>Upon install, the executable would then be copied to <code>$(HOME)/opt/bin</code>, the libraries to <code>$(HOME)/opt/lib</code>, the include files to <code>$(HOME)/opt/include</code>, and the
-documentation to <code>$(HOME)/opt/shared/doc/plumed</code>. In addition, a directory called <code>$(HOME)/opt/lib/plumed</code> will be created containing files such as the
-patch files and the object files (for static patches). Advanced users can further customise the install directories using
-using standard autoconf directories (e.g. <code>./configure --bindir=/usr/bin64</code>). Further information on these options can be obtained by running the command:
-<pre class="fragment">
-&gt; ./configure --help
-</pre>
-</div>
-</div>
-</div>
-<div id="--enable-debug" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>--enable-debug option</h2>
-</div>
-<div class="modal-body">
-This option is useful if you are implementing new funcationality. If it is enabled then PLUMED
-is compiled with with various debug flags in place that check if code is workign as it should during
-execution. These additional checks will slow down PLUMED, however. In addition, the
-full symbol tables will be written in the executable and the final executable will be much larger.
-</div>
-</div>
-</div>
-<div id="--enable-mpi" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>--enable-mpi option</h2>
-</div>
-<div class="modal-body">
-<p>An MPI search is enabled by default and so the <code>--enable-mpi</code> flag is not strictly necessary. It is important to note, however, that
-if MPI search is enabled then compilers named "mpic++" and "mpicxx" are searched for first, which may be confusing as many
-other programs behave in a different way.</p>
-
-<p>When PLUMED is configured with MPI enabled (as it is by default) autoconf checks if a code containing MPI calls can be compiled using the specified
-compiler. If this code can be compiled then MPI is enabled. If it cannot then MPI will be disabled. If you thus specify a non-MPI compiler using the
-<code>CXX</code> environmental variable there is no reason to also specify <code>--disable-mpi</code>. The <code>--disable-mpi</code> command is only
-necessary if you specifed an MPI compiler to the <code>CXX</code> environmental variable but you don't want PLUMED to be compiled with MPI support.
-In other words, the correct way to enable MPI is to pass <code>./configure</code> an MPI C++ compiler by using the <code>CXX</code> environmental variable.
-If this is done you can then treat the MPI library in the same way that all the other libraries that PLUMED tries to link by default.</p>
-</div>
-</div>
-</div>
-<div id="--enable-external-lapack" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>--enable-external-lapack option</h2>
-</div>
-<div class="modal-body">
-<p>PLUMED uses the blas and lapack libraries to perform linear algebra and the source code for these two libraries is included. <b>For production calculations,
-however, we would strongly encourage you to link to libraries containing suitably-optimized versions of these libraries and to not rely on the versions of blas and
-lapack that are included within PLUMED.</b></p>
-
-<p>You can use a specific version of BLAS or LAPACK availble to <code>configure</code> using the <code>LDFLAGS</code> and <code>LIBS</code> environment variables as shown
-below:</p>
-<pre class="fragment">
-&gt; ./configure LDFLAGS=-L/path/to/blas/lib LIBS=-lnameoflib
-</pre>
-<p>The <code>configure</code> script will check if the functions that are required from this library are found in the usual way (i.e. by checking without additional
--llapack and -lblas options added to the <code>LIBS</code> environmental variable first and then with these options added to these variabels). Furthermore, two checks
-for any required functions are performed. In the first, of these checks the name of the functions are searched for. If this search is unsucessful then a
-search for a version of the function with a final underscore added to the name is then performed. If no functions are found in these two steps then the versions of
-blas and lapack that are internal to PLUMED are used.</p>
-
-<p>If you prefer to disable the search for external versions of blas and lapack because, for example, the system libraries have problems you can configure using the
-command</p>
-<pre class="fragment">
-&gt; ./configure --disable-external-blas
-</pre>
-<p>You can also only disable the external LAPACK. In other words, you can use the internal version of LAPACK with an external version of BLAS by using the command:</p>
-<pre class="fragment">
-&gt; ./configure --disable-external-lapack
-</pre>
-<p> Using this option is quite sensible as one can typically only heavily optimize the BLAS library. Using the internal LAPACK with an external version of BLAS
-should, therefore, not slow your calculations down significantly. You could thus use this option on systems where the native LAPACK libraries have problems</p>
-
-<p>We have had numerous emails from users who have struggled to link PLUMED with BLAS and LAPACK. We have even struggled with this ourselves. From these experiences, however,
-some sensible steps that you can use to check whether or not the configuration has been setup correctly have emerged. If you are having difficulties you should
-Open the Makefile.conf file that is output after <code>configure</code> has finished running. Check that the flags necessary for loading the
-BLAS and LAPACK libraries are included in the the <code>DYNAMIC_LIB</code> variable that is contained in this file. If BLAS and LAPACK have been detected correctly
--llapack, -lblas and, in some cases, -lgfortran will appear after this variable. On some machines full path specification with -L may be necessary in place of -llapack,
--lblas anmd -gfortran. Depending on system configuration, your libraries may even not be called -llapack and -lblas. You will thus have to ensure that the correct names
-for these libraries are used. If the correct libraries appear after <code>DYNAMIC_LIB</code> in the Makefile.conf file and if PLUMED still doesn't compile some other things
-to try include:
-<ul>
-<li> If the linker complains and suggests recompiling LAPACK with -fPIC, it means that you have static LAPACK libraries. Either install dynamic LAPACK libraries
-or switch to static compilation of PLUMED by unsetting the SOEXT variable in the configuration file.</li>
-<li> If the linker complains about other missing functions (typically functions with names that start with the prefix "for_") you need to link some additional Fortran libraries.
-PLUMED is written in C++ and C++ linkers often do not include Fortran libraries by default, which is unfortunate as the fortran libraries are required for LAPACK and BLAS to
-work. If you encounter this problem we woudl recommend checking the documentation for your compiler.</li>
-<li> If the linker complains that dsyevr_ cannot be found, try adding the flag -DF77_NO_UNDERSCORE to <code>CPPFLAGS</code>. "./configure" will automatically try this solution but maybe you
-have more luck.</li>
-</ul>
-</div>
-</div>
-</div>
-<div id="--enable-molfile-plugins" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>--enable-molfile-plugins option</h2>
-</div>
-<div class="modal-body">
-<p>The <code>--enable-molfile-plugins</code> flag ensures that PLUMED is linked with VMD plugins. If PLUMED is configured with this flag you will thus be able to
-read all the trajectory formats that VMD can read with plumed driver.
-
-To be clear the PLUMED source code contains VMD plugins for a small number of trajectory formats (dcd, gromacs files, pdb and amber files) so you will most likely not need this flag.
-You will only need it you would like to be able to read in some a particularly exotic trajectory file type. If you do need to work with these other types of file can get the molfile plugins by
-downloading the SOURCE of VMD. This sourcecode contains
-a plugins directory. You will need to adapt the build.sh script within this directory and then compile the code within the directory. Once this process is completed
-you should get the molfile plugins compiled as a static library called <code>libmolfile_plugin.a</code>. The location of this library, the <code>libmolfile_plugin.h</code> and
-the <code>molfile_plugin.h</code> include files will then need to be passed to configure using a command similar to:</p>
-<pre class="fragment">
-&gt; ./configure LDFLAGS="-L/pathtovmdplugins/ARCH/molfile" CPPFLAGS="-I/pathtovmdplugins/include -I/pathtovmdplugins/ARCH/molfile"
-</pre>
-<p>It may also be necessary to add the location of the TCL interpreter to the <code>LDFLAGS</code> using a command such as:</p>
-<pre class="fragment">
-&gt; ./configure LDFLAGS="-ltcl8.5 -L/mypathtotcl -L/pathtovmdplugins/ARCH/molfile" \
-CPPFLAGS="-I/pathtovmdplugins/include -I/pathtovmdplugins/ARCH/molfile"
-</pre>
-<p>To be clear, however, some of the molfile plugin sourcecode is included in PLUMED and you can thus use some of the most common types of trajectory file even if you do not download VMD on your machine.</p>
-</div>
-</div>
-</div>
-<div id="LIBRARY_PATH" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>LIBRARY_PATH envrionmental variable</h2>
-</div>
-<div class="modal-body">
-<p> In a typical environment configured using the <a href="http://modules.sourceforge.net">module framework</a> the <code>LIBRARY_PATH</code> environment variable
-contains the path to all the modules loaded at compilation time. When PLUMED is compiled using the <a onclick='openModal("--enable-rpath")'>--enable-rpath</a>
-option the paths defined in <code>LIBRARY_PATH</code> are automatically hard coded into the PLUMED library.</p>
-</div>
-</div>
-</div>
-<div id="--enable-rpath" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>--enable-rpath option</h2>
-</div>
-<div class="modal-body">
-<p>On OSX it is common practice to hard code the full path to all the libraries that were used during the compilation within the compiled library.
-The consequence of this is that, if an executable is linked to shared library, then that executable can find all the libraries which are required to run the
-functions within the linked library. The operating system knows where to search for the libraries that were used when the linked libraries was compiled as the
-path to these libraries is stored within the linked library. When the <code>libplumed.dylib</code> library is compiled on a system running OSX there is thus no
-problem in finding external blas or lapack libraries at later times.</p>
-
-<p>On Linux it is not common practice to hard code paths into libraries in the manner described above. Consequently, if you use the
-<code>LDFLAGS</code> option to specify the path to a library at compile time. In other words, if you configure PLUMED using the command:</p>
-<pre class="fragment">
-&gt; ./configure LDFLAGS="-L/opt/local/lib"
-</pre>
-<p>Then the libraries in /opt/local/lib may not be found at runtime. One visible symptom of this problem is that <code>src/lib/plumed-shared</code> will
-not be linked correctly. The consequence of this is that it is not possible to dynamically link PLUMED with an MD code later, which is only a problem if you
-would like to link PLUMED dynamically.</p>
-
-<p>You can resolve this issue by using the command below when configuring PLUMED:</p>
-<pre class="fragment">
-&gt; ./configure LIBRARY_PATH=/path --enable-rpath
-</pre>
-<p>This command will hard code the paths defined in <code>LIBRARY_PATH</code> into the PLUMED library and is equivalent to the command:</p>
-<pre class="fragment">
-&gt; ./configure LDFLAGS="-L/path -Wl,-rpath,/path"
-</pre>
-</div>
-</div>
-</div>
 <div style="display:none;" id="config-opts">
 <p>You can control the compilers and compiler flags that are used to build PLUMED by setting the environmental variables. For example, if you wanted to use
 the icpc and icc compilers you might use the command shown in the example below:</p>
@@ -1023,38 +651,10 @@ executable to <code>$(prefix)/bin</code>, the libraries to <code>$(prefix)/lib</
 the include files to <code>$(prefix)/include</code>, and the documentation to <code>$(prefix)/shared/doc/plumed</code>. A directory called
 <code>$(prefix)/lib/plumed</code> is also created by this command. This directory contains several other files, including
 the patch files and the object files that are used for static patching.
-<p><code>$(prefix)</code> here is the directory specified using the <a onclick='openModal("--prefix")'>--prefix</a> keyword of the configure script.</p>
+<p><code>$(prefix)</code> here is the directory specified using the <a onclick='openModal("prefix")'>--prefix</a> keyword of the configure script.</p>
 <p>Once PLUMED has been installed using the <code>make install</code> command you can delete the original compilation directory
 or you can recompile a different PLUMED version in the same place. You should not delete any of the installed files, however, as
-<a onclick='openModal("--standalone-executable")'>PLUMED will not run</a> if there are files missing from these directories</p>
-</div>
-<div id="--standalone-executable" class="modal">
-<div class="modal-content">
-<div class="modal-header">
-<h2>--standalone-executable option</h2>
-</div>
-<div class="modal-body" id="--standalone-executable-content">
-<p>The PLUMED executable which relies on the resource files present in the compilation directory.
-During installation these files are copied to <code>$(prefix)/lib/plumed</code> and the compilation directory can therefore be deleted.
-If you do not install PLUMED, however, you need to ensure that none of the files in <code>src/lib/plumed</code> are not
-moved or renamed.</p>
-<p>The path to the PLUMED root directory is hard coded in the plumed executable as can be verified by using the command:</p>
-<pre class="fragment">
-&gt; plumed info --root
-</pre>
-<p>If you try to run a non-installed plumed executable and if the <code>src/lib/plumed</code>
-directory is not in place PLUMED will throw an error as shown below:</p>
-<pre class="fragment">
-&gt; plumed help
-ERROR: I cannot find /xxx/yyy/patches directory
-</pre>
-<p>You can force plumed to ignore this error and to run anyway by using the option --standalone-executable as shown below</p>
-<pre class="fragment">
-&gt; plumed --standalone-executable help
-</pre>
-<p>Many features are not be available if you run in this way. This is currently the only way to use the PLUMED static executable on Windows, however.</p>
-</div>
-</div>
+<a onclick='openModal("standalone-executable")'>PLUMED will not run</a> if there are files missing from these directories</p>
 </div>
 <div style="display:none;" id="testing">
 <h2> Testing PLUMED </h2>
@@ -1281,6 +881,139 @@ If you want to install the development version of the wrappers using pip you sho
 &gt; pip3.6 install --user .
 </pre>
 <p>You are highly recommended to use a virtualenv when installing the development version as you will then ensure that the code you install does not interfere with the released pacakages.</p>
+<div id="CC" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>CC Environment Variable</h2>
+</div>
+<div class="modal-body">
+<p>The <code>CC</code> environmental variable controls the c compiler that is used in the building of PLUMED. The majority of PLUMED is built using the c++ compiler that is
+specified using the <code>CXX</code> environmental variable. A C compiler must still be specified nonetheless as the wrapper that is used to interface PLUMED with the MD codes is
+written in C.</p>
+
+<p>PLUMED does seach for MPI and non-MPI compilers with a number of standard names even if the <code>CC</code> environmental variable is not set.
+Only a few of the possible compiler name are searched, however. If your compiler is named "gcc-mp-4.8" you will need to explicitly specify this
+by using the <code>CC</code> environmental variable.</p>
+</div>
+
+</div></div>
+<div id="CPPFLAGS" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>CPPFLAGS Environment Variable</h2>
+</div>
+<div class="modal-body">
+<p>The main purpose of the <code>configure</code> script is to locate all the libraries that are required to build PLUMED. PLUMED will by default check for these libraries in
+certain standard places. If the libraries are not in these standard places, however, then you will need to provide information the configure script on where to find them by using the
+<code>LDFLAGS</code>, <code>CPPFLAGS</code> and <code>LIBS</code> flags. If suitable libraries are not found during the execution of the <code>configure</code> script then these
+features will be disabled. You should thus carefully check the log that is output by the <code>configure</code> command to ensure that all the libraries you require have been found.</p>
+
+<p>The <code>CPPFLAGS</code> variable tells the <code>configure</code> script the names of directories in which the include files for the libraries can be found. If the xdrfile libraries are
+in /opt/local (i.e. where MacPorts puts them) then you would use the command below to tell PLUMED where to find them.</p>
+<pre class="fragment">
+&gt; ./configure LDFLAGS=-L/opt/local/lib CPPFLAGS=-I/opt/local/include
+</pre>
+</div>
+</div></div>
+<div id="CXX" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>CXX Environment Variable</h2>
+</div>
+<div class="modal-body">
+<p>The <code>CXX</code> environmental variable controls the c++ compiler that will be used to build PLUMED. If you would like to compile PLUMED with
+MPI the compiler that is passed to this variable should be an MPI compiler. Consequently, if you work on a machine where <code>CXX</code> is
+set to a serial compiler and <code>MPICXX</code> is set to a MPI compiler you should configure PLUMED using the command:</p>
+<pre class="fragment">
+&gt; ./configure CXX="$MPICXX"
+</pre>
+<p>If the <code>CXX</code> environmental variable is not set equal to an MPI compiler then MPI is <b>not enabled</b>. This behaviour differs
+from what some other configure scripts do. To be clear, when PLUMED is complied variables such as <code>MPICXX</code> are completely ignored.</p>
+
+<p> PLUMED does search for MPI and non-MPI compilers with common names even if the <code>CXX</code> environmental variable is not set.
+The search is only a few of the possible compiler names, however. If your compiler is named "g++-mp-4.8" you will need to explicitly specify this
+by using the <code>CXX</code> environmental variable.</p>
+
+<p>PLUMED 2.4 requires a compiler that supports C++11. The following compilers (or later versions) should be sufficient:</p>
+<ul>
+<li> gcc 4.8.1</li>
+<li> clang 3.3</li>
+<li> intel 15</li>
+</ul>
+
+<p>The <code>./configure</code> script will check whether or not your compiler supports C++11.
+Some compilers that do not declare full C++11 support have several C++11 features enabled and can thus be used
+to compile PLUMED (this is the case for the intel 15 compiler for instance).</p>
+
+<p>If you see a warning about C++11 support during <code>./configure</code> it is then important to check that
+PLUMED compiles correctly. The best way to do this to to execute the regtests using the command <code>make regtest</code>.</p>
+
+<p>We regularly test a number of compilers on <a href="https://github.com/plumed/plumed2/actions">GitHub Actions</a>. These compilers should thus always compile PLUMED correctly.</p>
+</div>
+</div></div>
+<div id="CXXFLAGS" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>CXXFLAGS Environment Variable</h2>
+</div>
+<div class="modal-body">
+<p>The <code>CXXFLAGS</code> environmental variable allows you to control the compilation options just as you might expect.</p>
+</div>
+</div></div>
+<div id="LDFLAGS" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>LDFLAGS Environment Variable</h2>
+</div>
+<div class="modal-body">
+<p>The main purpose of the <code>configure</code> script is to locate all the libraries that are required to build PLUMED. PLUMED will by default check for these libraries in
+certain standard places. If the libraries are not in these standard places, however, then you will need to provide information the configure script on where to find them by using the
+<code>LDFLAGS</code>, <code>CPPFLAGS</code> and <code>LIBS</code> flags. If suitable libraries are not found during the execution of the <code>configure</code> script then these
+features will be disabled. You should thus carefully check the log that is output by the <code>configure</code> command to ensure that all the libraries you require have been found.
+</p>
+
+<p>The <code>LDFLAGS</code> variable tells the <code>configure</code> script the names of directories in which the libraries can be found. If the xdrfile libraries are
+in /opt/local (i.e. where MacPorts puts them) then you would use the command below to tell PLUMED where to find them.</p>
+<pre class="fragment">
+&gt; ./configure LDFLAGS=-L/opt/local/lib CPPFLAGS=-I/opt/local/include
+</pre>
+</div>
+</div></div>
+<div id="LIBRARY_PATH" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>LIBRARY_PATH envrionmental variable</h2>
+</div>
+<div class="modal-body">
+<p> In a typical environment configured using the <a href="http://modules.sourceforge.net">module framework</a> the <code>LIBRARY_PATH</code> environment variable
+contains the path to all the modules loaded at compilation time. When PLUMED is compiled using the <a onclick='openModal("--enable-rpath")'>--enable-rpath</a>
+option the paths defined in <code>LIBRARY_PATH</code> are automatically hard coded into the PLUMED library.</p>
+</div>
+</div></div>
+<div id="LIBS" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>LIBS Environment Variable</h2>
+</div>
+<div class="modal-body">
+<p>The main purpose of the <code>configure</code> script is to locate all the libraries that are required to build PLUMED. PLUMED will by default check for these libraries in
+certain standard places. If the libraries are not in these standard places, however, then you will need to provide information the configure script on where to find them by using the
+<code>LDFLAGS</code>, <code>CPPFLAGS</code> and <code>LIBS</code> flags. If suitable libraries are not found during the execution of the <code>configure</code> script then these
+features will be disabled. You should thus carefully check the log that is output by the <code>configure</code> command to ensure that all the libraries you require have been found.</p>
+
+<p>You are required to set the <code>LIBS</code> environmental variable if your libraries have non-standard names. If, for example, your xdrfile library is
+called /opt/local/lib/libmyxdrfile.so you can link it using:</p>
+<pre class="fragment">
+&gt; ./configure LDFLAGS=-L/opt/local/lib CPPFLAGS=-I/opt/local/include LIBS=-lmyxdrfile
+</pre>
+<p> This command works because PLUMED first tries to link a routine from the xdr library without adding any additional flag. If and only if this command fails the additional flag,
+"-lxdrfile" is added to the <code>LIBS</code> envrionmental variable. Consequently, if the user has specified the name of the xdr library using the <code>LIBS</code> environmental
+flag this custom version will be used in place of the standardly-named "-lxdrfile" library.</p>
+
+<p>If, for any reason, you would like more control over the libraries that are used to build PLUMED you can use the
+<a onclick='openModal("--disable-libsearch")'>--disable-libsearch</a> option.</p>
+</div>
+</div></div>
 <div id="PYTHON_BIN" class="modal">
 <div class="modal-content">
 <div class="modal-header">
@@ -1291,8 +1024,207 @@ If you want to install the development version of the wrappers using pip you sho
 as configure will find any <code>python</code> executable that also has the <code>cython</code> module available automatically. If your python interpreter has a name
 that is different from python you will have to set this environment variable.</p>
 </div>
+</div></div>
+<div id="STATIC_LIBS" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>STATIC_LIBS Environment Variable</h2>
 </div>
+<div class="modal-body">
+<p>By adding libararies to the <code>STATIC_LIBS</code> environmental variable you ensure that they are used in all linking steps. Those libraries that are speicified in the <code>LIBS</code>
+environmental variable are only used when the PLUMED kernel library is linked.</p>
 </div>
+
+</div></div>
+<div id="disable-libsearch" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>--disable-libsearch option</h2>
+</div>
+<div class="modal-body">
+<p> By default PLUMED uses a two step procedure when searching for a library. If, for example, PLUMED is searching for the xdr library it will first try to link a routine from this library
+without adding any additional flags. If this command fails the additional flag, "-lxdrfile" is then added to the <code>LIBS</code> envrionmental variable and the test is run again.
+The <code>--disable-libsearch</code> command ensures that this second step in the search is ommitted. Consequently, when this option is used only those libraries that are
+explicitly passed through the <code>LIBS</code> environmental variable are linked. For example if the command:</p>
+<pre class="fragment">
+&gt; ./configure --disable-libsearch LIBS=-lxdrfile
+</pre>
+<p>is used then only xdrfile is linked. The BLAS and LAPACK libraries are not be linked and the internal versions of these libraries are used. This option is
+useful when installing PLUMED within package managers such as MacPorts as it ensures that only the desired libraries are linked. In other words, no spurious
+dependencies are introduced. The only exception to this rule is <code>-ldl</code>, which is a system library on Linux.</p>
+</div>
+</div></div>
+<div id="enable-asmjit" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>--enable-asmjit option</h2>
+</div>
+<div class="modal-body">
+<p>If there are a lot of <a class="el" href="_c_u_s_t_o_m.html">CUSTOM</a> functions or <a class="el" href="switchingfunction.html">switching functions</a>
+in your input then you may be heavilty using the lepton library that is included in PLUMED.
+The calls to this library can be made significantly faster by using a
+<a href="https://github.com/asmjit/asmjit.git">just-in-time compiler</a>. Furthermore,
+as of PLUMED 2.6, ASMJIT is embedded in PLUMED. To enable it you use the <code>--enable-asmjit</code> flag in configure</p>
+
+<p>If, for any reason, you want to disable ASMJIT at runtime you can do by setting the <code>PLUMED_USE_ASMJIT</code> environment variable as shown below:</p>
+
+<pre class="fragment">export PLUMED_USE_ASMJIT=no</pre>
+</div> 
+</div></div>
+<div id="enable-debug" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>--enable-debug option</h2>
+</div>
+<div class="modal-body">
+This option is useful if you are implementing new funcationality. If it is enabled then PLUMED
+is compiled with with various debug flags in place that check if code is workign as it should during
+execution. These additional checks will slow down PLUMED, however. In addition, the
+full symbol tables will be written in the executable and the final executable will be much larger.
+</div>
+</div></div>
+<div id="enable-external-lapack" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>--enable-external-lapack option</h2>
+</div>
+<div class="modal-body">
+<p>PLUMED uses the blas and lapack libraries to perform linear algebra and the source code for these two libraries is included. <b>For production calculations,
+however, we would strongly encourage you to link to libraries containing suitably-optimized versions of these libraries and to not rely on the versions of blas and 
+lapack that are included within PLUMED.</b></p>
+
+<p>You can use a specific version of BLAS or LAPACK availble to <code>configure</code> using the <code>LDFLAGS</code> and <code>LIBS</code> environment variables as shown
+below:</p>
+<pre class="fragment">
+&gt; ./configure LDFLAGS=-L/path/to/blas/lib LIBS=-lnameoflib
+</pre>
+<p>The <code>configure</code> script will check if the functions that are required from this library are found in the usual way (i.e. by checking without additional
+-llapack and -lblas options added to the <code>LIBS</code> environmental variable first and then with these options added to these variabels). Furthermore, two checks
+for any required functions are performed. In the first, of these checks the name of the functions are searched for. If this search is unsucessful then a
+search for a version of the function with a final underscore added to the name is then performed. If no functions are found in these two steps then the versions of
+blas and lapack that are internal to PLUMED are used.</p>
+
+<p>If you prefer to disable the search for external versions of blas and lapack because, for example, the system libraries have problems you can configure using the
+command</p>
+<pre class="fragment">
+&gt; ./configure --disable-external-blas
+</pre>
+<p>You can also only disable the external LAPACK. In other words, you can use the internal version of LAPACK with an external version of BLAS by using the command:</p>
+<pre class="fragment">
+&gt; ./configure --disable-external-lapack
+</pre>
+<p> Using this option is quite sensible as one can typically only heavily optimize the BLAS library. Using the internal LAPACK with an external version of BLAS
+should, therefore, not slow your calculations down significantly. You could thus use this option on systems where the native LAPACK libraries have problems</p>
+<p>We have had numerous emails from users who have struggled to link PLUMED with BLAS and LAPACK. We have even struggled with this ourselves. From these experiences, however,
+some sensible steps that you can use to check whether or not the configuration has been setup correctly have emerged. If you are having difficulties you should
+Open the Makefile.conf file that is output after <code>configure</code> has finished running. Check that the flags necessary for loading the
+BLAS and LAPACK libraries are included in the the <code>DYNAMIC_LIB</code> variable that is contained in this file. If BLAS and LAPACK have been detected correctly
+-llapack, -lblas and, in some cases, -lgfortran will appear after this variable. On some machines full path specification with -L may be necessary in place of -llapack,
+-lblas anmd -gfortran. Depending on system configuration, your libraries may even not be called -llapack and -lblas. You will thus have to ensure that the correct names
+for these libraries are used. If the correct libraries appear after <code>DYNAMIC_LIB</code> in the Makefile.conf file and if PLUMED still doesn't compile some other things
+to try include:
+<ul>
+<li> If the linker complains and suggests recompiling LAPACK with -fPIC, it means that you have static LAPACK libraries. Either install dynamic LAPACK libraries
+or switch to static compilation of PLUMED by unsetting the SOEXT variable in the configuration file.</li>
+<li> If the linker complains about other missing functions (typically functions with names that start with the prefix "for_") you need to link some additional Fortran libraries.
+ PLUMED is written in C++ and C++ linkers often do not include Fortran libraries by default, which is unfortunate as the fortran libraries are required for LAPACK and BLAS to
+ work. If you encounter this problem we woudl recommend checking the documentation for your compiler.</li>
+<li> If the linker complains that dsyevr_ cannot be found, try adding the flag -DF77_NO_UNDERSCORE to <code>CPPFLAGS</code>. "./configure" will automatically try this solution but maybe you
+ have more luck.</li>
+</ul>
+</div>
+</div></div>
+<div id="enable-modules" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>--enable-modules option</h2>
+</div>
+<div class="modal-body">
+<p>PLUMED is made up of modules. Some of these are used more frequently than others and so the ones that we believe that are used
+less often are disabled in a default compilation. If you configure using the option <code>--enable-modules=all</code> then PLUMED will compile
+all these modules. This option would be recommended if you are compiling the code for multiple users and if you are not sure of those
+users need.</p>
+
+<p>If, however, you are compiling the code for yourself only then it may be better to only compile those modules you specifically need.
+If you would like to compile with the core modules and the dimred and ves modules you could use the command <code>--enable-modules=dimred:ves</code>.</p>
+</div>
+</div></div>
+<div id="enable-molfile-plugins" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>--enable-molfile-plugins option</h2>
+</div>
+<div class="modal-body">
+<p>The <code>--enable-molfile-plugins</code> flag ensures that PLUMED is linked with VMD plugins. If PLUMED is configured with this flag you will thus be able to
+read all the trajectory formats that VMD can read with plumed driver.
+
+To be clear the PLUMED source code contains VMD plugins for a small number of trajectory formats (dcd, gromacs files, pdb and amber files) so you will most likely not need this flag.
+You will only need it you would like to be able to read in some a particularly exotic trajectory file type.  If you do need to work with these other types of file can get the molfile plugins by
+downloading the SOURCE of VMD. This sourcecode contains
+a plugins directory. You will need to adapt the build.sh script within this directory and then compile the code within the directory. Once this process is completed
+you should get the molfile plugins compiled as a static library called <code>libmolfile_plugin.a</code>. The location of this library, the <code>libmolfile_plugin.h</code> and
+the <code>molfile_plugin.h</code> include files will then need to be passed to configure using a command similar to:</p>
+<pre class="fragment">
+&gt; ./configure LDFLAGS="-L/pathtovmdplugins/ARCH/molfile" CPPFLAGS="-I/pathtovmdplugins/include -I/pathtovmdplugins/ARCH/molfile"
+</pre>
+<p>It may also be necessary to add the location of the TCL interpreter to the <code>LDFLAGS</code> using a command such as:</p>
+<pre class="fragment">
+&gt; ./configure LDFLAGS="-ltcl8.5 -L/mypathtotcl -L/pathtovmdplugins/ARCH/molfile" \
+         CPPFLAGS="-I/pathtovmdplugins/include -I/pathtovmdplugins/ARCH/molfile"
+</pre>
+<p>To be clear, however, some of the molfile plugin sourcecode is included in PLUMED and you can thus use some of the most common types of trajectory file even if you do not download VMD on your machine.</p>
+</div>
+</div></div>
+<div id="enable-mpi" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>--enable-mpi option</h2>
+</div>
+<div class="modal-body">
+<p>An MPI search is enabled by default and so the <code>--enable-mpi</code> flag is not strictly necessary. It is important to note, however, that
+if MPI search is enabled then compilers named "mpic++" and "mpicxx" are searched for first, which may be confusing as many
+other programs behave in a different way.</p>
+
+<p>When PLUMED is configured with MPI enabled (as it is by default) autoconf checks if a code containing MPI calls can be compiled using the specified
+compiler. If this code can be compiled then MPI is enabled. If it cannot then MPI will be disabled. If you thus specify a non-MPI compiler using the
+<code>CXX</code> environmental variable there is no reason to also specify <code>--disable-mpi</code>. The <code>--disable-mpi</code> command is only
+necessary if you specifed an MPI compiler to the <code>CXX</code> environmental variable but you don't want PLUMED to be compiled with MPI support.
+In other words, the correct way to enable MPI is to pass <code>./configure</code> an MPI C++ compiler by using the <code>CXX</code> environmental variable.
+If this is done you can then treat the MPI library in the same way that all the other libraries that PLUMED tries to link by default.</p>
+</div>
+
+</div></div>
+<div id="enable-rpath" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>--enable-rpath option</h2>
+</div>
+<div class="modal-body">
+<p>On OSX it is common practice to hard code the full path to all the libraries that were used during the compilation within the compiled library.
+The consequence of this is that, if an executable is linked to shared library, then that executable can find all the libraries which are required to run the
+functions within the linked library. The operating system knows where to search for the libraries that were used when the linked libraries was compiled as the
+path to these libraries is stored within the linked library. When the <code>libplumed.dylib</code> library is compiled on a system running OSX there is thus no
+problem in finding external blas or lapack libraries at later times.</p>
+
+<p>On Linux it is not common practice to hard code paths into libraries in the manner described above. Consequently, if you use the
+<code>LDFLAGS</code> option to specify the path to a library at compile time. In other words, if you configure PLUMED using the command:</p>
+<pre class="fragment">
+&gt; ./configure LDFLAGS="-L/opt/local/lib"
+</pre>
+<p>Then the libraries in /opt/local/lib may not be found at runtime. One visible symptom of this problem is that <code>src/lib/plumed-shared</code> will
+not be linked correctly. The consequence of this is that it is not possible to dynamically link PLUMED with an MD code later, which is only a problem if you
+would like to link PLUMED dynamically.</p>
+
+<p>You can resolve this issue by using the command below when configuring PLUMED:</p>
+<pre class="fragment">
+&gt; ./configure LIBRARY_PATH=/path --enable-rpath
+</pre>
+<p>This command will hard code the paths defined in <code>LIBRARY_PATH</code> into the PLUMED library and is equivalent to the command:</p>
+<pre class="fragment">
+&gt; ./configure LDFLAGS="-L/path -Wl,-rpath,/path"
+</pre>
+</div>
+</div></div>
 <div id="patch-options" class="modal">
 <div class="modal-content">
 <div class="modal-header">
@@ -1302,18 +1234,18 @@ that is different from python you will have to set this environment variable.</p
 <p>The way PLUMED is linked is controlled by a flag that is given to the <code>plumed patch</code> command. This flag can be set to any one of the following three options:</p>
 <ul>
 <li> <b>--static</b> With this flag PLUMED is linked as a collection of object files. This is only suggested if you
-absolutely need a static executable. Notice that when this setting is used it is often more difficult to configure
-the MD code properly as all the libraries that PLUMED depends on need to be specified properly. The <code>./configure</code> script
-does its best to look after all this for you but it cannot solve all the problems you might encounter. For example, we have had reports that
-this patching mode does not work properly on OSX. </li>
+ absolutely need a static executable. Notice that when this setting is used it is often more difficult to configure
+ the MD code properly as all the libraries that PLUMED depends on need to be specified properly. The <code>./configure</code> script
+ does its best to look after all this for you but it cannot solve all the problems you might encounter. For example, we have had reports that
+ this patching mode does not work properly on OSX. </li>
 <li> <b>--shared</b> This is the default mode for linking PLUMED. When this option is specified PLUMED is linked as a shared library.
-One consequence of this is that when PLUMED is updated, there is no need to recompile the MD code.
-Linking with the --shared option is superior to linking with --static as the libraries that PLUMED depends are linked automatically.
-If, however, you later remove the directory where the version of PLUMED that you linked with then then MD code will not run anymore. </li>
+ One consequence of this is that when PLUMED is updated, there is no need to recompile the MD code.
+ Linking with the --shared option is superior to linking with --static as the libraries that PLUMED depends are linked automatically.
+ If, however, you later remove the directory where the version of PLUMED that you linked with then then MD code will not run anymore. </li>
 <li> <b>--runtime</b> If you patch your MD code using this option then you can choose the location of the PLUMED library at runtime by setting the environment variable PLUMED_KERNEL.
-This option is probably the most flexible of the three, and we encourage system administrators to use this option when installing
-PLUMED on shared facilities. When this setting is used it is possible to update the PLUMED library and the MD code separately. Users can, thereore, combine the MD code with different
-versions of PLUMED at will. If you are using this option we would also recommend using a modulefile to set the runtime environment.</li>
+ This option is probably the most flexible of the three, and we encourage system administrators to use this option when installing
+ PLUMED on shared facilities. When this setting is used it is possible to update the PLUMED library and the MD code separately. Users can, thereore, combine the MD code with different
+ versions of PLUMED at will. If you are using this option we would also recommend using a modulefile to set the runtime environment.</li>
 </ul>
 <p>Notice that the precise behaviour of the <code>--static</code> flag depends on the PLUMED version. For versions of PLUMED
 earlier than 2.5 there was no possibility to link PLUMED as a static library. In PLUMED 2.5 onwards, however, the
@@ -1325,6 +1257,54 @@ command:</p>
 ./configure --disable-static-archive
 </pre>
 </div>
+</div></div>
+<div id="prefix" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>--prefix option</h2>
 </div>
+<div class="modal-body">
+<p>The <code>--prefix</code> environmental variable controls the location in which PLUMED is installed when the <code>make install</code> command is run. By default
+PLUMED is installed in <code>/usr/local/</code> and you will thus have to run <code>make install</code> with super-user permissions i.e. using <code>sudo make install</code>.
+You can, however, specify the location in which to install PLUMED by using the <code>--prefix</code> environmental variable. For example, to install PLUMED in <code>$(HOME)/opt</code>
+you would configure using:
+</p>
+<pre class="fragment">
+&gt; ./configure --prefix=$HOME/opt
+</pre>
+<p>Upon install, the executable would then be copied to <code>$(HOME)/opt/bin</code>, the libraries to <code>$(HOME)/opt/lib</code>, the include files to <code>$(HOME)/opt/include</code>, and the
+documentation to <code>$(HOME)/opt/shared/doc/plumed</code>. In addition, a directory called <code>$(HOME)/opt/lib/plumed</code> will be created containing files such as the
+patch files and the object files (for static patches). Advanced users can further customise the install directories using
+using standard autoconf directories (e.g. <code>./configure --bindir=/usr/bin64</code>). Further information on these options can be obtained by running the command:
+<pre class="fragment">
+&gt; ./configure --help
+</pre>
+</div></div>
+<div id="standalone-executable" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>--standalone-executable option</h2>
 </div>
+<div class="modal-body" id="--standalone-executable-content">
+<p>The PLUMED executable which relies on the resource files present in the compilation directory.
+During installation these files are copied to <code>$(prefix)/lib/plumed</code> and the compilation directory can therefore be deleted.
+If you do not install PLUMED, however, you need to ensure that none of the files in <code>src/lib/plumed</code> are not
+moved or renamed.</p>
+<p>The path to the PLUMED root directory is hard coded in the plumed executable as can be verified by using the command:</p>
+<pre class="fragment">
+&gt; plumed info --root
+</pre>
+<p>If you try to run a non-installed plumed executable and if the <code>src/lib/plumed</code>
+directory is not in place PLUMED will throw an error as shown below:</p>
+<pre class="fragment">
+&gt; plumed help
+ERROR: I cannot find /xxx/yyy/patches directory
+</pre>
+<p>You can force plumed to ignore this error and to run anyway by using the option --standalone-executable as shown below</p>
+<pre class="fragment">
+&gt; plumed --standalone-executable help
+</pre>
+<p>Many features are not be available if you run in this way. This is currently the only way to use the PLUMED static executable on Windows, however.</p>
+</div>
+</div></div>
 {% endraw %}

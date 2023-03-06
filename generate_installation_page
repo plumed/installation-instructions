@@ -137,35 +137,6 @@ build_computer_list() {
    echo "<div style=\"width: 100%; float:left\" id=\"computediv\"></div>"
 }
 
-printCodeFunction() {
-   mdcode=$1
-   mdcodenohpy=`echo $1 | sed -e s/-//g`
-   echo 'var '$mdcodenohpy'_cbox=document.getElementById("'$mdcode'_cbox");'
-   echo 'if(' $mdcodenohpy'_cbox.checked ) {' 
-   echo '  var '$mdcodenohpy'_data;'
-   echo '  if ( current_instructions=="local" ) {' 
-   echo '     '$mdcodenohpy'_data=document.getElementById("'$mdcode'_local");'
-   echo '  } else if( current_instructions=="cross" ) {'
-   echo '     '$mdcodenohpy'_data=document.getElementById("'$mdcode'_cross");'
-   echo '  } else {'
-   echo '     '$mdcodenohpy'_data=document.getElementById("'$mdcode'");'
-   echo '}'
-   echo '  mdcodedata += '$mdcodenohpy'_data.innerHTML;'
-   echo '}'
-}
-
-printCheckbox() {
-   mdcode=$1
-   label=$mdcode
-   if [[ "$label" == "mdcodeother" ]] ; then 
-      label="other" 
-   fi
-   echo '<td align="right" style="padding: 10px"><label class="container">' $label
-   echo '<input type="checkbox" id="'$mdcode$'_cbox" onclick=\'updateCheck("'$mdcode$'")\'>'
-   echo '<span class="checkmark"></span>'
-   echo '</label></td>'
-}
-
 # Get all the help information from the configure script so that we can use it to construct configure commands
 proot=`plumed info --root`
 $proot/configure --help > configure_help.log
@@ -187,88 +158,24 @@ for ((ln=1;ln<=$ninstalines;ln++)) ; do
        create_configure "$confcom" $divname
     elif [[ "$thisline" == "@computer-data@" ]] ; then
        build_computer_list 
-    # This makes the colspan correct for the table at the start
-    elif [[ "$thisline" == *"@nrows@"* ]] ; then 
-          outline=`echo $thisline | sed -e s/@nrows@/4/g`
-          echo $outline
-    # Build function for controlling information on MD codes based on checkboxes
-    elif [[ "$thisline" == "@MDCODEFUNC@" ]] ; then
-       for file in ../patches/*.diff ; do
-           myengine=`echo "$file" | sed -e 's/.diff//' | sed -e 's/..\/patches\///'`
-           mytag=`echo "$myengine" | sed -e 's/\./-/g'`
-           printCodeFunction $mytag 
+    # This includes all the modals 
+    elif [[ "$thisline" == "@MODALSTUFF@" ]] ; then
+       for file in `ls Modals` ; do
+           nfile=`echo ${file/.md/}`
+           echo "<div id=\"$nfile\" class=\"modal\">"
+           echo "<div class=\"modal-content\">"
+           cat Modals/$file
+           echo '</div></div>'
        done
-       for mdcod in `ls codes` ; do
-          printCodeFunction $mdcod
-       done
-    # Build list of checkpoint boxes for MD codes
-    elif [[ "$thisline" == "@MDCODEBOXES@" ]] ; then
-       jcode=0
-       for file in ../patches/*.diff ; do
-           myengine=`echo "$file" | sed -e 's/.diff//' | sed -e 's/..\/patches\///'`
-           mytag=`echo "$myengine" | sed -e 's/\./-/g'`
-           printCheckbox $mytag 
-           jcode=$(($jcode+1))
-           if ! (($jcode % 6)) ; then
-              echo "</tr><tr>"
-           fi 
+    # This builds a function to shut all the modals
+    elif [[ "$thisline" == "@MODALFUNC@" ]] ; then
+       echo "window.onclick = function(event) {" 
+       for file in `ls Modals` ; do
+           nfile=`echo ${file/.md/}`
+           echo "var "$nfile"modal = document.getElementById("$nfile")"
+           echo "if (event.target == "$nfile"modal) { "$nfile"modal.style.display = \"none\"; }"
        done 
-       for mdcod in `ls codes` ; do 
-           printCheckbox $mdcod
-           jcode=$(($jcode+1))
-           if ! (($jcode % 6)) ; then
-              echo "</tr><tr>"
-           fi
-       done 
-       printCheckbox mdcodeother
-    # Include data on MD codes
-    elif [[ "$thisline" == "@MDCODEDATA@" ]] ; then
-       for file in ../patches/*.diff ; do
-           myengine=`echo "$file" | sed -e 's/.diff//' | sed -e 's/..\/patches\///'`
-           mytag=`echo "$myengine" | sed -e 's/\./-/g'`
-           intro=`echo "<p>Before compiling @MDcode@ you need to ensure that PLUMED is properly compiled and that the PLUMED executable appears in the execution path.</p>" | sed -e s/@MDcode@/$mytag/g`
-           instruct=`cat patch_instructions | sed -e s/@MDcode@/$mytag/g` 
-           specifics=`../src/lib/plumed --no-mpi patch -e $myengine -i -q`
-           echo '<div style="display:none;" id="'$mytag$'_local">'
-           echo '<h2> Building' $mytag 'with PLUMED </h2>' 
-           echo $intro
-           finstruct=`echo $instruct | sed -e s/"plumed-patch"/"plumed patch"/g | sed -e s/"--runtime"/"--shared"/g `
-           final=`echo $specifics | awk -v d="$finstruct" '{gsub("@PATCHINSTRUCTIONS@",d); print $0}' | sed -e s/@PATCHINSTRUCTIONS@//`
-           echo $final
-           echo '</div>'
-           echo '<div style="display:none;" id="'$mytag$'_cross">'
-           echo '<h2> Building' $mytag 'with PLUMED </h2>' 
-           echo $intro
-           final=`echo $specifics | awk -v d="$instruct" '{gsub("@PATCHINSTRUCTIONS@",d); print $0}' | sed -e s/@PATCHINSTRUCTIONS@//` 
-           echo $final
-           echo '</div>'
-           echo '<div style="display:none;" id="'$mytag$'">'
-           echo '<h2> Building' $mytag 'with PLUMED </h2>' 
-           echo $intro
-           finstruct=`echo $instruct | sed -e s/"plumed-patch"/"plumed patch"/g` 
-           final=`echo $specifics | awk -v d="$finstruct" '{gsub("@PATCHINSTRUCTIONS@",d); print $0}'| sed -e s/@PATCHINSTRUCTIONS@//`   
-           echo $final
-           echo '</div>'
-       done  
-       for mdcod in `ls codes` ; do
-           website=`grep "website:" codes/$mdcod | sed -e s/website://`
-           install=`grep "install:" codes/$mdcod | sed -e s/install://`
-           echo '<div style="display:none;" id="'$mdcod$'_local">'
-           echo '<h2> Building' $mdcod 'with PLUMED </h2>' 
-           echo '<p> You can download' $mdcod 'from <a href="'$website$'">'$website$'</a>.  PLUMED support is provided natively by' $mdcod'.'
-           echo $install '</p>'
-           echo '</div>'
-           echo '<div style="display:none;" id="'$mdcod$'_cross">'
-           echo '<h2> Building' $mdcod 'with PLUMED </h2>' 
-           echo '<p> You can download' $mdcod 'from <a href="'$website$'">'$website$'</a>.  PLUMED support is provided natively by' $mdcod'.'
-           echo $install '</p>'
-           echo '</div>' 
-           echo '<div style="display:none;" id="'$mdcod$'">'
-           echo '<h2> Building' $mdcod 'with PLUMED </h2>' 
-           echo '<p> You can download' $mdcod 'from <a href="'$website$'">'$website$'</a>.  PLUMED support is provided natively by' $mdcod'.'
-           echo $install '</p>'
-           echo '</div>'
-       done
+       echo "}"
     else 
        echo $thisline
     fi
