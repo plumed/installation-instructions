@@ -14,10 +14,11 @@ create_configure() {
    for opt in "${opts[@]}"; do 
        if [[ "$opt" != '""' ]] ; then
            substr="$(cut -d'=' -f1 <<<"$opt")"
+           modaln=`echo $substr | sed -e s/-//g`
            # Note this shitty fix so we can convert things like CXXFLAGS='-DMPICH_IGNORE_CXX_SEEK&-mt_mpi' to CXXFLAGS="-DMPICH_IGNORE_CXX_SEEK -mt_mpi".
            # Any better ideas? 
            fopt=`echo $opt | sed -e s/\'/\"/g | sed -e s/"&"/" "/g`
-           baseconf=`echo $baseconf '<b name="'$ccc$substr$'" onclick=\'openModal("'$substr$'")\'>'$fopt'</b>'`
+           baseconf=`echo $baseconf '<b name="'$ccc$modaln$'" onclick=\'openModal("'$modaln$'")\'>'$fopt'</b>'`
        fi
    done
 

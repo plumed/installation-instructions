@@ -14,10 +14,8 @@ it yourself.  The flow chart below shows these two options and links to resource
 
 ```mermaid
 flowchart TB;
-  A[Compiling PLUMED] ==> B[Linking PLUMED]
   C[Installing conda] ==> D[Installing PLUMED using conda]
   click A "InstallationPP.md" "These are the instructions for building PLUMED";
-  click B "linkingPP.md" "These are the instructions for linking PLUMED to an MD code";
   click C "ref1" "Instructions for installing conda on your machine";
   click D "conda.md" "These are the instructions for getting PLUMED from conda";
 ```

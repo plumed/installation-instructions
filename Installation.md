@@ -319,7 +319,7 @@ the patch files and the object files that are used for static patching.
 <p><code>$(prefix)</code> here is the directory specified using the <a onclick='openModal("prefix")'>--prefix</a> keyword of the configure script.</p>
 <p>Once PLUMED has been installed using the <code>make install</code> command you can delete the original compilation directory 
 or you can recompile a different PLUMED version in the same place. You should not delete any of the installed files, however, as 
-<a onclick='openModal("standalone-executable")'>PLUMED will not run</a> if there are files missing from these directories</p>
+<a onclick='openModal("standaloneexecutable")'>PLUMED will not run</a> if there are files missing from these directories</p>
 </div>
 <div style="display:none;" id="testing">
 <h2> Testing PLUMED </h2>
