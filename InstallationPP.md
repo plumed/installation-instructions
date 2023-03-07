@@ -129,28 +129,28 @@ var PYTHON_BINmodal = document.getElementById(PYTHON_BIN)
 if (event.target == PYTHON_BINmodal) { PYTHON_BINmodal.style.display = "none"; }
 var STATIC_LIBSmodal = document.getElementById(STATIC_LIBS)
 if (event.target == STATIC_LIBSmodal) { STATIC_LIBSmodal.style.display = "none"; }
-var disable-libsearchmodal = document.getElementById(disable-libsearch)
-if (event.target == disable-libsearchmodal) { disable-libsearchmodal.style.display = "none"; }
-var enable-asmjitmodal = document.getElementById(enable-asmjit)
-if (event.target == enable-asmjitmodal) { enable-asmjitmodal.style.display = "none"; }
-var enable-debugmodal = document.getElementById(enable-debug)
-if (event.target == enable-debugmodal) { enable-debugmodal.style.display = "none"; }
-var enable-external-lapackmodal = document.getElementById(enable-external-lapack)
-if (event.target == enable-external-lapackmodal) { enable-external-lapackmodal.style.display = "none"; }
-var enable-modulesmodal = document.getElementById(enable-modules)
-if (event.target == enable-modulesmodal) { enable-modulesmodal.style.display = "none"; }
-var enable-molfile-pluginsmodal = document.getElementById(enable-molfile-plugins)
-if (event.target == enable-molfile-pluginsmodal) { enable-molfile-pluginsmodal.style.display = "none"; }
-var enable-mpimodal = document.getElementById(enable-mpi)
-if (event.target == enable-mpimodal) { enable-mpimodal.style.display = "none"; }
-var enable-rpathmodal = document.getElementById(enable-rpath)
-if (event.target == enable-rpathmodal) { enable-rpathmodal.style.display = "none"; }
-var patch-optionsmodal = document.getElementById(patch-options)
-if (event.target == patch-optionsmodal) { patch-optionsmodal.style.display = "none"; }
+var disablelibsearchmodal = document.getElementById(disablelibsearch)
+if (event.target == disablelibsearchmodal) { disablelibsearchmodal.style.display = "none"; }
+var enableasmjitmodal = document.getElementById(enableasmjit)
+if (event.target == enableasmjitmodal) { enableasmjitmodal.style.display = "none"; }
+var enabledebugmodal = document.getElementById(enabledebug)
+if (event.target == enabledebugmodal) { enabledebugmodal.style.display = "none"; }
+var enableexternallapackmodal = document.getElementById(enableexternallapack)
+if (event.target == enableexternallapackmodal) { enableexternallapackmodal.style.display = "none"; }
+var enablemodulesmodal = document.getElementById(enablemodules)
+if (event.target == enablemodulesmodal) { enablemodulesmodal.style.display = "none"; }
+var enablemolfilepluginsmodal = document.getElementById(enablemolfileplugins)
+if (event.target == enablemolfilepluginsmodal) { enablemolfilepluginsmodal.style.display = "none"; }
+var enablempimodal = document.getElementById(enablempi)
+if (event.target == enablempimodal) { enablempimodal.style.display = "none"; }
+var enablerpathmodal = document.getElementById(enablerpath)
+if (event.target == enablerpathmodal) { enablerpathmodal.style.display = "none"; }
+var patchoptionsmodal = document.getElementById(patchoptions)
+if (event.target == patchoptionsmodal) { patchoptionsmodal.style.display = "none"; }
 var prefixmodal = document.getElementById(prefix)
 if (event.target == prefixmodal) { prefixmodal.style.display = "none"; }
-var standalone-executablemodal = document.getElementById(standalone-executable)
-if (event.target == standalone-executablemodal) { standalone-executablemodal.style.display = "none"; }
+var standaloneexecutablemodal = document.getElementById(standaloneexecutable)
+if (event.target == standaloneexecutablemodal) { standaloneexecutablemodal.style.display = "none"; }
 }
 </script>
 <div class="dropdown">
@@ -1036,7 +1036,7 @@ environmental variable are only used when the PLUMED kernel library is linked.</
 </div>
 
 </div></div>
-<div id="disable-libsearch" class="modal">
+<div id="disablelibsearch" class="modal">
 <div class="modal-content">
 <div class="modal-header">
 <h2>--disable-libsearch option</h2>
@@ -1054,7 +1054,7 @@ useful when installing PLUMED within package managers such as MacPorts as it ens
 dependencies are introduced. The only exception to this rule is <code>-ldl</code>, which is a system library on Linux.</p>
 </div>
 </div></div>
-<div id="enable-asmjit" class="modal">
+<div id="enableasmjit" class="modal">
 <div class="modal-content">
 <div class="modal-header">
 <h2>--enable-asmjit option</h2>
@@ -1071,7 +1071,7 @@ as of PLUMED 2.6, ASMJIT is embedded in PLUMED. To enable it you use the <code>-
 <pre class="fragment">export PLUMED_USE_ASMJIT=no</pre>
 </div> 
 </div></div>
-<div id="enable-debug" class="modal">
+<div id="enabledebug" class="modal">
 <div class="modal-content">
 <div class="modal-header">
 <h2>--enable-debug option</h2>
@@ -1083,7 +1083,7 @@ execution. These additional checks will slow down PLUMED, however. In addition, 
 full symbol tables will be written in the executable and the final executable will be much larger.
 </div>
 </div></div>
-<div id="enable-external-lapack" class="modal">
+<div id="enableexternallapack" class="modal">
 <div class="modal-content">
 <div class="modal-header">
 <h2>--enable-external-lapack option</h2>
@@ -1134,7 +1134,7 @@ or switch to static compilation of PLUMED by unsetting the SOEXT variable in the
 </ul>
 </div>
 </div></div>
-<div id="enable-modules" class="modal">
+<div id="enablemodules" class="modal">
 <div class="modal-content">
 <div class="modal-header">
 <h2>--enable-modules option</h2>
@@ -1149,7 +1149,7 @@ users need.</p>
 If you would like to compile with the core modules and the dimred and ves modules you could use the command <code>--enable-modules=dimred:ves</code>.</p>
 </div>
 </div></div>
-<div id="enable-molfile-plugins" class="modal">
+<div id="enablemolfileplugins" class="modal">
 <div class="modal-content">
 <div class="modal-header">
 <h2>--enable-molfile-plugins option</h2>
@@ -1175,7 +1175,7 @@ the <code>molfile_plugin.h</code> include files will then need to be passed to c
 <p>To be clear, however, some of the molfile plugin sourcecode is included in PLUMED and you can thus use some of the most common types of trajectory file even if you do not download VMD on your machine.</p>
 </div>
 </div></div>
-<div id="enable-mpi" class="modal">
+<div id="enablempi" class="modal">
 <div class="modal-content">
 <div class="modal-header">
 <h2>--enable-mpi option</h2>
@@ -1194,7 +1194,7 @@ If this is done you can then treat the MPI library in the same way that all the 
 </div>
 
 </div></div>
-<div id="enable-rpath" class="modal">
+<div id="enablerpath" class="modal">
 <div class="modal-content">
 <div class="modal-header">
 <h2>--enable-rpath option</h2>
@@ -1225,7 +1225,7 @@ would like to link PLUMED dynamically.</p>
 </pre>
 </div>
 </div></div>
-<div id="patch-options" class="modal">
+<div id="patchoptions" class="modal">
 <div class="modal-content">
 <div class="modal-header">
 <h2>Patching options</h2>
@@ -1280,7 +1280,7 @@ using standard autoconf directories (e.g. <code>./configure --bindir=/usr/bin64<
 &gt; ./configure --help
 </pre>
 </div></div>
-<div id="standalone-executable" class="modal">
+<div id="standaloneexecutable" class="modal">
 <div class="modal-content">
 <div class="modal-header">
 <h2>--standalone-executable option</h2>
