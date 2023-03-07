@@ -37,7 +37,7 @@ if __name__ == "__main__":
                   pfile.write("plumed-patch --runtime \n")
                   pfile.write("````\n")
                   pfile.write("You then need to select the appropriate version of " + key + " from list of codes that are output. PLUMED currently supports the following versions of " + key + ":\n")  
-                  versions = glob.glob("/Users/garethtribello/Projects/CVception/Clean-version/Test-version/plumed2/patches/" + key + "*diff")
+                  versions = glob.glob("~/plumed2/patches/" + key + "*diff")
                   for v in versions : pfile.write("* " + v + "\n") 
                   pfile.write("Once this script has completed you then proceed to compile " + key + " as you would normally do.\n")
                   pfile.write("## Patching options\n")

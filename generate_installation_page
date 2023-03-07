@@ -139,8 +139,7 @@ build_computer_list() {
 }
 
 # Get all the help information from the configure script so that we can use it to construct configure commands
-proot=`plumed info --root`
-$proot/configure --help > configure_help.log
+$HOME/plumed2/configure --help > configure_help.log
 
 # Work out how many lines there are in the installation pages
 ninstalines=`wc -l Installation.md | awk '{print $1}'`
@@ -148,7 +147,7 @@ ninstalines=`wc -l Installation.md | awk '{print $1}'`
 for ((ln=1;ln<=$ninstalines;ln++)) ; do
     thisline=`head -n $ln Installation.md | tail -n 1`
     if [[ "$thisline" == "@configure-conda@" ]] ; then
-       concomm=`grep configure $proot/conda/plumed/build.sh`
+       concomm=`grep configure $HOME/plumed2/conda/plumed/build.sh`
        # Create the configure
        create_configure "$concomm" condaconf1
     elif [[ "$thisline" == *"@configure("* ]] ; then
