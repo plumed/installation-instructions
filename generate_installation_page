@@ -18,7 +18,7 @@ create_configure() {
            # Note this shitty fix so we can convert things like CXXFLAGS='-DMPICH_IGNORE_CXX_SEEK&-mt_mpi' to CXXFLAGS="-DMPICH_IGNORE_CXX_SEEK -mt_mpi".
            # Any better ideas? 
            fopt=`echo $opt | sed -e s/\'/\"/g | sed -e s/"&"/" "/g`
-           baseconf=`echo $baseconf '<b name="'$ccc$modaln$'" onclick=\'openModal("'$modaln$'")\'>'$fopt'</b>'`
+           baseconf=`echo $baseconf '<b name="'$ccc$modaln$'" onclick=\"openModal(\''$modaln\'')">'$fopt'</b>'`
        fi
    done
 
@@ -114,7 +114,7 @@ build_computer_list() {
    echo "  <div class=\"dropdown-content\">"
    for computer in `ls computers` ; do
        question=`grep @question@ computers/$computer | sed -e s/@question@//`
-       echo "  <a onclick='showComputer(\"$computer\")'>$question</a>"
+       echo "  <a onclick=\"showComputer('$computer')\">$question</a>"
    done
    echo "  </div>"
    echo "</div>"

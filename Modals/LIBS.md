@@ -17,5 +17,5 @@ called /opt/local/lib/libmyxdrfile.so you can link it using:</p>
 flag this custom version will be used in place of the standardly-named "-lxdrfile" library.</p>
 
 <p>If, for any reason, you would like more control over the libraries that are used to build PLUMED you can use the
-<a onclick='openModal("--disable-libsearch")'>--disable-libsearch</a> option.</p>
+<a onclick='openModal("disablelibsearch")'>--disable-libsearch</a> option.</p>
 </div>
