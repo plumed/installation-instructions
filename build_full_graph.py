@@ -60,7 +60,7 @@ def addMDCodesToNavigation() :
    inp = f.read()
    f.close()
 
-   ofile, inmermaid = open( "NAVIGATION.md", "w+"), False
+   ofile, efile, inmermaid = open( "NAVIGATION.md", "w+"), open( "EMBED.yml", "w+"), False
    for line in inp.splitlines() :
         if "```mermaid" in line :
            inmermaid = True
@@ -98,12 +98,16 @@ def addMDCodesToNavigation() :
                   pfile.write("````\n")
                   pfile.close()
                else :
-                  ofile.write("  click C" + str(n) + " \"" + value["site"] + ".md\" \"" + value["notes"] + "\";\n")
+                  efile.write(key + ":\n")
+                  efile.write("  location: " + value["site"] + "\n")
+                  efile.write("  type: external\n")
+                  ofile.write("  click C" + str(n) + " \"" + key + "\" \"" + value["notes"] + "\";\n")
                n = n + 1
            ofile.write( line + "\n" )
         else :
            ofile.write( line + "\n" )
    ofile.close()
+   efile.close()
 
 if __name__ == "__main__":
   # Process the navigation file to add all the stuff about the MD codes to the directory
