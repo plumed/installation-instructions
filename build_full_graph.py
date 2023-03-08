@@ -27,17 +27,23 @@ def processInstallation() :
           pass
 #          build_computer_list()
        elif line=="@MODALSTUFF@" : 
-          pass
-#          for file in `ls Modals` ; do
-#              nfile=`echo ${file/.md/}`
-#              echo "<div id=\"$nfile\" class=\"modal\">"
-#              echo "<div class=\"modal-content\">"
-#              cat Modals/$file
-#              echo '</div></div>' 
-#          done   
+          for file in os.listdir("Modals") :
+              f = open("Modals/" + file,  "r" )
+              content = f.read()
+              f.close()
+              nfile = file.replace(".md","")
+              ofile.write("<div id=\"" + nfile + "\" class=\"modal\">\n")
+              ofile.write("<div class=\"modal-content\">\n")
+              ofile.write( content )
+              ofile.write("</div></div>\n")
        # This builds a function to shut all the modals
        elif line=="@MODALFUNC@" : 
-          pass
+          ofile.write("window.onclick = function(event) {\n")
+          for file in os.listdir("Modals") :
+              nfile = file.replace(".md","")
+              ofile.write( "var " + nfile + "modal = document.getElementById(\"" + nfile + "\");\n" )
+              ofile.write( "if ( event.target == " + nfile + "modal ) { " + nfile + "modal.style.display = \"none\"; }") 
+          ofile.write("}\n")
 #          echo "window.onclick = function(event) {" 
 #          for file in `ls Modals` ; do
 #              nfile=`echo ${file/.md/}`
@@ -60,7 +66,7 @@ def addMDCodesToNavigation() :
    inp = f.read()
    f.close()
 
-   ofile, efile, inmermaid = open( "NAVIGATION.md", "w+"), open( "EMBED.yml", "w+"), False
+   ofile, efile, inmermaid = open( "NAVIGATION.md", "w+"), open( "EMBED.yml", "a"), False
    for line in inp.splitlines() :
         if "```mermaid" in line :
            inmermaid = True
