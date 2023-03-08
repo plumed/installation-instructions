@@ -2,6 +2,54 @@ import yaml
 import os
 import glob
 
+def build_computer_list( ofile ) :
+   n=0 
+   ofile.write("<script>\nfunction showComputer( name ) {\n")
+   ofile.write("  var mydiv = document.getElementById(\"computediv\");\n")
+   for computer in `ls computers` ; do
+      if [ $n -eq 0 ] ; then
+           echo "  if( name==\"$computer\") {"
+      else
+           echo "  } else if( name==\"$computer\") {"
+      fi
+      n=1
+      echo "    var mydata1 = document.getElementById(\"$computer\");"
+      echo "    mydiv.innerHTML = mydata1.innerHTML;"
+   done
+   echo "  } else {"
+   echo "    mydiv.innerHTML = \"\";"
+   echo "  }"
+   echo "}"
+   echo "</script>"
+   echo "<div class=\"dropdown\">"
+   echo "  <button class=\"dropbtn\">Select the topic you would like more information about</button>"
+   echo "  <div class=\"dropdown-content\">"
+   for computer in `ls computers` ; do
+       question=`grep @question@ computers/$computer | sed -e s/@question@//`
+       echo "  <a onclick=\"showComputer('$computer')\">$question</a>"
+   done
+   echo "  </div>"
+   echo "</div>"
+   for computer in `ls computers` ; do
+      echo "<div style=\"display:none;\" id=\"$computer\">"
+      ninstalines1=`wc -l computers/$computer | awk '{print $1}'`
+      for ((jn=1;jn<=$ninstalines1;jn++)) ; do
+          thisline=`head -n $jn computers/$computer | tail -n 1`
+          if [[ "$thisline" == *"@configure("* ]] ; then
+             inputconf=`echo $thisline | sed -e s/"@configure("// | sed -e s/")@"//`
+             # Create the configure (command below ensure correct interprettation of input)
+             confcom=`echo $inputconf | awk -F[\"] '{print $2}'`
+             divname=`echo $inputconf | awk -F[\"] '{print $3}'`
+             create_configure "$confcom" $divname
+          elif [[ "$thisline" != *"@question@"* ]] ; then
+             echo $thisline
+          fi
+      done
+      echo "</div>" 
+   done
+   echo "<div style=\"width: 100%; float:left\" id=\"computediv\"></div>"
+
+
 def processInstallation() :
    if not os.path.exists("Installation.md") :
       raise RuntimeError("No Installation.md file found")
@@ -24,8 +72,7 @@ def processInstallation() :
 #           divname=`echo $inputconf | awk -F[\"] '{print $3}'`
 #           create_configure "$confcom" $divname
        elif line=="@computer-data@" : 
-          pass
-#          build_computer_list()
+          build_computer_list( ofile )
        elif line=="@MODALSTUFF@" : 
           for file in os.listdir("Modals") :
               f = open("Modals/" + file,  "r" )
@@ -42,17 +89,10 @@ def processInstallation() :
           for file in os.listdir("Modals") :
               nfile = file.replace(".md","")
               ofile.write( "var " + nfile + "modal = document.getElementById(\"" + nfile + "\");\n" )
-              ofile.write( "if ( event.target == " + nfile + "modal ) { " + nfile + "modal.style.display = \"none\"; }") 
+              ofile.write( "if ( event.target == " + nfile + "modal ) { " + nfile + "modal.style.display = \"none\"; }\n") 
           ofile.write("}\n")
-#          echo "window.onclick = function(event) {" 
-#          for file in `ls Modals` ; do
-#              nfile=`echo ${file/.md/}`
-#              echo "var "$nfile"modal = document.getElementById("$nfile")"
-#              echo "if (event.target == "$nfile"modal) { "$nfile"modal.style.display = \"none\"; }"
-#          done 
-#          echo "}"
        else :
-          ofile.write(line)
+          ofile.write(line + "\n")
    ofile.close()
 
 def addMDCodesToNavigation() :
@@ -70,6 +110,8 @@ def addMDCodesToNavigation() :
    for line in inp.splitlines() :
         if "```mermaid" in line :
            inmermaid = True
+           ofile.write( line + "\n")
+        elif inmermaid and "flowchart TB" in line :
            ofile.write( line + "\n")
            n, inmermaid = 1, True
            for key, value in mdcodes.items() :
