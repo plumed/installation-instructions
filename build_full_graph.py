@@ -76,7 +76,7 @@ def addMDCodesToNavigation() :
            n, inmermaid = 1, False
            for key, value in mdcodes.items() :
                if value["patch"]=="yes" :
-                  ofile.write("  click C" + str(n) + " \"" + key + "\" \"" + value["notes"] + "\";\n")
+                  ofile.write("  click C" + str(n) + " \"" + key + ".md\" \"" + value["notes"] + "\";\n")
                   pfile = open( key + ".md", "w+" )
                   pfile.write("# Patching " + key + "\n")
                   pfile.write("To use PLUMED with " + key + " you need to use the `plumed patch` script to modify " + key + " before compiling.  This process is not difficult you can simply issue the command: \n")
