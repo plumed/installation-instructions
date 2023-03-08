@@ -9,6 +9,46 @@ def processInstallation() :
    inp = f.read() 
    f.close()
 
+   ofile = open("Installation.md", "w+")
+   for line in inp.splitlines() : 
+       if line == "@configure-conda@" :
+          pass
+#           concomm=`grep configure $HOME/plumed2/conda/plumed/build.sh`
+#           # Create the configure
+#           create_configure "$concomm" condaconf1
+       elif "@configure(" in line :
+          pass
+#           inputconf=`echo $thisline | sed -e s/"@configure("// | sed -e s/")@"//`
+#           # Create the configure (command below ensure correct interprettation of input)
+#           confcom=`echo $inputconf | awk -F[\"] '{print $2}'`
+#           divname=`echo $inputconf | awk -F[\"] '{print $3}'`
+#           create_configure "$confcom" $divname
+       elif line=="@computer-data@" : 
+          pass
+#          build_computer_list()
+       elif line=="@MODALSTUFF@" : 
+          pass
+#          for file in `ls Modals` ; do
+#              nfile=`echo ${file/.md/}`
+#              echo "<div id=\"$nfile\" class=\"modal\">"
+#              echo "<div class=\"modal-content\">"
+#              cat Modals/$file
+#              echo '</div></div>' 
+#          done   
+       # This builds a function to shut all the modals
+       elif line=="@MODALFUNC@" : 
+          pass
+#          echo "window.onclick = function(event) {" 
+#          for file in `ls Modals` ; do
+#              nfile=`echo ${file/.md/}`
+#              echo "var "$nfile"modal = document.getElementById("$nfile")"
+#              echo "if (event.target == "$nfile"modal) { "$nfile"modal.style.display = \"none\"; }"
+#          done 
+#          echo "}"
+       else :
+          ofile.write(line)
+   ofile.close()
+
 def addMDCodesToNavigation() :
    if not os.path.exists("md_notes.yml") :
       raise RuntimeError("No md_notes.yml file found")
