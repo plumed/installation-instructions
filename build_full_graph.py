@@ -6,7 +6,7 @@ import glob
 def read_config_help() :
   # Get all the help information from the configure script so that we can use it to construct configure commands
   configcommand = os.path.expanduser('~') + "/plumed2/configure"
-  configcommand = os.path.expanduser('~') + "/Projects/CVception/Clean-version/Test-version/plumed2/configure"
+  #configcommand = os.path.expanduser('~') + "/Projects/CVception/Clean-version/Test-version/plumed2/configure"
   proc = subprocess.run([configcommand, "--help"], universal_newlines = True, capture_output=True )
   
   inoptions, key, desc, keys = False, "", "", {}
