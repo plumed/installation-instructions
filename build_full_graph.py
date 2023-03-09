@@ -15,7 +15,7 @@ def create_configure( ofile, compcom, ccc ) :
        # Note this shitty fix so we can convert things like CXXFLAGS='-DMPICH_IGNORE_CXX_SEEK&-mt_mpi' to CXXFLAGS="-DMPICH_IGNORE_CXX_SEEK -mt_mpi".
        # Any better ideas? 
        fopt = opt.replace("\'","\"").replace("&"," ")
-       baseconf = baseconf + "<b onclick=\'openModal(\"" + modaln + "\")\'>" + fopt + "</b>"
+       baseconf = baseconf + " <b onclick=\'openModal(\"" + modaln + "\")\'>" + fopt + "</b>"
 
    # And build the expanded version of the configuration that includes the tooltips
    allconf="";
@@ -56,7 +56,7 @@ def create_configure( ofile, compcom, ccc ) :
    # done
 
    # Write out the button to toggle between versions
-   ofile.write("<div style=\"width: 80%; float:left\">Click on the options in the command shown below for more information</div>\n")
+   ofile.write("<div style=\"width: 90%; float:left\">Click on the options in the command shown below for more information</div>\n")
    ofile.write("<div style=\"width: 10%; float:left\"><button type=\"button\" id=\"" + ccc + "_button\" onclick=\'swapConfigure(\"" + ccc + "\")\'>hide defaults</button></div>\n")
    # Write out the div that holds the configure command
    ofile.write("<div style=\"width: 100%; float:left\" id=\"conf_" + ccc + "\"></div>\n")
