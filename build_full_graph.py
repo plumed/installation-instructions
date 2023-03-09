@@ -6,48 +6,49 @@ def build_computer_list( ofile ) :
    n=0 
    ofile.write("<script>\nfunction showComputer( name ) {\n")
    ofile.write("  var mydiv = document.getElementById(\"computediv\");\n")
-   for computer in `ls computers` ; do
-      if [ $n -eq 0 ] ; then
-           echo "  if( name==\"$computer\") {"
-      else
-           echo "  } else if( name==\"$computer\") {"
-      fi
+   for computer in os.listdir("computers") :
+      if n==0 : ofile.write("if( name==\"" + computer+ "\") {\n")
+      else : ofile.write("  } else if( name==\"" + computer + "\") {\n")
       n=1
-      echo "    var mydata1 = document.getElementById(\"$computer\");"
-      echo "    mydiv.innerHTML = mydata1.innerHTML;"
-   done
-   echo "  } else {"
-   echo "    mydiv.innerHTML = \"\";"
-   echo "  }"
-   echo "}"
-   echo "</script>"
-   echo "<div class=\"dropdown\">"
-   echo "  <button class=\"dropbtn\">Select the topic you would like more information about</button>"
-   echo "  <div class=\"dropdown-content\">"
-   for computer in `ls computers` ; do
-       question=`grep @question@ computers/$computer | sed -e s/@question@//`
-       echo "  <a onclick=\"showComputer('$computer')\">$question</a>"
-   done
-   echo "  </div>"
-   echo "</div>"
-   for computer in `ls computers` ; do
-      echo "<div style=\"display:none;\" id=\"$computer\">"
-      ninstalines1=`wc -l computers/$computer | awk '{print $1}'`
-      for ((jn=1;jn<=$ninstalines1;jn++)) ; do
-          thisline=`head -n $jn computers/$computer | tail -n 1`
-          if [[ "$thisline" == *"@configure("* ]] ; then
-             inputconf=`echo $thisline | sed -e s/"@configure("// | sed -e s/")@"//`
-             # Create the configure (command below ensure correct interprettation of input)
-             confcom=`echo $inputconf | awk -F[\"] '{print $2}'`
-             divname=`echo $inputconf | awk -F[\"] '{print $3}'`
-             create_configure "$confcom" $divname
-          elif [[ "$thisline" != *"@question@"* ]] ; then
-             echo $thisline
-          fi
-      done
-      echo "</div>" 
-   done
-   echo "<div style=\"width: 100%; float:left\" id=\"computediv\"></div>"
+      ofile.write("    var mydata1 = document.getElementById(\"" + computer + "\");\n")
+      ofile.write("    mydiv.innerHTML = mydata1.innerHTML;\n")
+   ofile.write("  } else {\n")
+   ofile.write("    mydiv.innerHTML = \"\";\n")
+   ofile.write("  }\n")
+   ofile.write("}\n")
+   ofile.write("</script>\n")
+   ofile.write("<div class=\"dropdown\">\n")
+   ofile.write("  <button class=\"dropbtn\">Select the topic you would like more information about</button>\n")
+   ofile.write("  <div class=\"dropdown-content\">\n")
+   for computer in os.listdir("computers") :
+       cfile = open("computers/" + computer, "r" )
+       cinp = cfile.read()
+       cfile.close()
+       for line in cinp.splitlines() :
+           if "@question@" in line : 
+              ofile.write("  <a onclick=\"showComputer('" + computer + "')\">" + line.replace("@question@","") + "</a>\n")
+              break  
+       cfile.close()
+   ofile.write("  </div>\n")
+   ofile.write("</div>\n")
+   for computer in os.listdir("computers") :
+      ofile.write("<div style=\"display:none;\" id=\"" + computer + "\">\n")
+      cfile = open("computers/" + computer, "r" )
+      cinp = cfile.read()
+      cfile.close() 
+      for line in cinp.splitlines() :
+          if "@configure(" in line :
+             # inputconf=`echo $thisline | sed -e s/"@configure("// | sed -e s/")@"//`
+             # # Create the configure (command below ensure correct interprettation of input)
+             # confcom=`echo $inputconf | awk -F[\"] '{print $2}'`
+             # divname=`echo $inputconf | awk -F[\"] '{print $3}'`
+             # create_configure "$confcom" $divname
+             # Needs more work here
+             ofile.write( line + "\n" )
+          elif "@question@" not in line :
+             ofile.write( line + "\n" )
+      ofile.write("</div>\n") 
+   ofile.write("<div style=\"width: 100%; float:left\" id=\"computediv\"></div>\n")
 
 
 def processInstallation() :
