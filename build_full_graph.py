@@ -2,6 +2,87 @@ import yaml
 import os
 import glob
 
+def create_configure( ofile, compcom, ccc ) :
+   ccc = ccc.strip()
+   #local option_start=`grep -n "Optional Features:" configure_help.log | sed -e s/":Optional Features:"//`
+   #local option_end=`grep -n "Some influential environment variables:" configure_help.log | sed -e s/":Some influential environment variables:"//`
+   #local noptions=`head -n $(($option_end-2)) configure_help.log | tail -n +$(($option_start+4)) | grep "\-\-enable\-" | wc -l | awk '{print $1}'`
+
+   # Build the links that insert information from the options included
+   baseconf="./configure"
+   for opt in compcom.replace("./configure","").split() :
+       modaln = opt.split("=")[0].replace("-","")
+       # Note this shitty fix so we can convert things like CXXFLAGS='-DMPICH_IGNORE_CXX_SEEK&-mt_mpi' to CXXFLAGS="-DMPICH_IGNORE_CXX_SEEK -mt_mpi".
+       # Any better ideas? 
+       fopt = opt.replace("\'","\"").replace("&"," ")
+       baseconf = baseconf + "<b onclick=\'openModal(\"" + modaln + "\")\'>" + fopt + "</b>"
+
+   # And build the expanded version of the configuration that includes the tooltips
+   allconf="";
+   # for ((i=1;i<$noptions;i++)) ; do
+   #     com_start=`head -n $(($option_end-2)) configure_help.log | tail -n +$(($option_start+4)) | grep -n "\-\-enable\-" | head -n $i | tail -n 1 | awk '{print $1}' | sed -e s/":"//`
+   #     com_end=`head -n $(($option_end-2)) configure_help.log | tail -n +$(($option_start+4)) | grep -n "\-\-enable\-" | head -n $((i+1)) | tail -n 1 | awk '{print $1}' | sed -e s/":"//`
+   #     dataopt=`head -n $(($option_end-2)) configure_help.log | tail -n +$(($option_start+4)) | head -n $(($com_end-1)) | tail -n +$com_start`
+   #     # Search for this option in input string
+   #     found=0
+   #     for opt in "${opts[@]}"; do
+   #         substr="$(cut -d'=' -f1 <<<"$opt")"
+   #         if [[ "$dataopt" == *"$substr"* ]]; then
+   #            found=1
+   #            break
+   #         fi
+   #     done
+   #     # Create a tooltip for this option from the help information if it is not included in the input command
+   #     if [ $found -eq 0 ] ; then
+   #          fff=`echo $dataopt | 
+   #               awk '{
+   #                 hasdef=0
+   #                 tooltip=""
+   #                 for(i=1;i<=NF;++i){
+   #                     if(nrec==0){ option=$i; } 
+   #                     else { tooltip = tooltip " " $i; }                
+   # 
+   #                     if(founddef==1 && $i=="yes"){printf "<div class=\"tooltip\">%s", option; founddef=0;}
+   #                     else if(founddef==1 && $i=="no"){gsub(/enable/,"disable",option); printf "<div class=\"tooltip\">%s", option; founddef=0;}
+   #                     else if(founddef==1){printf "<div class=\"tooltip\">%s=%s ",option, $i; founddef=0;}
+   #                     else if($i=="default:"){hasdef=1; founddef=1;}
+   #                     nrec++;
+   #                 }
+   #                 if(hasdef==0){ printf "<div class=\"tooltip\">%s", option; }
+   #                 printf "<div class=\"right\">%s<i></i></div></div>", tooltip;
+   #               }'`
+   #          allconf=`echo $allconf $fff`
+   #     fi
+   # done
+
+   # Write out the button to toggle between versions
+   ofile.write("<div style=\"width: 80%; float:left\">Click on the options in the command shown below for more information</div>\n")
+   ofile.write("<div style=\"width: 10%; float:left\"><button type=\"button\" id=\"" + ccc + "_button\" onclick=\'swapConfigure(\"" + ccc + "\")\'>hide defaults</button></div>\n")
+   # Write out the div that holds the configure command
+   ofile.write("<div style=\"width: 100%; float:left\" id=\"conf_" + ccc + "\"></div>\n")
+   # Write out the div that will hold the information on the various commands that the user will look at
+   ofile.write("<div style=\"width: 100%; float:left\" id=\"" + ccc +"\"></div>\n")
+   # This script ensures that the short version of the configure is loaded when the page opens
+   # echo '<pre style="width: 97%;" class="fragment"></pre>'
+   # echo '<script type="text/javascript">'
+   # echo 'if (window.addEventListener) { // Mozilla, Netscape, Firefox'
+   # echo "    window.addEventListener('load', "$ccc"_Load, false);"
+   # echo '} else if (window.attachEvent) { // IE'
+   # echo "    window.attachEvent('onload', "$ccc"_Load);";
+   # echo '}'
+   # echo 'function '$ccc'_Load(event) {'
+   # echo '    swapConfigure("'$ccc'");'
+   # echo '}'
+   # echo '</script>'
+   # Write out the short version of the configure
+   ofile.write("<div style=\"display:none;\" id=\"" + ccc + "_short\">\n")
+   ofile.write("<pre style=\"width: 97%;\" class=\"fragment\">" + baseconf + "</pre>\n")
+   ofile.write("</div>\n")
+   # Write out the long version of the configure
+   ofile.write("<div style=\"display:none;\" id=\"" + ccc + "_long\">\n")
+   ofile.write("<pre style=\"width: 97%;\" class=\"fragment\">" + baseconf + allconf + "</pre>\n")
+   ofile.write("</div>\n")
+
 def build_computer_list( ofile ) :
    n=0 
    ofile.write("<script>\nfunction showComputer( name ) {\n")
@@ -26,7 +107,7 @@ def build_computer_list( ofile ) :
        cfile.close()
        for line in cinp.splitlines() :
            if "@question@" in line : 
-              ofile.write("  <a onclick=\"showComputer('" + computer + "')\">" + line.replace("@question@","") + "</a>\n")
+              ofile.write("  <a onclick=\'showComputer(\"" + computer + "\")\'>" + line.replace("@question@","") + "</a>\n")
               break  
        cfile.close()
    ofile.write("  </div>\n")
@@ -38,11 +119,9 @@ def build_computer_list( ofile ) :
       cfile.close() 
       for line in cinp.splitlines() :
           if "@configure(" in line :
-             # inputconf=`echo $thisline | sed -e s/"@configure("// | sed -e s/")@"//`
-             # # Create the configure (command below ensure correct interprettation of input)
-             # confcom=`echo $inputconf | awk -F[\"] '{print $2}'`
-             # divname=`echo $inputconf | awk -F[\"] '{print $3}'`
-             # create_configure "$confcom" $divname
+             inputconf=line.replace("@configure(","").replace(")@","")
+             # Create the configure (command below ensure correct interprettation of input)
+             create_configure( ofile,  inputconf.split("\"")[1], inputconf.split("\"")[2] )
              # Needs more work here
              ofile.write( line + "\n" )
           elif "@question@" not in line :
@@ -61,17 +140,14 @@ def processInstallation() :
    ofile = open("Installation.md", "w+")
    for line in inp.splitlines() : 
        if line == "@configure-conda@" :
-          pass
 #           concomm=`grep configure $HOME/plumed2/conda/plumed/build.sh`
+          concomm="./configure"
 #           # Create the configure
-#           create_configure "$concomm" condaconf1
+          create_configure( ofile, concomm, "condaconf1")
        elif "@configure(" in line :
-          pass
-#           inputconf=`echo $thisline | sed -e s/"@configure("// | sed -e s/")@"//`
-#           # Create the configure (command below ensure correct interprettation of input)
-#           confcom=`echo $inputconf | awk -F[\"] '{print $2}'`
-#           divname=`echo $inputconf | awk -F[\"] '{print $3}'`
-#           create_configure "$confcom" $divname
+          inputconf=line.replace("@configure(","").replace(")@","")
+          # Create the configure (command below ensure correct interprettation of input)
+          create_configure( ofile,  inputconf.split("\"")[1], inputconf.split("\"")[2] )
        elif line=="@computer-data@" : 
           build_computer_list( ofile )
        elif line=="@MODALSTUFF@" : 
