@@ -1,8 +1,34 @@
+import subprocess
 import yaml
 import os
 import glob
 
-def create_configure( ofile, compcom, ccc ) :
+def read_config_help() :
+  # Get all the help information from the configure script so that we can use it to construct configure commands
+  configcommand = os.path.expanduser('~') + "/plumed2/configure"
+  configcommand = os.path.expanduser('~') + "/Projects/CVception/Clean-version/Test-version/plumed2/configure"
+  proc = subprocess.run([configcommand, "--help"], universal_newlines = True, capture_output=True )
+  
+  inoptions, key, desc, keys = False, "", "", {}
+  for line in proc.stdout.splitlines() :
+      if "Optional Features:" in line : 
+         inoptions = True
+      elif inoptions and "Some influential environment variables:" in line : 
+         break
+      elif inoptions and len(line.split())>1 :
+         if "--disable-option-checking" in line : continue 
+         if "--disable-FEATURE" in line : continue
+         if "--enable-FEATURE" in line : continue
+         if "--enable" in line or "--disable" in line :
+            if len(key)>0 : 
+               keys[key] = desc
+               key, desc = line.split()[0], " ".join(line.split()[1:])
+            else : key, desc = line.split()[0], " ".join(line.split()[1:]) 
+         else : desc += line.strip()
+  keys[key] = desc
+  return keys
+
+def create_configure( ofile, compcom, ccc, configflags ) :
    ccc = ccc.strip()
    #local option_start=`grep -n "Optional Features:" configure_help.log | sed -e s/":Optional Features:"//`
    #local option_end=`grep -n "Some influential environment variables:" configure_help.log | sed -e s/":Some influential environment variables:"//`
@@ -19,41 +45,17 @@ def create_configure( ofile, compcom, ccc ) :
 
    # And build the expanded version of the configuration that includes the tooltips
    allconf="";
-   # for ((i=1;i<$noptions;i++)) ; do
-   #     com_start=`head -n $(($option_end-2)) configure_help.log | tail -n +$(($option_start+4)) | grep -n "\-\-enable\-" | head -n $i | tail -n 1 | awk '{print $1}' | sed -e s/":"//`
-   #     com_end=`head -n $(($option_end-2)) configure_help.log | tail -n +$(($option_start+4)) | grep -n "\-\-enable\-" | head -n $((i+1)) | tail -n 1 | awk '{print $1}' | sed -e s/":"//`
-   #     dataopt=`head -n $(($option_end-2)) configure_help.log | tail -n +$(($option_start+4)) | head -n $(($com_end-1)) | tail -n +$com_start`
-   #     # Search for this option in input string
-   #     found=0
-   #     for opt in "${opts[@]}"; do
-   #         substr="$(cut -d'=' -f1 <<<"$opt")"
-   #         if [[ "$dataopt" == *"$substr"* ]]; then
-   #            found=1
-   #            break
-   #         fi
-   #     done
-   #     # Create a tooltip for this option from the help information if it is not included in the input command
-   #     if [ $found -eq 0 ] ; then
-   #          fff=`echo $dataopt | 
-   #               awk '{
-   #                 hasdef=0
-   #                 tooltip=""
-   #                 for(i=1;i<=NF;++i){
-   #                     if(nrec==0){ option=$i; } 
-   #                     else { tooltip = tooltip " " $i; }                
-   # 
-   #                     if(founddef==1 && $i=="yes"){printf "<div class=\"tooltip\">%s", option; founddef=0;}
-   #                     else if(founddef==1 && $i=="no"){gsub(/enable/,"disable",option); printf "<div class=\"tooltip\">%s", option; founddef=0;}
-   #                     else if(founddef==1){printf "<div class=\"tooltip\">%s=%s ",option, $i; founddef=0;}
-   #                     else if($i=="default:"){hasdef=1; founddef=1;}
-   #                     nrec++;
-   #                 }
-   #                 if(hasdef==0){ printf "<div class=\"tooltip\">%s", option; }
-   #                 printf "<div class=\"right\">%s<i></i></div></div>", tooltip;
-   #               }'`
-   #          allconf=`echo $allconf $fff`
-   #     fi
-   # done
+   for key, value in configflags.items() :
+       if key in compcom.replace("./configure","").split() : continue
+       # Create a tooltip for this option from the help information
+       hasdef, founddef = False, False
+       for v in value.split() :
+           if founddef and "yes" in v : founddef, allconf = False, allconf + " <div class=\"tooltip\">" + key 
+           elif founddef and "no" in v :  founddef, allconf = False, allconf + " <div class=\"tooltip\">" + key.replace("enable","disable") 
+           elif founddef : founddef, allconf = False, allconf + " <div class=\"tooltip\">" + key + "=" + v
+           elif "default:" in v : hasdef, founddef = True, True 
+       if not hasdef : allconf = allconf + " <div class=\"tooltip\">" + key
+       allconf = allconf + "<div class=\"right\">" + value + "<i></i></div></div>" 
 
    # Write out the button to toggle between versions
    ofile.write("<div style=\"width: 90%; float:left\">Click on the options in the command shown below for more information</div>\n")
@@ -83,8 +85,8 @@ def create_configure( ofile, compcom, ccc ) :
    ofile.write("<pre style=\"width: 97%;\" class=\"fragment\">" + baseconf + allconf + "</pre>\n")
    ofile.write("</div>\n")
 
-def build_computer_list( ofile ) :
-   n=0 
+def build_computer_list( ofile, configflags ) :
+   n = 0  
    ofile.write("<script>\nfunction showComputer( name ) {\n")
    ofile.write("  var mydiv = document.getElementById(\"computediv\");\n")
    for computer in os.listdir("computers") :
@@ -121,7 +123,7 @@ def build_computer_list( ofile ) :
           if "@configure(" in line :
              inputconf=line.replace("@configure(","").replace(")@","")
              # Create the configure (command below ensure correct interprettation of input)
-             create_configure( ofile,  inputconf.split("\"")[1], inputconf.split("\"")[2] )
+             create_configure( ofile,  inputconf.split("\"")[1], inputconf.split("\"")[2], configflags ) 
              # Needs more work here
              ofile.write( line + "\n" )
           elif "@question@" not in line :
@@ -137,19 +139,19 @@ def processInstallation() :
    inp = f.read() 
    f.close()
 
-   ofile = open("Installation.md", "w+")
+   ofile, configflags = open("Installation.md", "w+"), read_config_help()
    for line in inp.splitlines() : 
        if line == "@configure-conda@" :
 #           concomm=`grep configure $HOME/plumed2/conda/plumed/build.sh`
           concomm="./configure"
 #           # Create the configure
-          create_configure( ofile, concomm, "condaconf1")
+          create_configure( ofile, concomm, "condaconf1", configflags)
        elif "@configure(" in line :
           inputconf=line.replace("@configure(","").replace(")@","")
           # Create the configure (command below ensure correct interprettation of input)
-          create_configure( ofile,  inputconf.split("\"")[1], inputconf.split("\"")[2] )
+          create_configure( ofile,  inputconf.split("\"")[1], inputconf.split("\"")[2], configflags )
        elif line=="@computer-data@" : 
-          build_computer_list( ofile )
+          build_computer_list( ofile, configflags )
        elif line=="@MODALSTUFF@" : 
           for file in os.listdir("Modals") :
               f = open("Modals/" + file,  "r" )
