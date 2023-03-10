@@ -5,7 +5,7 @@ import glob
 
 def read_config_help() :
   # Get all the help information from the configure script so that we can use it to construct configure commands
-  configcommand = os.path.expanduser('~') + "/plumed2/configure"
+  configcommand = os.path.expanduser('~') + "/opt/plumed2/configure"
   #configcommand = os.path.expanduser('~') + "/Projects/CVception/Clean-version/Test-version/plumed2/configure"
   proc = subprocess.run([configcommand, "--help"], universal_newlines = True, capture_output=True )
   
@@ -29,13 +29,8 @@ def read_config_help() :
   return keys
 
 def create_configure( ofile, compcom, ccc, configflags ) :
-   ccc = ccc.strip()
-   #local option_start=`grep -n "Optional Features:" configure_help.log | sed -e s/":Optional Features:"//`
-   #local option_end=`grep -n "Some influential environment variables:" configure_help.log | sed -e s/":Some influential environment variables:"//`
-   #local noptions=`head -n $(($option_end-2)) configure_help.log | tail -n +$(($option_start+4)) | grep "\-\-enable\-" | wc -l | awk '{print $1}'`
-
    # Build the links that insert information from the options included
-   baseconf="./configure"
+   ccc, baseconf = ccc.strip(), "./configure"
    for opt in compcom.replace("./configure","").split() :
        modaln = opt.split("=")[0].replace("-","")
        # Note this shitty fix so we can convert things like CXXFLAGS='-DMPICH_IGNORE_CXX_SEEK&-mt_mpi' to CXXFLAGS="-DMPICH_IGNORE_CXX_SEEK -mt_mpi".
@@ -142,9 +137,14 @@ def processInstallation() :
    ofile, configflags = open("Installation.md", "w+"), read_config_help()
    for line in inp.splitlines() : 
        if line == "@configure-conda@" :
-#           concomm=`grep configure $HOME/plumed2/conda/plumed/build.sh`
-          concomm="./configure"
-#           # Create the configure
+          bf = open( os.path.expanduser('~') + "/opt/plumed2/conda/plumed/build.sh", "r")
+          binp, concomm = bf.read(), ""
+          bf.close()
+          for dat in binp.splitlines() :
+              if configure in dat : 
+                 concomm = dat
+                 break
+          # Create the configure
           create_configure( ofile, concomm, "condaconf1", configflags)
        elif "@configure(" in line :
           inputconf=line.replace("@configure(","").replace(")@","")
