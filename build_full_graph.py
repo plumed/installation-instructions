@@ -2,11 +2,23 @@ import subprocess
 import yaml
 import os
 import glob
+import urllib.request
+import zipfile
 
 def read_config_help() :
+  # try to download plumed
+  try:
+    urllib.request.urlretrieve('https://github.com/plumed/plumed2-master/archive/refs/heads/master.zip', 'file.zip')
+  except urllib.error.URLError:
+    return
+  # try to open the zip file
+  try:
+    zf = zipfile.ZipFile("file.zip", "r")
+  except zipfile.BadZipFile:
+    return
+  zf.extractall(path="tmpplumed")
   # Get all the help information from the configure script so that we can use it to construct configure commands
-  configcommand = os.path.expanduser('~') + "/opt/plumed2/configure"
-  #configcommand = os.path.expanduser('~') + "/Projects/CVception/Clean-version/Test-version/plumed2/configure"
+  configcommand = "tmpplumed/plumed2-master/configure"
   proc = subprocess.run([configcommand, "--help"], universal_newlines = True, capture_output=True )
   
   inoptions, key, desc, keys = False, "", "", {}
@@ -26,7 +38,17 @@ def read_config_help() :
             else : key, desc = line.split()[0], " ".join(line.split()[1:]) 
          else : desc += line.strip()
   keys[key] = desc
-  return keys
+
+  # Get the configuration for conda
+  bf = open( "tmpplumed/plumed2/conda/plumed/build.sh", "r")
+  binp, condaconf = bf.read(), ""
+  bf.close() 
+  for dat in binp.splitlines() :
+      if 'configure' in dat : 
+         condaconf = dat 
+         break 
+
+  return keys, condaconf
 
 def create_configure( ofile, compcom, ccc, configflags ) :
    # Build the links that insert information from the options included
@@ -134,18 +156,11 @@ def processInstallation() :
    inp = f.read() 
    f.close()
 
-   ofile, configflags = open("Installation.md", "w+"), read_config_help()
+   ofile, configflags, condaconf = open("Installation.md", "w+"), read_config_help()
    for line in inp.splitlines() : 
        if line == "@configure-conda@" :
-          bf = open( os.path.expanduser('~') + "/opt/plumed2/conda/plumed/build.sh", "r")
-          binp, concomm = bf.read(), ""
-          bf.close()
-          for dat in binp.splitlines() :
-              if configure in dat : 
-                 concomm = dat
-                 break
           # Create the configure
-          create_configure( ofile, concomm, "condaconf1", configflags)
+          create_configure( ofile, condaconf, "condaconf1", configflags)
        elif "@configure(" in line :
           inputconf=line.replace("@configure(","").replace(")@","")
           # Create the configure (command below ensure correct interprettation of input)
