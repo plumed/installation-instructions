@@ -1,0 +1,6 @@
+<h1> Building PLUMED on a local machine </h1>
+<h2>Configuring PLUMED</h2>
+
+<p>The first step in building PLUMED is to configure the makefiles based on the setup of your computer. You can do this by issuing the following command:</p>
+
+@configure("./configure" localinp1)@

@@ -1,0 +1,34 @@
+<h1> Building PLUMED on a cluster </h1>
+<h2>Some general advice</h2>
+<p>If you are compiling PLUMED on a cluster and if several users will take advantage of the code we would recomment that you:</p>
+<ul>
+<li> Follow the advice given below about using modules and the module file that PLUMED provides to set up the environment. N.B you will need to edit this file to make it suitable for your environment.</li>
+<li> Compile with all the modules enabled so that users can use the full range of features. In addition, ensure that features that are provided by specific libraries are enabled. For example, users employing gromacs will likely want to use libxdrfile to write trr/xtc files. If gromacs is installed before PLUMED, and if the location of libxdrfile is provided to PLUMED during the configure stage then this feature will be available.</li>
+<li> Try to patch all MD codes using the <code>--runtime</code> option. When codes are patched in this way users are able to combine any of the installed gromacs/amber/etc versions with any of the
+installed PLUMED versions. It is sometimes claimed that statically linked codes are faster. In our experience, however, this is not true. Furthermore, we have found that non-trivial linking issues are often encountered when building static executables because PLUMED is written in C++ and thus requires the appropriate C++ library to be linked as well as other additional libraries (e.g. libxdrfile).</li>
+<li> Keep track of the version of PLUMED you used to patch each of the MD codes. You might do this by giving the MD code modules names such as <code>gromacs/4.6.7p2.2.0</code> to indicate that this is gromacs patched with PLUMED 2.2.0. By keeping track of this information you make it more straightforward for users to report errors on our forum.</li>
+<li> Use the environment variables descsribed below to control the compiler flags and to build an optimized executable.</li>
+</ul>
+<p>Advice on specific topics and architectures is provided by the drop down menu below. If you have advice on compiling PLUMED on specific architecture please share your tricks!
+You can post information in your blog, or ask as to update the list of topics in this dropdown. The advice you can provide others on compiling PLUMED is very useful and we will happily
+post it here. </p>
+
+@computer-data@
+
+<h2>Configuring PLUMED</h2>
+<p>As a bare minimum we would recommend using a command like the one shown below when configuring PLUMED on a cluster</p>
+
+@configure("./configure --enable-modules=all --enable-rpath" clustp1)@
+
+<p>The <code>--enable-rpath</code> flag is recommended as by including this flag you ensure that PLUMED will remember the locations of any runtime libraries that were used at compile time.
+The locations of these libraries will thus not need to provided at runtime. This trick often does not work for fundamental libraries such as the C++ and MPI library. The PLUMED module
+should thus load the compiler and MPI modules.</p>
+</div>
+<div style="display:none;" id="cross-1">
+<h1>Cross compiling PLUMED</h1>
+<h2>Configuring PLUMED</h2>
+<p>If you are cross compiling PLUMED on a different machine than you intend to run it on then you will need to begin by configuring using the usual command.</p>
+
+@configure("./configure" cross1)@
+
+<p>You will likely need to use the options detailed below from controlling the compilers and compiler flags as detailed below, however.</p>

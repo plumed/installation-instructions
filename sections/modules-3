@@ -1,0 +1,8 @@
+<p>The easiest way to setup the environment is to use <a href="http://modules.sourceforge.net">the module framework</a>.
+A suitable module file for PLUMED can be found in <code>$(prefix)/lib/plumed/src/lib/modulefile</code> after installation is completed.
+You can edit this file or just put it into your modulefile directory directly. If you do so it is then straightforward to
+set up the environment. </p>
+<p> Notice that if you have installed more than one version of PLUMED on your machine you can use the module framework to easily
+switch between them. </p>
+<p> Lastly note that even if you do not want to use modules it may still be useful to look at the modulefile as this file will tell
+you which environment variables need to be set for PLUMED to work correctly. </p>

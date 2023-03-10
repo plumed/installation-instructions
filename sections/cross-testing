@@ -1,0 +1,20 @@
+<h2> Testing PLUMED </h2>
+<p>If you have compiled the executable on a machine that is different from the one on which you will ultimately run it the
+<code>plumed</code> executable is not available in the compilation environment. You thus cannot perform the regtests on
+the machine and you cannot compile the manual.</p>
+
+<p>You might try to run the regtests on the computing nodes in this case. You may need to do some tweaks to get this
+to work as machines where people do cross-compiling often have architectures with limited capabilities on the compute nodes.</p>
+
+<h2> Patching MD codes with a cross compiled code </h2>
+<p>As discussed in the previous section, if PLUMED has been cross compiled the <code>plumed</code> executable is not available in the compilation environment.
+You thus cannot run <code>plumed patch</code> on the compiler nodes. It is also likely that it will not be possible to run this command on the compute nodes
+as on machines where cross compilation is necessary it is often not possible to fork new processes from the compute nodes. To get around these issues you can
+use the command: </p>
+<pre class="fragment">
+&gt; plumed-patch
+</pre>
+<p>instead. This script provides a "shell only" implementation of <code>plumed patch</code> and thus does not launch of the <code>plumed</code> executable.
+You can thus run this command (and patch MD codes) on the compiler nodes. If you have installed PLUMED you can find the <code>plumed-patch</code> code
+script (and some other similar shell scripts that allow you to run various plumed command line tools without launching the <code>plumed</code> executable)
+in the directory <code>$(prefix)/plumed/plumed-</code>. The reason these files are not included in the execution path (prefix/bin) is to avoid clashes.</p>

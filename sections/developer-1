@@ -1,0 +1,14 @@
+<h1> Building PLUMED for development purposes </h1>
+<h2>Configuring PLUMED</h2>
+
+<p>The first step in building PLUMED is to configure the makefiles based on the setup of your computer. If you are developing PLUMED, we recommend that you configure
+using the options below:</p>
+
+@configure("./configure --enable-modules=all --enable-mpi --enable-debug" devinp1)@
+
+<p>Once you are confident that your feature is working correctly you can then reconfigure and compile an optimized version of the code.</p>
+
+<p>You can control the compilers and compiler flags that are used to build PLUMED by setting the environment variables. For example, if you wanted to use
+the icpc and icc compilers you might use the command shown in the example below:</p>
+
+@configure("./configure CXX=icpc CC=icc CXXFLAGS=-O3 LDFLAGS=-L/opt/local/lib CPPFLAGS=-I/opt/local/include LIBS=-lmyxdrfile" devinp2)@

@@ -1,0 +1,11 @@
+<h2>Compiling PLUMED</h2>
+<p>PLUMED can be compiled using the following command once the <code>configure</code> script has finished running:</p>
+<pre class="fragment">
+&gt; make -j 4
+</pre>
+<p>This command compiles the entire code and produces a number of files in the <code>src/lib</code> directory, including the executable
+<code>src/lib/plumed</code>. If the shared libraries are enabled a shared libraries called <code>src/lib/libKernel.so</code> should also be generated.
+The extension for this file will be <code>.dylib</code> if you are building PLUMED on a Mac. There are some rare occasions when this command fails
+because the configure script fails to find some of the required libraries. If this happens you can <a onclick='showData("makefileconf","makeconfdiv")'>edit the Makefile.conf file</a> so that the suitable
+compilation options are set up.</p>
+<div style="width: 100%; float:left" id="makeconfdiv"></div>

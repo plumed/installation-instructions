@@ -107,7 +107,7 @@ def create_configure( ofile, compcom, ccc, configflags ) :
    ofile.write("<pre style=\"width: 97%;\" class=\"fragment\">" + baseconf + allconf + "</pre>\n")
    ofile.write("</div>\n")
 
-def build_computer_list( ofile, configflags ) :
+def build_computer_list( ofile, configflags, condaconf ) :
    n = 0  
    ofile.write("<script>\nfunction showComputer( name ) {\n")
    ofile.write("  var mydiv = document.getElementById(\"computediv\");\n")
@@ -136,23 +136,28 @@ def build_computer_list( ofile, configflags ) :
        cfile.close()
    ofile.write("  </div>\n")
    ofile.write("</div>\n")
-   for computer in os.listdir("computers") :
-      ofile.write("<div style=\"display:none;\" id=\"" + computer + "\">\n")
-      cfile = open("computers/" + computer, "r" )
-      cinp = cfile.read()
-      cfile.close() 
-      for line in cinp.splitlines() :
-          if "@configure(" in line :
-             inputconf=line.replace("@configure(","").replace(")@","")
-             # Create the configure (command below ensure correct interprettation of input)
-             create_configure( ofile,  inputconf.split("\"")[1], inputconf.split("\"")[2], configflags ) 
-             # Needs more work here
-             ofile.write( line + "\n" )
-          elif "@question@" not in line :
-             ofile.write( line + "\n" )
-      ofile.write("</div>\n") 
+   for computer in os.listdir("computers") : processfile( ofile, "computers", computer, configflags, condaconf )
    ofile.write("<div style=\"width: 100%; float:left\" id=\"computediv\"></div>\n")
 
+
+def processfile( ofile, dirname, fname, configflags, condaconf ) :
+   ofile.write("<div style=\"display:none;\" id=\"" + fname + "\">\n")
+   cfile = open( dirname + "/" + fname, "r")
+   cinp = cfile.read()
+   cfile.close()
+   for line in cinp.splitlines() :
+       if line == "@configure-conda@" :
+          # Create the configure
+          create_configure( ofile, condaconf, "condaconf1", configflags)
+       elif "@configure(" in line :
+          inputconf=line.replace("@configure(","").replace(")@","")
+          # Create the configure (command below ensure correct interprettation of input)
+          create_configure( ofile,  inputconf.split("\"")[1], inputconf.split("\"")[2], configflags )
+       elif line=="@computer-data@" :
+          build_computer_list( ofile, configflags, condaconf ) 
+       elif "@question@" not in line :
+          ofile.write( line + "\n" )  
+   ofile.write("</div>\n")
 
 def processInstallation() :
    if not os.path.exists("Installation.md") :
@@ -164,16 +169,8 @@ def processInstallation() :
 
    ofile = open("Installation.md", "w+")
    for line in inp.splitlines() : 
-       if line == "@configure-conda@" :
-          # Create the configure
-          create_configure( ofile, condaconf, "condaconf1", configflags)
-       elif "@configure(" in line :
-          inputconf=line.replace("@configure(","").replace(")@","")
-          # Create the configure (command below ensure correct interprettation of input)
-          create_configure( ofile,  inputconf.split("\"")[1], inputconf.split("\"")[2], configflags )
-       elif line=="@computer-data@" : 
-          build_computer_list( ofile, configflags )
-       elif line=="@MODALSTUFF@" : 
+       if line=="@MODALSTUFF@" :
+          for file in os.listdir("sections" ) : processfile( ofile, "sections", file, configflags, condaconf ) 
           for file in os.listdir("Modals") :
               f = open("Modals/" + file,  "r" )
               content = f.read()

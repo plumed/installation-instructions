@@ -1,0 +1,38 @@
+<h2> Running PLUMED</h2>
+
+<p>If you are developing PLUMED you are probably compiling the code regularly. You thus might choose to <b>not</b> run the <code>make install</code> command
+every time you recompile the code. If you are working in this way and if you use the bash shell you can can run PLUMED from the compilation directory by using the <code>sourceme.sh</code>
+file that was created by configure script. This file appears in the main PLUMED directory and can be "sourced" as shown below:</p>
+<pre class="fragment">
+&gt; source sourceme.sh
+</pre>
+<p>Running this command ensures that the "plumed" executable appears in your path. To test this executable you might run:</p>
+<pre class="fragment">
+&gt; plumed -h
+</pre>
+<h2> Testing PLUMED </h2>
+<p>You can test if plumed has been compiled correctly by using the commands:</p>
+<pre class="fragment">
+&gt; make check
+</pre>
+<p>Alternatively, you can run all tests using the following command: </p>
+<pre class="fragment">
+&gt; source sourceme.sh
+&gt; cd regtest
+&gt; make
+</pre>
+<p> You can even run a particular test by changing to the directory that contains it and by running the command <code>make</code> within that directory. </p>
+<h2> Merging your changes </h2>
+<p>Before starting work on a new feature that you plan to share with the PLUMED community we would ask you to read
+<a href="../../developer-doc/html/_how_to_contribute_to_plumed.html">this brief summary of best practise.</a></p>
+
+<p>If you finish your coding a new feature in PLUMED and if you want to share it with the community then you can open a
+<a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request" >pull request</a> on the PLUMED
+repository. Before doing so we would ask that you:</p>
+<ul>
+<li> Write suitable <a href="../../developer-doc/html/using_doxygen.html">documentation</a> for your new feature</li>
+<li> Add a new <a href="../../developer-doc/html/regtests.html">regtest or modified an existing regtest</a> to validate your changes</li>
+<li> <a href="../../developer-doc/html/_using_external_libs.html">Modify the configure script</a> so that any libraries your feature uses can be setup at configure time</li>
+<li> Check the format of your code using <a href="../../developer-doc/html/_plumedcheck.html">plumedcheck</a> and
+<a href="../..//developer-doc/html/_code_formatting.html">astyle</a></li>
+</ul>

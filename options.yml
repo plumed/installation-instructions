@@ -1,0 +1,21 @@
+local:
+  question: I want to compile a single version of PLUMED on a local machine.
+  sections: ["local-1","config-opts","compiling","installing","testing","modules-2"]
+cluster:
+  question: I want to compile PLUMED on a cluster so it can be used by several users.
+  sections: ["cluster-1","config-opts","compiling","installing","testing","modules-1","modules-3"]
+multiple:
+  question: I would like to install multiple versions of PLUMED on a single machine.
+  sections: ["multiple-1","config-opts","compiling","installing","testing","modules-1","modules-3"]
+developer:
+  question: I would like to install PLUMED and work on the development of new features.
+  sections: ["developer-1","compiling", "--standalone-executable-content","developer-2"]
+cross:
+  question: I would like to cross compile PLUMED.
+  sections: ["cross-1","config-opts","compiling","installing","cross-testing"] 
+conda: 
+  question: I would like to install PLUMED using Conda.
+  sections: ["conda"]
+python:
+  question: I would like to call PLUMED from python.
+  sections: ["python-1","config-opts","compiling","installing","testing"]

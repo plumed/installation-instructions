@@ -1,0 +1,11 @@
+<p>The most important variables to edit in the Makefile.conf file are:</p>
+<ul>
+<li> DYNAMIC_LIB : the libraries (e.g. BLAS and LAPACK) that are linked when the the PLUMED library is compiled are listed here.
+Flags such as -L/path/to/xdrfile -lxdrfile that were specified using the environment variables <code>LDFLAGS</code> and <code>LIBS</code>
+in the call to <code>configure</code> will appear here. The fact that the flags specified using <code>LIBS</code> is perhaps confusing but this
+is necessary to keep the configuration files compatible with PLUMED 2.0. Notice that for the PLUMED shared library to be compiled correctly only dynamic libraries should be listed here.</li>
+<li> LIBS : the libraries that are needed to patching the MD codes (typically only <code>-ldl</code> which is needed to have functions for dynamic loading) are specified here.</li>
+<li> CPPFLAGS : definitions that are needed to enable specific optional functions (e.g. -D__PLUMED_HAS_XDRFILE to enable the xdrfile library) are specified here.</li>
+<li> SOEXT : the extension for shared libraries on your system is specified here. Typically an "so" extension is used on UNIX and a "dylib" extension is used on mac.
+If your system does not support dynamic libraries or if you would like a static executable you can just set this variable blank i.e. <code>SOEXT=</code>. </li>
+</ul>

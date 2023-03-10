@@ -1,0 +1,10 @@
+<p>You can control the compilers and compiler flags that are used to build PLUMED by setting the environmental variables. For example, if you wanted to use
+the icpc and icc compilers you might use the command shown in the example below:</p>
+
+@configure("./configure CXX=icpc CC=icc CXXFLAGS=-O3 LDFLAGS=-L/opt/local/lib CPPFLAGS=-I/opt/local/include LIBS=-lmyxdrfile" copts1)@
+
+<p>You can enable and disable various features within PLUMED by using the --enable-FEATURE and --disable-FEATURE options during the configure step. We would
+recommend using a configure command with the following options enabled.</p>
+
+@configure("./configure LIBRARY_PATH=/path --enable-rpath --enable-modules=all --enable-mpi --enable-asmjit --enable-external-lapack --enable-molfile-plugins --prefix=/usr/local" copts2)@
+</div>

@@ -1,0 +1,14 @@
+<h1> Building multiple PLUMED versions </h1>
+<h2>Configuring PLUMED</h2>
+
+<p>The first step in building PLUMED is to configure the makefiles based on the setup of your computer. If you would like to have multiple versions of the code
+installed on your computer, you will also need to give them all different names and place them in different locations. You will thus need to use a configure
+command such as the one below: </p>
+
+@configure("./configure prefix=$HOME/opt --program-suffix=2.2 --program-prefix=mpi-" multiinp1)@
+
+<p>By using this command you ensure that the PLUMED executible will be named <code>mpi-plumed2.2</code> and that other PLUMED files will be named similarly. To load this PLUMED library
+you will thus need to use the flag <code>-lmpi-plumed2.2</code>. PLUMED header files would then be included by using <code>#include <mpi-plumed_2.2/tools/Vector.h></code>.
+It is also possible to use arbitrary scripts to edit the name of the executable by adding the option <code>--program-transform-name=PROGRAM</code> to your configure command.
+(see <a href="http://www.gnu.org/software/autoconf/manual/autoconf-2.69/html_node/Transformation-Examples.html#Transformation-Examples"> autoconf documentation </a> for more info).
+This options is useful if you do not want to set up modules. As detailed below, however, we believe that using modules is more flexible.</p>

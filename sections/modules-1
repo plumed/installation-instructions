@@ -1,0 +1,8 @@
+<h2>Setting up your environment</h2>
+<p>Once the installation and testing has been completed you are ready to use PLUMED. Running PLUMED will be more straightforward if you set up the environment correctly.
+If the environment is setup correctly you should be able to:</p>
+<ul>
+<li> use the <code>plumed</code> executable from the command line. Notice that you can also use this executable before installing. </li>
+<li> link against the PLUMED library using the <code>-lplumed</code> flag for the linker. If this flag can be employed then it is possible to use PLUMED library in general purpose programs </li>
+<li> use PLUMED internal functionality (C++ classes) including header files such as <code>#include <plumed/tools/Vector.h></code> in general purpose programs </li>
+</ul>

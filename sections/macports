@@ -1,0 +1,68 @@
+<h1> Building PLUMED with macports</h1>
+<p>If you are using PLUMED on a Mac, you can intall it using MacPorts. To take advantage of this option
+you proceed as follows:</p>
+<ul>
+<li> Install <a href="https://www.macports.org/">MacPorts</a></li>
+<li> Type <code>sudo port install plumed</code></li>
+</ul>
+<p>The default variant that is installed using <code>sudo port install plumed</code> is shipped as a compiled
+binary and is thus significantly faster to install. A number of different PLUMED versions can be installed using MacPorts, however.
+You can get a list of the versions that are available by using the command:</p>
+
+<pre class="fragment">&gt; sudo port info plumed</pre>
+
+<p>The various options that can be viewed using this command allow you to install PLUMED using multiple different compilers.
+You can thus install plumed with mpich using the command:</p>
+
+<pre class="fragment">&gt; sudo port install plumed +mpich</pre>
+
+<p>We would recommend using the recent clang compiler instead of native compilers to take advantage of openMP. To install
+using this option you can use the command:</p>
+
+<pre class="fragment">&gt; sudo port install plumed +mpich +clang50</pre>
+
+<p>Notice that support for c++11 with gcc compilers in MacPorts is difficult as it is not possible to
+use the system's c++ library. For this reason, we, therefore, only support the clang compilers. If you are
+interested reading more about this issue we would direct you to
+<a href="https://github.com/macports/macports-ports/pull/1252">this discussion</a> </p>
+
+<p>In addition to the variants that allow you to use MacPorts with a range of compilers there are also options that
+allow you to compile with debug flags (<code>+debug</code>), to pick a linear algebra library
+(e.g. <code>+openblas</code>) and to enable all the optional modules (<code>+allmodules</code>).
+You can also install a developer version of PLUMED by using the command: </p>
+
+<pre class="fragment">&gt; sudo port install plumed-devel</pre>
+
+<p>This developer version is typically a later version of PLUMED that is not yet considered stable. When installing
+<code>plumed-devel</code> using MacPorts you can use all the variants that were available for <code>plumed</code> to
+customize the compilation. You cannot, however, install <code>plumed-devel</code> and <code>plumed</code> at the same time.</p>
+
+<p>You can also use MacPorts to install a plumed-patched version of gromacs. To install gromacs patched with a stable version of PLUMED that
+was compiled using the clang-5.0 compiler and mpich you would use the following sequence of commands:</p>
+
+<pre class="fragment">
+&gt; sudo port install plumed +mpich +clang50
+&gt; sudo port install gromacs-plumed +mpich +clang50
+</pre>
+
+<p>If, by contract, the objective was to use a version of gromacs patched with the development version of PLUMED you would use the commands:</p>
+
+<pre class="fragment">
+&gt; sudo port install plumed-devel +mpich +clang50
+&gt; sudo port install gromacs-plumed +mpich +clang50
+</pre>
+
+<p>Notice that the same compiler variants must be used for gromacs and PLUMED (in this example <code>+mpich +clang50</code>). If gromacs and PLUMED are built using different
+compiler variants then compilation will fail.</p>
+
+<p>The patched version of gromacs that can be installed using MacPorts links PLUMED in runtime mode. The path for libplumedKernel.dylib in the MacPorts tree
+is hardcoded, however. As a consequence:<p>
+
+<ul>
+<li>If gromacs is run and if the <code>PLUMED_KERNEL</code> environment variable is unset (or set to empty), then the version of PLUMED that was installed using MacPorts is used.</li>
+<li>If gromacs is run and if the <code>PLUMED_KERNEL</code> environment variable points to another instance of the PLUMED library then this other instance of PLUMED is used in place of
+the version that was installed using MacPorts</li>
+</ul>
+
+<p>Having the <code>PLUMED_KERNEL</code> operate in this way is useful if you are developing PLUMED as you can install gromacs once using MacPorts and then combine it with any version of
+PLUMED on your computer.</p>
