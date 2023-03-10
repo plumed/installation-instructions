@@ -13,7 +13,7 @@ you would configure using:
 <p>Upon install, the executable would then be copied to <code>$(HOME)/opt/bin</code>, the libraries to <code>$(HOME)/opt/lib</code>, the include files to <code>$(HOME)/opt/include</code>, and the
 documentation to <code>$(HOME)/opt/shared/doc/plumed</code>. In addition, a directory called <code>$(HOME)/opt/lib/plumed</code> will be created containing files such as the
 patch files and the object files (for static patches). Advanced users can further customise the install directories using
-using standard autoconf directories (e.g. <code>./configure --bindir=/usr/bin64</code>). Further information on these options can be obtained by running the command:
+using standard autoconf directories (e.g. <code>./configure --bindir=/usr/bin64</code>). Further information on these options can be obtained by running the command:</p>
 <pre class="fragment">
 &gt; ./configure --help
 </pre>
