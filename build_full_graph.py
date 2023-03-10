@@ -28,11 +28,12 @@ def read_config_help() :
          inoptions = True
       elif inoptions and "Some influential environment variables:" in line : 
          break
-      elif inoptions and len(line.split())>1 :
+      elif inoptions and len(line.split())>0 :
          if "--disable-option-checking" in line : continue 
          if "--disable-FEATURE" in line : continue
          if "--enable-FEATURE" in line : continue
-         if "--enable" in line or "--disable" in line :
+         first = line.split()[0]
+         if "--enable" in first or "--disable" in first :
             if len(key)>0 : 
                keys[key] = desc
                key, desc = line.split()[0], " ".join(line.split()[1:])
