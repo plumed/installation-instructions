@@ -8,7 +8,7 @@ import zipfile
 def read_config_help() :
   # try to download plumed
   try:
-    urllib.request.urlretrieve('https://github.com/plumed/plumed2-master/archive/refs/heads/master.zip', 'file.zip')
+    urllib.request.urlretrieve('https://github.com/plumed/plumed2/archive/refs/heads/master.zip', 'file.zip')
   except urllib.error.URLError:
     return
   # try to open the zip file
@@ -18,11 +18,12 @@ def read_config_help() :
     return
   zf.extractall(path="tmpplumed")
   # Get all the help information from the configure script so that we can use it to construct configure commands
-  configcommand = "tmpplumed/plumed2-master/configure"
-  proc = subprocess.run([configcommand, "--help"], universal_newlines = True, capture_output=True )
-  
+  cfile = open("tmpplumed/plumed2-master/configure","r")
+  inp = cfile.read()
+  cfile.close()
+
   inoptions, key, desc, keys = False, "", "", {}
-  for line in proc.stdout.splitlines() :
+  for line in inp.splitlines() :
       if "Optional Features:" in line : 
          inoptions = True
       elif inoptions and "Some influential environment variables:" in line : 
@@ -40,7 +41,7 @@ def read_config_help() :
   keys[key] = desc
 
   # Get the configuration for conda
-  bf = open( "tmpplumed/plumed2/conda/plumed/build.sh", "r")
+  bf = open( "tmpplumed/plumed2-master/conda/plumed/build.sh", "r")
   binp, condaconf = bf.read(), ""
   bf.close() 
   for dat in binp.splitlines() :
@@ -152,11 +153,12 @@ def build_computer_list( ofile, configflags ) :
 def processInstallation() :
    if not os.path.exists("Installation.md") :
       raise RuntimeError("No Installation.md file found")
+   configflags, condaconf = read_config_help()
    f = open("Installation.md", "r")
    inp = f.read() 
    f.close()
 
-   ofile, configflags, condaconf = open("Installation.md", "w+"), read_config_help()
+   ofile = open("Installation.md", "w+")
    for line in inp.splitlines() : 
        if line == "@configure-conda@" :
           # Create the configure
