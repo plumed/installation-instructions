@@ -2,6 +2,7 @@ import yaml
 import os
 import glob
 import urllib.request
+import shutil
 import zipfile
 
 def read_config_help() :
@@ -48,6 +49,9 @@ def read_config_help() :
          condaconf = dat 
          break 
 
+  # Remove PLUMED once we are done with it
+  os.remove("file.zip")
+  shutil.rmtree("tmpplumed")
   return keys, condaconf
 
 def create_configure( ofile, compcom, ccc, configflags ) :
