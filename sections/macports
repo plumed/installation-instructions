@@ -56,7 +56,7 @@ was compiled using the clang-5.0 compiler and mpich you would use the following 
 compiler variants then compilation will fail.</p>
 
 <p>The patched version of gromacs that can be installed using MacPorts links PLUMED in runtime mode. The path for libplumedKernel.dylib in the MacPorts tree
-is hardcoded, however. As a consequence:<p>
+is hardcoded, however. As a consequence:</p>
 
 <ul>
 <li>If gromacs is run and if the <code>PLUMED_KERNEL</code> environment variable is unset (or set to empty), then the version of PLUMED that was installed using MacPorts is used.</li>
