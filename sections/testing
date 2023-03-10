@@ -1,4 +1,4 @@
-h2> Testing PLUMED </h2>
+<h2> Testing PLUMED </h2>
 <p>It is important to test PLUMED every time you install PLUMED, as Even though we regularly perform tests on
 <a href="https://github.com/plumed/plumed2/actions">GitHub actions</a>, it is possible that aggressive optimization or even architecture dependent features
 trigger bugs that do not show up on GitHub. To test the PLUMED executable that you have installed you should, therefore, type</p>
