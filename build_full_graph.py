@@ -38,7 +38,7 @@ def read_config_help() :
                keys[key] = desc
                key, desc = line.split()[0], " ".join(line.split()[1:])
             else : key, desc = line.split()[0], " ".join(line.split()[1:]) 
-         else : desc += line.strip()
+         else : desc += " " + line.strip()
   keys[key] = desc
 
   # Get the configuration for conda
