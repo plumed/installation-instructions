@@ -108,12 +108,11 @@ def build_computer_list( ofile, configflags, condaconf ) :
       else : ofile.write("  } else if( name==\"" + computer + "\") {\n")
       n=1
       ofile.write("    var mydata1 = document.getElementById(\"" + computer + "\");\n")
+      for configblock in confg_commands[computer] : ofile.write("    swapConfigure(\"" + configblock + "\");\n") 
       ofile.write("    mydiv.innerHTML = mydata1.innerHTML;\n")
-      for configblock in confg_commands[computer] : ofile.write("    swapConfigure(\"" + configblock + "\");\n")
    ofile.write("  } else {\n")
    ofile.write("    mydiv.innerHTML = \"\";\n")
    ofile.write("  }\n")
-   ofile.write("showInstructions(current_option);\n")
    ofile.write("}\n")
    ofile.write("</script>\n")
    # Create the dropdown menu
@@ -213,10 +212,10 @@ def processInstallation() :
                  if m==0 : pdata = pdata + "document.getElementById(\"" + part + "\").innerHTML"
                  else : pdata = pdata + " + document.getElementById(\"" + part + "\").innerHTML"
                  m = m + 1
-              ofile.write( pdata + ";\n")
-              for part in value["sections"] : 
-                  if part not in confg_commands.keys() : continue 
+              for part in value["sections"] :
+                  if part not in confg_commands.keys() : continue
                   for configblock in confg_commands[part] : ofile.write("swapConfigure(\"" + configblock + "\");\n")
+              ofile.write( pdata + ";\n")
           ofile.write("  }\n}\n")
           ofile.write("</script>\n\n{% endraw %}\n")
        else :

@@ -33,7 +33,6 @@ function showData( name, indiv ) {
  var mydiv = document.getElementById(indiv);
  var mydata = document.getElementById(name);
  mydiv.innerHTML = mydata.innerHTML;
- showInstructions(current_instructions);  
 }
 function swapConfigure(name) {
  var btn = document.getElementById(name + "_button");
@@ -47,7 +46,6 @@ function swapConfigure(name) {
    var dataField = document.getElementById(name + "_short");
    mydiv.innerHTML = dataField.innerHTML;
  }
- showInstructions(current_instructions); 
 }
 function openModal( name ) {
  var mymodal = document.getElementById( name );
