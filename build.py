@@ -145,7 +145,7 @@ def processfile( ofile, dirname, fname, configflags, condaconf ) :
           create_configure( ofile, condaconf, "condaconf1", configflags)
        elif "@configure(" in line :
           inputconf=line.replace("@configure(","").replace(")@","")
-          config_commands.append(inputconf.split("\"")[2])
+          config_commands.append(inputconf.split("\"")[2].strip())
           # Create the configure (command below ensure correct interprettation of input)
           create_configure( ofile,  inputconf.split("\"")[1], inputconf.split("\"")[2], configflags )
        elif line=="@computer-data@" :
