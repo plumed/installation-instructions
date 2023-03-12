@@ -29,62 +29,6 @@ will appear at the bottom of the web page.
   }
 </style>
 <script>
-
-var current_instructions="local";
-
-function showInstructions( name ) {
- current_instructions=name;
- var mydiv = document.getElementById("installdiv");
- if( name=="local" ) {
-   var mydata1 = document.getElementById("local-1");
-   var mydata2 = document.getElementById("config-opts");
-   var mydata3 = document.getElementById("compiling");
-   var mydata4 = document.getElementById("installing");
-   var mydata5 = document.getElementById("testing");
-   var mydata6 = document.getElementById("modules-2");
-   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata3.innerHTML + mydata4.innerHTML + mydata5.innerHTML + mydata6.innerHTML;
- } else if( name=="cluster" ) { 
-   var mydata1 = document.getElementById("cluster-1");
-   var mydata2 = document.getElementById("config-opts");
-   var mydata3 = document.getElementById("compiling");
-   var mydata4 = document.getElementById("installing");
-   var mydata5 = document.getElementById("testing");
-   var mydata6 = document.getElementById("modules-1"); 
-   var mydata7 = document.getElementById("modules-3");
-   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata3.innerHTML + mydata4.innerHTML + mydata5.innerHTML + mydata6.innerHTML + mydata7.innerHTML; 
- } else if( name=="multiple" ) {
-   var mydata1 = document.getElementById("multiple-1");
-   var mydata2 = document.getElementById("config-opts");
-   var mydata3 = document.getElementById("compiling");
-   var mydata4 = document.getElementById("installing");
-   var mydata5 = document.getElementById("testing");
-   var mydata6 = document.getElementById("modules-1"); 
-   var mydata7 = document.getElementById("modules-3"); 
-   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata3.innerHTML + mydata4.innerHTML + mydata5.innerHTML + mydata6.innerHTML + mydata7.innerHTML; 
- } else if( name=="developer" ) {
-   var mydata1 = document.getElementById("developer-1");
-   var mydata2 = document.getElementById("compiling");
-   var mydata4 = document.getElementById("--standalone-executable-content");
-   var mydata3 = document.getElementById("developer-2");
-   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata4.innerHTML + mydata3.innerHTML;
- } else if( name=="cross" ) {
-   var mydata1 = document.getElementById("cross-1");
-   var mydata2 = document.getElementById("config-opts");
-   var mydata3 = document.getElementById("compiling");
-   var mydata4 = document.getElementById("installing");
-   var mydata5 = document.getElementById("cross-testing");
-   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata3.innerHTML + mydata4.innerHTML + mydata5.innerHTML; 
- } else if( name=="python" ) {
-   var mydata1 = document.getElementById("python-1");
-   var mydata2 = document.getElementById("config-opts");
-   var mydata3 = document.getElementById("compiling");
-   var mydata4 = document.getElementById("installing");
-   var mydata5 = document.getElementById("testing");
-   mydiv.innerHTML = mydata1.innerHTML + mydata2.innerHTML + mydata3.innerHTML + mydata4.innerHTML + mydata5.innerHTML; 
- } else {
-   showData( name, "installdiv");
- }
-}
 function showData( name, indiv ) {
  var mydiv = document.getElementById(indiv);
  var mydata = document.getElementById(name);
@@ -111,19 +55,6 @@ window.onload = function(event) {
  showInstructions("local");
 }
 </script>
-<div class="dropdown">
- <button class="dropbtn">How would you like to build PLUMED?</button>
- <div class="dropdown-content">
-  <a onclick='showInstructions("local")'>I want to compile a single version of PLUMED on a local machine.</a>
-  <a onclick='showInstructions("cluster")'>I want to compile PLUMED on a cluster so it can be used by several users.</a>
-  <a onclick='showInstructions("multiple")'>I would like to install multiple versions of PLUMED on a single machine.</a>
-  <a onclick='showInstructions("developer")'>I would like to install PLUMED and work on the development of new features.</a>
-  <a onclick='showInstructions("cross")'>I would like to cross compile PLUMED.</a>
-  <a onclick='showInstructions("macports")'>I would like to install PLUMED using MacPorts.</a>
-  <a onclick='showInstructions("conda")'>I would like to install PLUMED using Conda.</a>
-  <a onclick='showInstructions("python")'>I would like to call PLUMED from python.</a>
- </div>
-</div>
 <div style="width: 100%; float:left" id="installdiv"></div>
 
 {% endraw %}

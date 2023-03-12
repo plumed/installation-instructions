@@ -156,6 +156,12 @@ def processfile( ofile, dirname, fname, configflags, condaconf ) :
    return config_commands
 
 def processInstallation() :
+   if not os.path.exists("options.yml") : 
+      raise RuntimeError("No options.yml file found")
+   stream = open("options.yml", "r")
+   options = yaml.load(stream,Loader=yaml.BaseLoader)
+   stream.close()
+
    if not os.path.exists("Installation.md") :
       raise RuntimeError("No Installation.md file found")
    configflags, condaconf = read_config_help()
@@ -176,6 +182,12 @@ def processInstallation() :
               ofile.write("<div class=\"modal-content\">\n")
               ofile.write( content )
               ofile.write("</div></div>\n")
+          # Build the dropdown menu
+          ofile.write("<div class=\"dropdown\">\n")
+          ofile.write("  <button class=\"dropbtn\">How would you like to build PLUMED?</button>\n")
+          ofile.write("  <div class=\"dropdown-content\">\n")
+          for key, value in options.items() : ofile.write("<a onclick=\'showInstructions(\"" + key + "\")\'>" + value["question"] + "</a>\n")
+          ofile.write("  </div>\n</div>\n")
           # And build all the code for shutting down modals on click
           ofile.write("<script>\nwindow.onclick = function(event) {\n")
           for file in os.listdir("Modals") :
@@ -183,6 +195,25 @@ def processInstallation() :
               ofile.write( "var " + nfile + "modal = document.getElementById(\"" + nfile + "\");\n" )
               ofile.write( "if ( event.target == " + nfile + "modal ) { " + nfile + "modal.style.display = \"none\"; }\n") 
           ofile.write("}\n")
+          # And the function for showing instructions
+          ofile.write("function showInstructions( name ) {\n")
+          ofile.write("var mydiv = document.getElementById(\"installdiv\");\n") 
+          n=0
+          for key, value in options.items() :
+              if n==0 : 
+                 ofile.write("if( name==\"" + key + "\" ) {\n")
+              else :
+                 ofile.write("} else if( name==\"" + key + "\" ) {\n")
+              n, m, pdata = 1, 0, "mydiv.innerHTML ="
+              for part in value["sections"] : 
+                 if m==0 : pdata = pdata + "document.getElementById(\"" + part + "\").innerHTML"
+                 else : pdata = pdata + " + document.getElementById(\"" + part + "\").innerHTML"
+                 m = m + 1
+              ofile.write( pdata + ";\n")
+              for part in value["sections"] : 
+                  if part not in confg_commands.keys() : continue 
+                  for configblock in confg_commands[part] : ofile.write("swapConfigure(\"" + configblock + "\");\n")
+          ofile.write("  }\n}\n")
           ofile.write("</script>\n\n{% endraw %}\n")
        else :
           ofile.write(line + "\n")
