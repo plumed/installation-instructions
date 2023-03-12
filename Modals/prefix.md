@@ -5,8 +5,7 @@
 <p>The <code>--prefix</code> environmental variable controls the location in which PLUMED is installed when the <code>make install</code> command is run. By default
 PLUMED is installed in <code>/usr/local/</code> and you will thus have to run <code>make install</code> with super-user permissions i.e. using <code>sudo make install</code>.
 You can, however, specify the location in which to install PLUMED by using the <code>--prefix</code> environmental variable. For example, to install PLUMED in <code>$(HOME)/opt</code>
-you would configure using:
-</p>
+you would configure using:</p>
 <pre class="fragment">
 &gt; ./configure --prefix=$HOME/opt
 </pre>
@@ -17,3 +16,4 @@ using standard autoconf directories (e.g. <code>./configure --bindir=/usr/bin64<
 <pre class="fragment">
 &gt; ./configure --help
 </pre>
+</div>
