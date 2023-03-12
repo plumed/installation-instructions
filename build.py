@@ -109,7 +109,7 @@ def build_computer_list( ofile, configflags, condaconf ) :
       n=1
       ofile.write("    var mydata1 = document.getElementById(\"" + computer + "\");\n")
       ofile.write("    mydiv.innerHTML = mydata1.innerHTML;\n")
-      for configblock in confg_commands[computer] : ofile.write("    swapConfigure(\"" + configblock + "\");\n")
+      #for configblock in confg_commands[computer] : ofile.write("    swapConfigure(\"" + configblock + "\");\n")
    ofile.write("  } else {\n")
    ofile.write("    mydiv.innerHTML = \"\";\n")
    ofile.write("  }\n")
