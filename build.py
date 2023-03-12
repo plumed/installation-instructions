@@ -68,7 +68,7 @@ def create_configure( ofile, compcom, ccc, configflags ) :
    # And build the expanded version of the configuration that includes the tooltips
    allconf="";
    for key, value in configflags.items() :
-       if key in compcom.replace("./configure","").split() : continue
+       if key in compcom.replace("./configure","") : continue
        # Create a tooltip for this option from the help information
        hasdef, founddef = False, False
        for v in value.split() :
