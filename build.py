@@ -86,18 +86,6 @@ def create_configure( ofile, compcom, ccc, configflags ) :
    ofile.write("<div style=\"width: 100%; float:left\" id=\"conf_" + ccc + "\"></div>\n")
    # Write out the div that will hold the information on the various commands that the user will look at
    ofile.write("<div style=\"width: 100%; float:left\" id=\"" + ccc +"\"></div>\n")
-   # This script ensures that the short version of the configure is loaded when the page opens
-   # echo '<pre style="width: 97%;" class="fragment"></pre>'
-   # echo '<script type="text/javascript">'
-   # echo 'if (window.addEventListener) { // Mozilla, Netscape, Firefox'
-   # echo "    window.addEventListener('load', "$ccc"_Load, false);"
-   # echo '} else if (window.attachEvent) { // IE'
-   # echo "    window.attachEvent('onload', "$ccc"_Load);";
-   # echo '}'
-   # echo 'function '$ccc'_Load(event) {'
-   # echo '    swapConfigure("'$ccc'");'
-   # echo '}'
-   # echo '</script>'
    # Write out the short version of the configure
    ofile.write("<div style=\"display:none;\" id=\"" + ccc + "_short\">\n")
    ofile.write("<pre style=\"width: 97%;\" class=\"fragment\">" + baseconf + "</pre>\n")
@@ -108,7 +96,11 @@ def create_configure( ofile, compcom, ccc, configflags ) :
    ofile.write("</div>\n")
 
 def build_computer_list( ofile, configflags, condaconf ) :
-   n = 0  
+   # Create the divs that hold all the information about the computers
+   confg_commands = {}
+   for computer in os.listdir("computers") : confg_commands[computer] = processfile( ofile, "computers", computer, configflags, condaconf )
+   # Create the script for the dropdown menu that shows what each computer does
+   n = 0
    ofile.write("<script>\nfunction showComputer( name ) {\n")
    ofile.write("  var mydiv = document.getElementById(\"computediv\");\n")
    for computer in os.listdir("computers") :
@@ -117,11 +109,13 @@ def build_computer_list( ofile, configflags, condaconf ) :
       n=1
       ofile.write("    var mydata1 = document.getElementById(\"" + computer + "\");\n")
       ofile.write("    mydiv.innerHTML = mydata1.innerHTML;\n")
+      for configblock in confg_commands[computer] : ofile.write("    swapConfigure(\"" + configblock + "\");\n")
    ofile.write("  } else {\n")
    ofile.write("    mydiv.innerHTML = \"\";\n")
    ofile.write("  }\n")
    ofile.write("}\n")
    ofile.write("</script>\n")
+   # Create the dropdown menu
    ofile.write("<div class=\"dropdown\">\n")
    ofile.write("  <button class=\"dropbtn\">Select the topic you would like more information about</button>\n")
    ofile.write("  <div class=\"dropdown-content\">\n")
@@ -132,25 +126,26 @@ def build_computer_list( ofile, configflags, condaconf ) :
        for line in cinp.splitlines() :
            if "@question@" in line : 
               ofile.write("  <a onclick=\'showComputer(\"" + computer + "\")\'>" + line.replace("@question@","") + "</a>\n")
-              break  
+              break
        cfile.close()
    ofile.write("  </div>\n")
    ofile.write("</div>\n")
-   for computer in os.listdir("computers") : processfile( ofile, "computers", computer, configflags, condaconf )
    ofile.write("<div style=\"width: 100%; float:left\" id=\"computediv\"></div>\n")
 
 
 def processfile( ofile, dirname, fname, configflags, condaconf ) :
    ofile.write("<div style=\"display:none;\" id=\"" + fname + "\">\n")
    cfile = open( dirname + "/" + fname, "r")
-   cinp = cfile.read()
+   cinp, config_commands = cfile.read(), []
    cfile.close()
    for line in cinp.splitlines() :
        if line == "@configure-conda@" :
           # Create the configure
+          config_commands.append("condaconf1")
           create_configure( ofile, condaconf, "condaconf1", configflags)
        elif "@configure(" in line :
           inputconf=line.replace("@configure(","").replace(")@","")
+          config_commands.append(inputconf.split("\"")[2])
           # Create the configure (command below ensure correct interprettation of input)
           create_configure( ofile,  inputconf.split("\"")[1], inputconf.split("\"")[2], configflags )
        elif line=="@computer-data@" :
@@ -158,6 +153,7 @@ def processfile( ofile, dirname, fname, configflags, condaconf ) :
        elif "@question@" not in line :
           ofile.write( line + "\n" )  
    ofile.write("</div>\n")
+   return config_commands
 
 def processInstallation() :
    if not os.path.exists("Installation.md") :
@@ -167,10 +163,10 @@ def processInstallation() :
    inp = f.read() 
    f.close()
 
-   ofile = open("Installation.md", "w+")
+   ofile, confg_commands = open("Installation.md", "w+"), {}
    for line in inp.splitlines() : 
-       if line=="@MODALSTUFF@" :
-          for file in os.listdir("sections" ) : processfile( ofile, "sections", file, configflags, condaconf ) 
+       if line=="{% endraw %}" :
+          for file in os.listdir("sections" ) : confg_commands[file] = processfile( ofile, "sections", file, configflags, condaconf ) 
           for file in os.listdir("Modals") :
               f = open("Modals/" + file,  "r" )
               content = f.read()
@@ -180,14 +176,14 @@ def processInstallation() :
               ofile.write("<div class=\"modal-content\">\n")
               ofile.write( content )
               ofile.write("</div></div>\n")
-       # This builds a function to shut all the modals
-       elif line=="@MODALFUNC@" : 
-          ofile.write("window.onclick = function(event) {\n")
+          # And build all the code for shutting down modals on click
+          ofile.write("<script>\nwindow.onclick = function(event) {\n")
           for file in os.listdir("Modals") :
               nfile = file.replace(".md","")
               ofile.write( "var " + nfile + "modal = document.getElementById(\"" + nfile + "\");\n" )
               ofile.write( "if ( event.target == " + nfile + "modal ) { " + nfile + "modal.style.display = \"none\"; }\n") 
           ofile.write("}\n")
+          ofile.write("</script>\n\n{% endraw %}\n")
        else :
           ofile.write(line + "\n")
    ofile.close()
@@ -215,7 +211,8 @@ def addMDCodesToNavigation() :
                if n==1 :
                   ofile.write("  A[Compiling PLUMED] ==> C" + str(n) + "[Using with " +  key + "]\n")
                else :
-                  ofile.write("  A ==> C" + str(n) + "[Using with " +  key + "]\n")
+                  if n<4 : ofile.write("  A ==> C" + str(n) + "[Using with " +  key + "]\n")
+                  else : ofile.write("  C" + str(n-3) + " ==> C" + str(n) + "[Using with " +  key + "]\n")
                n = n + 1
         elif inmermaid and "```" in line :
            n, inmermaid = 1, False

@@ -110,7 +110,6 @@ function openModal( name ) {
 window.onload = function(event) {
  showInstructions("local");
 }
-@MODALFUNC@
 </script>
 <div class="dropdown">
  <button class="dropbtn">How would you like to build PLUMED?</button>
@@ -127,5 +126,4 @@ window.onload = function(event) {
 </div>
 <div style="width: 100%; float:left" id="installdiv"></div>
 
-@MODALSTUFF@
 {% endraw %}
