@@ -23,12 +23,3 @@ post it here. </p>
 <p>The <code>--enable-rpath</code> flag is recommended as by including this flag you ensure that PLUMED will remember the locations of any runtime libraries that were used at compile time.
 The locations of these libraries will thus not need to provided at runtime. This trick often does not work for fundamental libraries such as the C++ and MPI library. The PLUMED module
 should thus load the compiler and MPI modules.</p>
-</div>
-<div style="display:none;" id="cross-1">
-<h1>Cross compiling PLUMED</h1>
-<h2>Configuring PLUMED</h2>
-<p>If you are cross compiling PLUMED on a different machine than you intend to run it on then you will need to begin by configuring using the usual command.</p>
-
-@configure("./configure" cross1)@
-
-<p>You will likely need to use the options detailed below from controlling the compilers and compiler flags as detailed below, however.</p>

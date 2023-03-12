@@ -15,20 +15,3 @@ PLUMED using some other PLUMED version then you can. The tests can be run using 
 </pre>
 <p>When you do this you might get certain <a onclick='showData("testerrors","errdiv")'>innocous errors</a></p>
 <div style="width: 100%; float:left" id="errdiv"></div>
-</div>
-<div style="display:none;" id="testerrors">
-<p>If you see errors when you run the regression tests using the commands:</p>
-<pre class="fragment">
-&gt; cd regtest
-&gt; make
-</pre>
-<p>The first thing you should try to work out is the version of PLUMED that is being used to run the tests. When the tests are run
-using the commands above the version of PLUMED that is found in the PATH is used. If the version of PLUMED in your path is not the same
-as the version that you just downloaded and compiled then you may observe one of two innocuous errors:</p>
-<ul>
-<li> If the PLUMED executable in your path is older than the test suite you are running on the tests might fail. In this case the tests
-fail as some feature was introduced to PLUMED in a newer version.</li>
-<li> The tests might also fail if the PLUMED executable in your path is newer than the test suite. In this case some non-backward compatible change
- was made in PLUMED. We try to keep the number of non-backward compatible changes small, but as you can see from the <a class="el" href="_change_log.html">ChangeLog</a> there
- are typically a few non-compatable changes at every new major release.</li>
-</ul>
