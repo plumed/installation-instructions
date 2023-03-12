@@ -173,15 +173,15 @@ def processInstallation() :
    for line in inp.splitlines() : 
        if line=="{% endraw %}" :
           for file in os.listdir("sections" ) : confg_commands[file] = processfile( ofile, "sections", file, configflags, condaconf ) 
-          # for file in os.listdir("Modals") :
-          #     f = open("Modals/" + file,  "r" )
-          #     content = f.read()
-          #     f.close()
-          #     nfile = file.replace(".md","")
-          #     ofile.write("<div id=\"" + nfile + "\" class=\"modal\">\n")
-          #     ofile.write("<div class=\"modal-content\">\n")
-          #     ofile.write( content )
-          #     ofile.write("</div></div>\n")
+          for file in os.listdir("Modals") :
+              f = open("Modals/" + file,  "r" )
+              content = f.read()
+              f.close()
+              nfile = file.replace(".md","")
+              ofile.write("<div id=\"" + nfile + "\" class=\"modal\">\n")
+              ofile.write("<div class=\"modal-content\">\n")
+              ofile.write( content )
+              ofile.write("</div></div>\n")
           # Build the dropdown menu
           ofile.write("<div class=\"dropdown\">\n")
           ofile.write("  <button class=\"dropbtn\">How would you like to build PLUMED?</button>\n")
