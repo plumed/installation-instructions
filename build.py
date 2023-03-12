@@ -85,7 +85,7 @@ def create_configure( ofile, compcom, ccc, configflags ) :
    # Write out the div that holds the configure command
    ofile.write("<div style=\"width: 100%; float:left\" id=\"conf_" + ccc + "\"></div>\n")
    # Write out the div that will hold the information on the various commands that the user will look at
-   ofile.write("<div style=\"width: 100%; float:left\" id=\"" + ccc +"\"></div>\n")
+   #ofile.write("<div style=\"width: 100%; float:left\" id=\"" + ccc +"\"></div>\n")
    # Write out the short version of the configure
    ofile.write("<div style=\"display:none;\" id=\"" + ccc + "_short\">\n")
    ofile.write("<pre style=\"width: 97%;\" class=\"fragment\">" + baseconf + "</pre>\n")
@@ -108,11 +108,12 @@ def build_computer_list( ofile, configflags, condaconf ) :
       else : ofile.write("  } else if( name==\"" + computer + "\") {\n")
       n=1
       ofile.write("    var mydata1 = document.getElementById(\"" + computer + "\");\n")
-      for configblock in confg_commands[computer] : ofile.write("    swapConfigure(\"" + configblock + "\");\n") 
+      for configblock in confg_commands[computer] : ofile.write("    showMinimalConfigure(\"" + configblock + "\");\n") 
       ofile.write("    mydiv.innerHTML = mydata1.innerHTML;\n")
    ofile.write("  } else {\n")
    ofile.write("    mydiv.innerHTML = \"\";\n")
    ofile.write("  }\n")
+   ofile.write("  showInstructions(current_instructions);\n")
    ofile.write("}\n")
    ofile.write("</script>\n")
    # Create the dropdown menu
@@ -214,7 +215,7 @@ def processInstallation() :
                  m = m + 1
               for part in value["sections"] :
                   if part not in confg_commands.keys() : continue
-                  for configblock in confg_commands[part] : ofile.write("swapConfigure(\"" + configblock + "\");\n")
+                  for configblock in confg_commands[part] : ofile.write("showMinimalConfigure(\"" + configblock + "\");\n")
               ofile.write( pdata + ";\n")
           ofile.write("  }\n}\n")
           ofile.write("</script>\n\n{% endraw %}\n")

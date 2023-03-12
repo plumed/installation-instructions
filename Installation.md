@@ -34,17 +34,23 @@ function showData( name, indiv ) {
  var mydata = document.getElementById(name);
  mydiv.innerHTML = mydata.innerHTML;
 }
+function showMinimalConfigure(name) {
+  var btn = document.getElementById(name + "_button");
+  var mydiv = document.getElementById("conf_" + name);
+  btn.textContent = "show defaults"; 
+  var dataField = document.getElementById(name + "_short");
+  mydiv.innerHTML = dataField.innerHTML;
+}
+
 function swapConfigure(name) {
- var btn = document.getElementById(name + "_button");
- var mydiv = document.getElementById("conf_" + name); 
  if( btn.textContent=="show defaults" ) { 
+   var btn = document.getElementById(name + "_button");
+   var mydiv = document.getElementById("conf_" + name);
    btn.textContent = "hide defaults";
    var dataField = document.getElementById(name + "_long");
    mydiv.innerHTML = dataField.innerHTML;
  } else if( btn.textContent=="hide defaults" ) {
-   btn.textContent = "show defaults"; 
-   var dataField = document.getElementById(name + "_short");
-   mydiv.innerHTML = dataField.innerHTML;
+   showMinimalConfigure(name);
  }
 }
 function openModal( name ) {
