@@ -33,6 +33,7 @@ function showData( name, indiv ) {
  var mydiv = document.getElementById(indiv);
  var mydata = document.getElementById(name);
  mydiv.innerHTML = mydata.innerHTML;
+ showInstructions(current_instructions);
 }
 function showMinimalConfigure(name) {
   var btn = document.getElementById(name + "_button");
