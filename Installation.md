@@ -55,6 +55,5 @@ window.onload = function(event) {
  showInstructions("local");
 }
 </script>
-<div style="width: 100%; float:left" id="installdiv"></div>
 
 {% endraw %}

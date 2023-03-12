@@ -188,6 +188,7 @@ def processInstallation() :
           ofile.write("  <div class=\"dropdown-content\">\n")
           for key, value in options.items() : ofile.write("<a onclick=\'showInstructions(\"" + key + "\")\'>" + value["question"] + "</a>\n")
           ofile.write("  </div>\n</div>\n")
+          ofile.write("<div style=\"width: 100%; float:left\" id=\"installdiv\"></div>\n")
           # And build all the code for shutting down modals on click
           ofile.write("<script>\nwindow.onclick = function(event) {\n")
           for file in os.listdir("Modals") :
