@@ -7,4 +7,3 @@ the icpc and icc compilers you might use the command shown in the example below:
 recommend using a configure command with the following options enabled.</p>
 
 @configure("./configure LIBRARY_PATH=/path --enable-rpath --enable-modules=all --enable-mpi --enable-asmjit --enable-external-lapack --enable-molfile-plugins --prefix=/usr/local" copts2)@
-</div>
