@@ -109,10 +109,11 @@ def build_computer_list( ofile, configflags, condaconf ) :
       n=1
       ofile.write("    var mydata1 = document.getElementById(\"" + computer + "\");\n")
       ofile.write("    mydiv.innerHTML = mydata1.innerHTML;\n")
-      #for configblock in confg_commands[computer] : ofile.write("    swapConfigure(\"" + configblock + "\");\n")
+      for configblock in confg_commands[computer] : ofile.write("    swapConfigure(\"" + configblock + "\");\n")
    ofile.write("  } else {\n")
    ofile.write("    mydiv.innerHTML = \"\";\n")
    ofile.write("  }\n")
+   ofile.write("showInstructions(current_option);\n")
    ofile.write("}\n")
    ofile.write("</script>\n")
    # Create the dropdown menu
@@ -197,7 +198,9 @@ def processInstallation() :
               ofile.write( "if ( event.target == " + nfile + "modal ) { " + nfile + "modal.style.display = \"none\"; }\n") 
           ofile.write("}\n")
           # And the function for showing instructions
+          ofile.write("var current_instructions=\"local\";\n\n")
           ofile.write("function showInstructions( name ) {\n")
+          ofile.write("current_instructions = name;\n")
           ofile.write("var mydiv = document.getElementById(\"installdiv\");\n") 
           n=0
           for key, value in options.items() :
@@ -211,9 +214,9 @@ def processInstallation() :
                  else : pdata = pdata + " + document.getElementById(\"" + part + "\").innerHTML"
                  m = m + 1
               ofile.write( pdata + ";\n")
-              # for part in value["sections"] : 
-              #     if part not in confg_commands.keys() : continue 
-              #     for configblock in confg_commands[part] : ofile.write("swapConfigure(\"" + configblock + "\");\n")
+              for part in value["sections"] : 
+                  if part not in confg_commands.keys() : continue 
+                  for configblock in confg_commands[part] : ofile.write("swapConfigure(\"" + configblock + "\");\n")
           ofile.write("  }\n}\n")
           ofile.write("</script>\n\n{% endraw %}\n")
        else :
