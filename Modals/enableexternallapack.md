@@ -35,7 +35,7 @@ BLAS and LAPACK libraries are included in the the <code>DYNAMIC_LIB</code> varia
 -llapack, -lblas and, in some cases, -lgfortran will appear after this variable. On some machines full path specification with -L may be necessary in place of -llapack,
 -lblas anmd -gfortran. Depending on system configuration, your libraries may even not be called -llapack and -lblas. You will thus have to ensure that the correct names
 for these libraries are used. If the correct libraries appear after <code>DYNAMIC_LIB</code> in the Makefile.conf file and if PLUMED still doesn't compile some other things
-to try include:
+to try include:</p>
 <ul>
 <li> If the linker complains and suggests recompiling LAPACK with -fPIC, it means that you have static LAPACK libraries. Either install dynamic LAPACK libraries
 or switch to static compilation of PLUMED by unsetting the SOEXT variable in the configuration file.</li>
