@@ -1,4 +1,4 @@
-<h1><a class="anchor" id="Installation-conda"></a>Installing PLUMED with conda</h1>
+<h1>Installing PLUMED with conda</h1>
 <p>If you use the conda package manager you can quictkly install a pre-compiled PLUMED binary by using the following command: </p>
 <pre class="fragment">&gt; conda install -c conda-forge plumed </pre>
 <p> Similarly, the python wrappers can be installed by using the command: </p>
@@ -14,40 +14,3 @@ that is installed through conda is <code>PLUMED_KERNEL</code> (e.g., <code>expor
 
 <p> so the features are limited accordindly. Notice that there additional conda packages are available on the <a href="https://anaconda.org/plumed/plumed">plumed</a> channel.
 These packages are for testing only.</p>
-</div>
-<div style="display:none;" id="python-1">
-<h1>Calling PLUMED from python</h1>
-<p>It is possible to call PLUMED 2.5 and later versions in a python script. If you would like to do so you simply add the command below in your python script:</p>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">  1</span>&#160;<span class="keyword">import</span> plumed</div></div>
-<p>The interface is designed with developers in mind rather than users as the interface from python to PLUMED is similar to the interface that is used to link PLUMED
-with the various MD codes. If you are only compiling one version of PLUMED you might configure using the command: </p>
-
-@configure("./configure PYTHON_BIN=python3.6 --prefix=$HOME/opt" python1)@
-
-<p>Once you have compiled and installed PLUMED by following the instructions that are laid out in the sections that follow, the python wrappers for PLUMED will be in
-<code>$HOME/opt/plumed/python</code>. To use plumed in a python script the location of these wrappers must be added <code>PYTHONPATH</code> environment variable using
-a command such as the one shown below:</p>
-<pre class="fragment">
-&gt; PYTHONPATH="$HOME/opt/lib/plumed/python:$PYTHONPATH"
-</pre>
-<p>If you have installed muliple PLUMED versions you might find it easier to install the Python wrappers and PLUMED separately. The simplest way to install the python
-wrappers by themselves is with <code>pip</code> as shown below:</p>
-<pre class="fragment">
-&gt; pip3.6 install --user plumed
-</pre>
-<p> In the command above the <code>--user</code> flag allows you to install the packages on your home. Notice also that you don't even need to download
-PLUMED in order to install the wrappers. The command above can be run before you configure, compile and install PLUMED. You will, however, need PLUMED
-in order to use it within a python script. You can tell the wrappers where PLUMED is by setting the <code>PLUMED_KERNEL</code> environment variable as shown
-below:</p>
-<pre class="fragment">
-&gt; PLUMED_KERNEL=$HOME/opt/lib/libplumedKernel.so
-</pre>
-<p>When you install the wrappers in this manner described above you will download those that are packaged on <a href="https://pypi.org/project/plumed/">[Pypi]</a>.
-If you want to install the development version of the wrappers using pip you should download the PLUMED repository and use the following commands:</p>
-<pre class="fragment">
-&gt; pip3.6 install --user cython
-&gt; cd plumed2/python
-&gt; make pip
-&gt; pip3.6 install --user .
-</pre>
-<p>You are highly recommended to use a virtualenv when installing the development version as you will then ensure that the code you install does not interfere with the released pacakages.</p>

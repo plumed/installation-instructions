@@ -211,9 +211,9 @@ def processInstallation() :
                  else : pdata = pdata + " + document.getElementById(\"" + part + "\").innerHTML"
                  m = m + 1
               ofile.write( pdata + ";\n")
-              for part in value["sections"] : 
-                  if part not in confg_commands.keys() : continue 
-                  for configblock in confg_commands[part] : ofile.write("swapConfigure(\"" + configblock + "\");\n")
+              # for part in value["sections"] : 
+              #     if part not in confg_commands.keys() : continue 
+              #     for configblock in confg_commands[part] : ofile.write("swapConfigure(\"" + configblock + "\");\n")
           ofile.write("  }\n}\n")
           ofile.write("</script>\n\n{% endraw %}\n")
        else :
