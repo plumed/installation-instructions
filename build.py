@@ -102,7 +102,6 @@ def build_computer_list( ofile, configflags, condaconf ) :
    # Create the script for the dropdown menu that shows what each computer does
    n = 0
    ofile.write("<script>\nfunction showComputer( name ) {\n")
-   ofile.write("  current_computer=name;\n")
    ofile.write("  var mydiv = document.getElementById(\"computediv\");\n")
    for computer in os.listdir("computers") :
       if n==0 : ofile.write("if( name==\"" + computer+ "\") {\n")
@@ -114,6 +113,10 @@ def build_computer_list( ofile, configflags, condaconf ) :
    ofile.write("  } else {\n")
    ofile.write("    mydiv.innerHTML = \"\";\n")
    ofile.write("  }\n")
+   ofile.write("}\n")
+   ofile.write("  function loadComputer( name ) {\n")
+   ofile.write("  current_computer=name;\n")
+   ofile.write("  showComputer(name);\n")
    ofile.write("  showInstructions(current_instructions);\n")
    ofile.write("}\n")
    ofile.write("</script>\n")
@@ -127,7 +130,7 @@ def build_computer_list( ofile, configflags, condaconf ) :
        cfile.close()
        for line in cinp.splitlines() :
            if "@question@" in line : 
-              ofile.write("  <a onclick=\'showComputer(\"" + computer + "\")\'>" + line.replace("@question@","") + "</a>\n")
+              ofile.write("  <a onclick=\'loadComputer(\"" + computer + "\")\'>" + line.replace("@question@","") + "</a>\n")
               break
        cfile.close()
    ofile.write("  </div>\n")
