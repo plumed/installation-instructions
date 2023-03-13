@@ -81,7 +81,7 @@ def create_configure( ofile, compcom, ccc, configflags ) :
 
    # Write out the button to toggle between versions
    ofile.write("<div style=\"width: 90%; float:left\">Click on the options in the command shown below for more information</div>\n")
-   ofile.write("<div style=\"width: 10%; float:left\"><button type=\"button\" id=\"" + ccc + "_button\" onclick=\'swapConfigure(\"" + ccc + "\")\'>hide defaults</button></div>\n")
+   ofile.write("<div style=\"width: 10%; float:left\"><button type=\"button\" id=\"" + ccc + "_button\" onclick=\'swapConfigure(\"" + ccc + "\")\'>show defaults</button></div>\n")
    # Write out the div that holds the configure command
    ofile.write("<div style=\"width: 100%; float:left\" id=\"conf_" + ccc + "\"></div>\n")
    # Write out the div that will hold the information on the various commands that the user will look at

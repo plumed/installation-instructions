@@ -60,7 +60,7 @@ function swapConfigure(name) {
   } else if( btn.textContent=="hide defaults" ) {
     btn.textContent = "show defaults";
   }
-  showConfigure(name); 
+  showInstructions(current_instructions); 
 }
 function openModal( name ) {
   var mymodal = document.getElementById( name );
