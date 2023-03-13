@@ -30,36 +30,44 @@ will appear at the bottom of the web page.
 </style>
 <script>
 function showData( name, indiv ) {
- var mydiv = document.getElementById(indiv);
- var mydata = document.getElementById(name);
- mydiv.innerHTML = mydata.innerHTML;
- showInstructions(current_instructions);
+  var mydiv = document.getElementById(indiv);
+  var mydata = document.getElementById(name);
+  mydiv.innerHTML = mydata.innerHTML;
+  showInstructions(current_instructions);
 }
-function showMinimalConfigure(name) {
+
+function showConfigure(name) {
   var btn = document.getElementById(name + "_button");
   var mydiv = document.getElementById("conf_" + name);
-  btn.textContent = "show defaults"; 
-  var dataField = document.getElementById(name + "_short");
-  mydiv.innerHTML = dataField.innerHTML;
+  if( btn.textContent=="show defaults" ) {
+    var dataField = document.getElementById(name + "_short");
+    mydiv.innerHTML = dataField.innerHTML;
+  } else if( btn.textContent=="hide defaults" ) {
+    var dataField = document.getElementById(name + "_long");
+    mydiv.innerHTML = dataField.innerHTML; 
+  }
+}
+
+function showDefaultButton(name) {
+  var btn = document.getElementById(name + "_button");
+  btn.textContent = "show defaults";
 }
 
 function swapConfigure(name) {
- if( btn.textContent=="show defaults" ) { 
-   var btn = document.getElementById(name + "_button");
-   var mydiv = document.getElementById("conf_" + name);
-   btn.textContent = "hide defaults";
-   var dataField = document.getElementById(name + "_long");
-   mydiv.innerHTML = dataField.innerHTML;
- } else if( btn.textContent=="hide defaults" ) {
-   showMinimalConfigure(name);
- }
+  var btn = document.getElementById(name + "_button"); 
+  if( btn.textContent=="show defaults" ) { 
+    btn.textContent = "hide defaults";
+  } else if( btn.textContent=="hide defaults" ) {
+    btn.textContent = "show defaults";
+  }
+  showConfigure(name); 
 }
 function openModal( name ) {
- var mymodal = document.getElementById( name );
- mymodal.style.display = "block";  
+  var mymodal = document.getElementById( name );
+  mymodal.style.display = "block";  
 }
 window.onload = function(event) {
- showInstructions("local");
+  showInstructions("local");
 }
 </script>
 

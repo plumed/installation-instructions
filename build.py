@@ -108,7 +108,7 @@ def build_computer_list( ofile, configflags, condaconf ) :
       else : ofile.write("  } else if( name==\"" + computer + "\") {\n")
       n=1
       ofile.write("    var mydata1 = document.getElementById(\"" + computer + "\");\n")
-      for configblock in confg_commands[computer] : ofile.write("    showMinimalConfigure(\"" + configblock + "\");\n") 
+      for configblock in confg_commands[computer] : ofile.write("    showConfigure(\"" + configblock + "\");\n") 
       ofile.write("    mydiv.innerHTML = mydata1.innerHTML;\n")
    ofile.write("  } else {\n")
    ofile.write("    mydiv.innerHTML = \"\";\n")
@@ -187,7 +187,7 @@ def processInstallation() :
           ofile.write("<div class=\"dropdown\">\n")
           ofile.write("  <button class=\"dropbtn\">How would you like to build PLUMED?</button>\n")
           ofile.write("  <div class=\"dropdown-content\">\n")
-          for key, value in options.items() : ofile.write("<a onclick=\'showInstructions(\"" + key + "\")\'>" + value["question"] + "</a>\n")
+          for key, value in options.items() : ofile.write("<a onclick=\'resetInstructions(\"" + key + "\")\'>" + value["question"] + "</a>\n")
           ofile.write("  </div>\n</div>\n")
           ofile.write("<div style=\"width: 100%; float:left\" id=\"installdiv\"></div>\n")
           # And build all the code for shutting down modals on click
@@ -215,9 +215,24 @@ def processInstallation() :
                  m = m + 1
               for part in value["sections"] :
                   if part not in confg_commands.keys() : continue
-                  for configblock in confg_commands[part] : ofile.write("showMinimalConfigure(\"" + configblock + "\");\n")
+                  for configblock in confg_commands[part] : ofile.write("showConfigure(\"" + configblock + "\");\n")
               ofile.write( pdata + ";\n")
           ofile.write("  }\n}\n")
+          # And a function for resetting the buttons
+          ofile.write("function resetInstructions( name ) {\n")
+          n=0
+          for key, value in options.items() :
+              if n==0 :
+                 ofile.write("if( name==\"" + key + "\" ) {\n")
+              else :
+                 ofile.write("} else if( name==\"" + key + "\" ) {\n")
+              n, m = 1, 0
+              # This doesn't really do anything it is just to make sure there is something in each if block
+              ofile.write("var dum=1;\n")
+              for part in value["sections"] :
+                  if part not in confg_commands.keys() : continue
+                  for configblock in confg_commands[part] : ofile.write("showDefaultButton(\"" + configblock + "\");\n")
+          ofile.write("  }\n showInstructions( name );\n}\n")
           ofile.write("</script>\n\n{% endraw %}\n")
        else :
           ofile.write(line + "\n")
