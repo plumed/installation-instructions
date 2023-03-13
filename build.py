@@ -102,6 +102,7 @@ def build_computer_list( ofile, configflags, condaconf ) :
    # Create the script for the dropdown menu that shows what each computer does
    n = 0
    ofile.write("<script>\nfunction showComputer( name ) {\n")
+   ofile.write("  current_computer=name;\n")
    ofile.write("  var mydiv = document.getElementById(\"computediv\");\n")
    for computer in os.listdir("computers") :
       if n==0 : ofile.write("if( name==\"" + computer+ "\") {\n")
@@ -198,9 +199,10 @@ def processInstallation() :
               ofile.write( "if ( event.target == " + nfile + "modal ) { " + nfile + "modal.style.display = \"none\"; }\n") 
           ofile.write("}\n")
           # And the function for showing instructions
-          ofile.write("var current_instructions=\"local\";\n\n")
+          ofile.write("var current_instructions=\"local\";\n var current_computer=\"\";\n")
           ofile.write("function showInstructions( name ) {\n")
           ofile.write("current_instructions = name;\n")
+          ofile.write("showComputer(current_computer);\n")
           ofile.write("var mydiv = document.getElementById(\"installdiv\");\n") 
           n=0
           for key, value in options.items() :
@@ -232,7 +234,7 @@ def processInstallation() :
               for part in value["sections"] :
                   if part not in confg_commands.keys() : continue
                   for configblock in confg_commands[part] : ofile.write("showDefaultButton(\"" + configblock + "\");\n")
-          ofile.write("  }\n showInstructions( name );\n}\n")
+          ofile.write("  }\n current_computer=\"\";\n showInstructions( name );\n}\n")
           ofile.write("</script>\n\n{% endraw %}\n")
        else :
           ofile.write(line + "\n")
