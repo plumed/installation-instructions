@@ -72,11 +72,11 @@ def create_configure( ofile, compcom, ccc, configflags ) :
        # Create a tooltip for this option from the help information
        hasdef, founddef = False, False
        for v in value.split() :
-           if founddef and "yes" in v : founddef, allconf = False, allconf + " <div class=\"tooltip\">" + key 
-           elif founddef and "no" in v :  founddef, allconf = False, allconf + " <div class=\"tooltip\">" + key.replace("enable","disable") 
-           elif founddef : founddef, allconf = False, allconf + " <div class=\"tooltip\">" + key + "=" + v
+           if founddef and "yes" in v : founddef, allconf = False, allconf + " <div class=\"plumedtooltip\">" + key 
+           elif founddef and "no" in v :  founddef, allconf = False, allconf + " <div class=\"plumedtooltip\">" + key.replace("enable","disable") 
+           elif founddef : founddef, allconf = False, allconf + " <div class=\"plumedtooltip\">" + key + "=" + v
            elif "default:" in v : hasdef, founddef = True, True 
-       if not hasdef : allconf = allconf + " <div class=\"tooltip\">" + key
+       if not hasdef : allconf = allconf + " <div class=\"plumedtooltip\">" + key
        allconf = allconf + "<div class=\"right\">" + value + "<i></i></div></div>" 
 
    # Write out the button to toggle between versions

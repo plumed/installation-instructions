@@ -1,18 +1,31 @@
 #  PLUMED Installation: An interactive guide
 
-This interactive tutorial explains how to compile PLUMED and how to link it with a number of different MD codes.
-The information in these tutorials is a reworked version you can find on the [installation page](https://www.plumed.org/doc-master/user-doc/html/_installation.html).
-of the PLUMED manual.  There are a variety of different ways of getting your hands on PLUMED.  For example you can:
+There are a variety of different ways of getting your hands on PLUMED.  For example you can:
 
-* Install it from Conda
-* Install it from MacPorts
+* Install it from [Conda](conda.md)
+* Install it from [MacPorts](macports.md)
 * Compile it yourself
 
 If you just want to run the code on your local machine to do the exercises for the tutorials here we would recommend installing 
 PLUMED from Conda. However, if you want to use PLUMED to do production calculations we would recommend compiling 
-it yourself.  The flow chart below shows these two options and links to resources that explain how to go about these different jobs.
-Many of the arrows here do indicated depedencies.  Obviously, you do not need to know how to use PLUMED with ABIN to use it with CP2K.
-However, to use PLUMED with any MD code you do need to know how to compile it.
+it yourself. 
+
+If you are impatient the short version of the installation process is to use the following three commands:
+
+```bash
+./configure --enable-modules=all
+make -j 4
+make install
+```
+
+Notice that you can set the location to install plumed using the `--prefix` option when you call configure and that further details 
+on these three commands is available on [this page](installation_old.md). Alternatively, [this page](installation.md) presents the same information 
+in a way that some people find easier to navigate. 
+
+You will most likely want to use PLUMED in tandem with an MD code. For some MD codes we regularly test the interfaces between them and 
+PLUMED.  We display the results obtained from these tests and the installation scripts that we use for thse tests 
+[here](http://plumed-testcenter.github.io).  If you are using an MD code that doesn't appear on that website you can find the information
+we have on using it in tandem with PLUMED in the following flowchart.
 
 ```mermaid
 flowchart TB;

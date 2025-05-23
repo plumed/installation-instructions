@@ -1,8 +1,36 @@
-# Masterclass 2022 - software
+# Installing PLUMED with conda
 
-In this repository we report a brief guide on how to install the software needed for PLUMED Masterclass, 2022 series.
-Notice that different Masterclasses might require different software versions.
-Our recommendation is to use conda. Unfortunately we can only provide precompiled conda packages for x64 architecture, Linux and MacOS.
+If you use the conda package manager you can install a pre-compiled PLUMED binary using the following command:
+
+```bash
+conda install -c conda-forge plumed
+```
+
+Similarly, the python wrappers can be installed with
+
+```bash
+conda install -c conda-forge py-plumed
+```
+
+These packages are part of [conda-forge](https://anaconda.org/conda-forge) and as such should be binary compatible
+with other codes from the same distribution. Notice that it should also be possible to combine the installed
+plumed kernel with an MD code compiled outside of conda (or within a different conda environment)
+if plumed is linked in runtime mode.
+The only variable that you need to set in order to access to the installed plumed kernel is
+`PLUMED_KERNEL` (e.g., `export PLUMED_KERNEL=/conda/prefix/lib/libplumedKernel.so`).
+
+Notice that binaries are only available for Linux and MacOS and that they have a limited number of features.
+In particular, they do not support MPI and do not include optional modules.
+However, they can be used to quickly install a working PLUMED version without the need to have a compiler.
+
+Notice that there are additional conda packages on the [plumed](https://anaconda.org/plumed/plumed) channel.
+Those packages are for testing only.
+
+## Masterclass 2022 
+
+If you want to work through the tutorials on this site we recommend using conda. This section explains how you can insall
+a version of PLUMED from conda that you can use to work through the tutorial exercises.
+Unfortunately we can only provide precompiled conda packages for x64 architecture, Linux and MacOS.
 This means that if you want to run the exercise on a different architecture (e.g., a new Mac with a ARM processor) you should install the software on your own.
 
 First, make sure conda is installed by typing:
