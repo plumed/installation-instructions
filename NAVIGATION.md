@@ -19,7 +19,7 @@ make install
 ```
 
 Notice that you can set the location to install plumed using the `--prefix` option when you call configure and that further details 
-on these three commands is available on [this page](installation_old.md). Alternatively, [this page](installation.md) presents the same information 
+on these three commands is available on [this page](installation_old.md). Alternatively, [this page](Installation.md) presents the same information 
 in a way that some people find easier to navigate. 
 
 You will most likely want to use PLUMED in tandem with an MD code. For some MD codes we regularly test the interfaces between them and 
