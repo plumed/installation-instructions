@@ -264,10 +264,10 @@ def addMDCodesToNavigation() :
            n, inmermaid = 1, True
            for key, value in mdcodes.items() :
                if n==1 :
-                  ofile.write("  A[Compiling PLUMED] ==> C" + str(n) + "[Using with " +  key + "]\n")
+                  ofile.write("  A[MD codes] ~~~ C" + str(n) + "[Using with " +  key + "]\n")
                else :
-                  if n<4 : ofile.write("  A ==> C" + str(n) + "[Using with " +  key + "]\n")
-                  else : ofile.write("  C" + str(n-3) + " ==> C" + str(n) + "[Using with " +  key + "]\n")
+                  if n<4 : ofile.write("  A ~~~ C" + str(n) + "[Using with " +  key + "]\n")
+                  else : ofile.write("  C" + str(n-3) + " ~~~ C" + str(n) + "[Using with " +  key + "]\n")
                n = n + 1
         elif inmermaid and "```" in line :
            n, inmermaid = 1, False

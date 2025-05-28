@@ -2,8 +2,8 @@
 
 There are a variety of different ways of getting your hands on PLUMED.  For example you can:
 
-* Install it from [Conda](conda.md)
-* Install it from [MacPorts](macports.md)
+* Install it from [Conda](conda.md).  See [here](https://docs.conda.io/en/latest/miniconda.html) for more info on Conda.
+* Install it from [MacPorts](macports.md).  See [here](https://www.macports.org) for more information on macports.
 * Compile it yourself
 
 If you just want to run the code on your local machine to do the exercises for the tutorials here we would recommend installing 
@@ -25,12 +25,11 @@ in a way that some people find easier to navigate.
 You will most likely want to use PLUMED in tandem with an MD code. For some MD codes we regularly test the interfaces between them and 
 PLUMED.  We display the results obtained from these tests and the installation scripts that we use for thse tests 
 [here](http://plumed-testcenter.github.io).  If you are using an MD code that doesn't appear on that website you can find the information
-we have on using it in tandem with PLUMED in the following flowchart.
+we have on using it in tandem with PLUMED from the following chart. 
 
 ```mermaid
 flowchart TB;
-  C[Installing conda] ==> D[Installing PLUMED using conda]
-  click A "Installation.md" "These are the instructions for building PLUMED";
-  click C "ref1" "Instructions for installing conda on your machine";
-  click D "conda.md" "These are the instructions for getting PLUMED from conda";
 ```
+
+No actions were used in this tutorial so if you click on the link below (which is generated automatically) you will be taken to an empty 
+version of the action list page of the PLUMED manual.
